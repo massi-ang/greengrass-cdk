@@ -1,173 +1,198 @@
 import * as cdk from '@aws-cdk/core';
 import { GGLambda, Function } from './functions';
 import { DestinationBase, Subscription } from './subscription'
-import { LoggerHelper, AWSCloudWatchLogger, LocalLogger } from './logger'
-import { Resource, ResourceHelper } from './resource'
+import { LoggerBase } from './logger'
+import { GGResource } from './resource'
 import { Core } from './core';
 import { Device } from './device';
 import * as gg from '@aws-cdk/aws-greengrass'
 import * as lambda from '@aws-cdk/aws-lambda'
 import * as uuid from 'uuid';
+import { GroupTemplate } from './template';
+import { Role } from '@aws-cdk/aws-iam'
 
 
-  export interface GroupTemplate {
-    functions?: GGLambda[];
-    subscriptions?: Subscription[];
-    loggers?: (AWSCloudWatchLogger | LocalLogger)[];
-    resources?: Resource[];
-  }
-
-  export interface GroupProps {
-    core: Core;
-    functions?: GGLambda[];
-    subscriptions?: Subscription[];
-    loggers?: (AWSCloudWatchLogger | LocalLogger)[];
-    resources?: Resource[];
-    devices?: Device[];
-    deviceSpecificSubscriptions?: Subscription[];
-    groupTemplate?: GroupTemplate;
-  }
-
-  function convertResouceAccessPolicies(rap: Function.ResourceAccessPolicy): gg.CfnFunctionDefinition.ResourceAccessPolicyProperty {
-    return {
-      resourceId: rap.resource.name,
-      permission: rap.permission
-    }
-  }
-
-  function convertFunctions(f: GGLambda): gg.CfnFunctionDefinition.FunctionProperty {
-    if (!(f.function.runtime == lambda.Runtime.PYTHON_3_7 ||
-      f.function.runtime == lambda.Runtime.JAVA_8 ||
-      f.function.runtime == lambda.Runtime.NODEJS_8_10)) {
-      throw new Error(`Invalid Lambda runtime ${f.function.runtime}. Greengrass lambdas only support Python 3.7, Java 8 and Node 8.10`)
-    }
-    return {
-      functionArn: f.function.functionArn + ':' + f.alias.aliasName,
-      functionConfiguration: {
-        environment: {
-          accessSysfs: f.accessSysFs,
-          execution: {
-            isolationMode: f.isolationMode,
-            runAs: f.runAs
-          },
-          resourceAccessPolicies: f.resourceAccessPolicies?.map(convertResouceAccessPolicies),
-          variables: f.variables
-        },
-        encodingType: f.encodingType,
-        execArgs: f.execArgs,
-        executable: f.executable,
-        memorySize: f.memorySize,
-        timeout: f.timeout,
-        pinned: f.pinned
-      },
-      id: uuid.v4()
-
-    }
-  }
-
-  function convertSubscriptions(s: Subscription): gg.CfnSubscriptionDefinition.SubscriptionProperty {
-    let source: string;
-    let target: string;
-
-    if ('function' in s.source) {
-      let f = (s.source as GGLambda);
-      source = f.function.functionArn + ':' + f.alias.aliasName;
-    } else {
-      let d = (s.source as DestinationBase);
-      source = d.arn
-    }
-
-    if ('function' in s.target) {
-      let f = (s.target as GGLambda);
-      target = f.function.functionArn + ':' + f.alias.aliasName;
-    } else {
-      let d = (s.target as DestinationBase);
-      target = d.arn
-    }
-    return {
-      id: uuid.v4(),
-      source: source,
-      target: target,
-      subject: s.topic
-    }
-  }
-
-
+export interface StreamManagerProps {
+  enableStreamManager: boolean;
+  allowInsecureAccess?: boolean;
+}
+export interface GroupProps {
+  core: Core;
+  functions?: GGLambda[];
+  subscriptions?: Subscription[];
+  loggers?: LoggerBase[];
+  resources?: GGResource[];
+  devices?: Device[];
+  deviceSpecificSubscriptions?: Subscription[];
+  streamManager?: StreamManagerProps,
+  enableAutomaticIpDiscovery?: boolean;
+  role?: Role
+}
 
   export class Group extends cdk.Construct {
+    constructor(scope: cdk.Construct, id: string, props: GroupProps) {
+      super(scope, id);
 
-    constructor(parent: cdk.Stack, name: string, props: GroupProps) {
-      super(parent, name);
-
-      const coreDefinition = new gg.CfnCoreDefinition(this, name + '_core', {
-        name: name,
+      const coreDefinition = new gg.CfnCoreDefinition(this, id + '_core', {
+        name: id,
         initialVersion: {
-          cores: [{
-            certificateArn: props.core.certificateArn,
-            syncShadow: props.core.syncShadow,
-            thingArn: `arn:aws:iot:${parent.region}:${parent.account}:thing/${props.core.thing.thingName}`,
-            id: '0'
-          }]
+          cores: [ props.core.resolve() ]
         }
       })
-
-      let functionDefinitionVersionArn = undefined;
-      if (props.functions !== null) {
-        let functionDefinition = new gg.CfnFunctionDefinition(this, name + '_functions', {
-          name: name,
-          initialVersion: {
-            functions: props.functions!.map(convertFunctions)
+      let systemFunctions: gg.CfnFunctionDefinition.FunctionProperty[] = [];
+      if (props.streamManager?.enableStreamManager || props.enableAutomaticIpDiscovery) {
+        if (props.streamManager?.enableStreamManager) {
+          if (props.streamManager!.allowInsecureAccess) {
+            this.streamManagerEnvironment = {
+              variables: {
+                "STREAM_MANAGER_AUTHENTICATE_CLIENT": "false"
+              }
+            }
           }
-        })
-        functionDefinitionVersionArn = functionDefinition.attrLatestVersionArn;
+          systemFunctions.push({
+            id: 'stream_manager',
+            functionArn: "arn:aws:lambda:::function:GGStreamManager:1",
+            functionConfiguration: {
+              encodingType: 'binary',
+              pinned: true,
+              timeout: 3,
+              environment: this.streamManagerEnvironment
+            }
+          })
+        }
+        if (props.enableAutomaticIpDiscovery) {
+          systemFunctions.push({
+            id: 'auto_ip',
+            functionArn: "arn:aws:lambda:::function:GGIPDetector:1",
+            functionConfiguration: {
+              pinned: true,
+              memorySize: 32768,
+              timeout: 3
+            }
+          })
+        }
       }
 
-      let subscriptionDefinitionVersionArn = undefined;
-      if (props.subscriptions !== null) {
-        let subscriptionDefinition = new gg.CfnSubscriptionDefinition(this, name + '_subscriptions', {
-          name: name,
-          initialVersion: {
-            subscriptions: props.subscriptions!.map(convertSubscriptions)
-          }
-        })
-        subscriptionDefinitionVersionArn = subscriptionDefinition.attrLatestVersionArn;
+      if (props.functions !== undefined || systemFunctions.length > 0) {
+        function convert(x: GGLambda): gg.CfnFunctionDefinition.FunctionProperty {
+          return x.resolve();
+        }
+        var functionDefinition: gg.CfnFunctionDefinition;
+        if (props.functions !== undefined) {
+          functionDefinition = new gg.CfnFunctionDefinition(this, id + '_functions', {
+            name: id,
+            initialVersion: {
+              functions: [...props.functions!.map(convert), ...systemFunctions]
+            }
+          })
+        } else {
+          functionDefinition = new gg.CfnFunctionDefinition(this, id + '_functions', {
+            name: id,
+            initialVersion: {
+              functions: systemFunctions
+            }
+          })
+        }
+        this.functionDefinitionVersionArn = functionDefinition.attrLatestVersionArn;
       }
 
 
-      let resourceDefinitionVersionArn = undefined;
-      if (props.resources !== null) {
-        let resourceDefinition = new gg.CfnResourceDefinition(this, name + '_resources', {
-          name: name,
+      if (props.subscriptions !== undefined) {
+        function convert(x: Subscription): gg.CfnSubscriptionDefinition.SubscriptionProperty {
+          return x.resolve();
+        }
+        let subscriptionDefinition = new gg.CfnSubscriptionDefinition(this, id + '_subscriptions', {
+          name: id,
           initialVersion: {
-            resources: props.resources!.map(ResourceHelper.convertResources)
+            subscriptions: props.subscriptions!.map(convert)
           }
         })
-        resourceDefinitionVersionArn = resourceDefinition.attrLatestVersionArn;
+        this.subscriptionDefinitionVersionArn = subscriptionDefinition.attrLatestVersionArn;
       }
 
-      let loggerDefinitionVersionArn = undefined;
-      if (props.loggers !== null) {
-        let loggerDefinition = new gg.CfnLoggerDefinition(this, name + '_loggers', {
-          name: name,
+
+      if (props.resources !== undefined) {
+        function convert(x: GGResource): gg.CfnResourceDefinition.ResourceInstanceProperty {
+          return x.resolve();
+        }
+        let resourceDefinition = new gg.CfnResourceDefinition(this, id + '_resources', {
+          name: id,
           initialVersion: {
-            loggers: props.loggers!.map(LoggerHelper.loggersConverter)
+            resources: props.resources!.map(convert)
           }
         })
-        loggerDefinitionVersionArn = loggerDefinition.attrLatestVersionArn;
+        this.resourceDefinitionVersionArn = resourceDefinition.attrLatestVersionArn;
       }
 
-      new gg.CfnGroup(this, name + '_group', {
-        name: name,
+
+      if (props.loggers !== undefined) {
+        function convert(x: LoggerBase): gg.CfnLoggerDefinition.LoggerProperty {
+          return x.resolve();
+        }
+        let loggerDefinition = new gg.CfnLoggerDefinition(this, id + '_loggers', {
+          name: id,
+          initialVersion: {
+            loggers: props.loggers!.map(convert)
+          }
+        })
+        this.loggerDefinitionVersionArn = loggerDefinition.attrLatestVersionArn;
+      }
+
+      new gg.CfnGroup(this, id, {
+        name: id,
         initialVersion: {
           coreDefinitionVersionArn: coreDefinition.attrLatestVersionArn,
-          functionDefinitionVersionArn: functionDefinitionVersionArn,
-          subscriptionDefinitionVersionArn: subscriptionDefinitionVersionArn,
-          loggerDefinitionVersionArn: loggerDefinitionVersionArn,
-          resourceDefinitionVersionArn: resourceDefinitionVersionArn
+          functionDefinitionVersionArn: this.functionDefinitionVersionArn,
+          subscriptionDefinitionVersionArn: this.subscriptionDefinitionVersionArn,
+          loggerDefinitionVersionArn: this.loggerDefinitionVersionArn,
+          resourceDefinitionVersionArn: this.resourceDefinitionVersionArn
+        } // TODO: Devices and Connectors
+      })  
+    }
+
+    cloneToNew(id: string, core: Core): gg.CfnGroup {
+      const coreDefinition = new gg.CfnCoreDefinition(this, id + '_core', {
+        name: id,
+        initialVersion: {
+          cores: [core.resolve()]
         }
       })
-    
-      // The code that defines your stack goes here
+      return new gg.CfnGroup(this, id, {
+        name: id,
+        initialVersion: {
+          coreDefinitionVersionArn: coreDefinition.attrLatestVersionArn,
+          functionDefinitionVersionArn: this.functionDefinitionVersionArn,
+          subscriptionDefinitionVersionArn: this.subscriptionDefinitionVersionArn,
+          loggerDefinitionVersionArn: this.loggerDefinitionVersionArn,
+          resourceDefinitionVersionArn: this.resourceDefinitionVersionArn
+        } // TODO: Devices and Connectors
+      }) 
     }
+
+    static fromTemplate(scope: cdk.Construct, id: string, core: Core, template: GroupTemplate): gg.CfnGroup {
+      const coreDefinition = new gg.CfnCoreDefinition(scope, id + '_core', {
+        name: id,
+        initialVersion: {
+          cores: [core.resolve()]
+        }
+      })
+      return new gg.CfnGroup(scope, id, {
+        name: id,
+        initialVersion: {
+          coreDefinitionVersionArn: coreDefinition.attrLatestVersionArn,
+          functionDefinitionVersionArn: template.functionDefinitionVersionArn,
+          subscriptionDefinitionVersionArn: template.subscriptionDefinitionVersionArn,
+          loggerDefinitionVersionArn: template.loggerDefinitionVersionArn,
+          resourceDefinitionVersionArn: template.resourceDefinitionVersionArn
+        },
+        roleArn: template.role?.roleArn // TODO: Devices and Connectors
+      }) 
+    }
+
+    private streamManagerEnvironment?: gg.CfnFunctionDefinition.EnvironmentProperty;
+    readonly functionDefinitionVersionArn?: string;
+    readonly subscriptionDefinitionVersionArn?: string;
+    readonly loggerDefinitionVersionArn?: string;
+    readonly resourceDefinitionVersionArn?: string;
   }
 

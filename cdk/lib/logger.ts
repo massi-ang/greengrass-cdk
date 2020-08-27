@@ -2,8 +2,9 @@ import * as cdk from '@aws-cdk/core';
 import { Construct } from '@aws-cdk/core';
 import * as gg from '@aws-cdk/aws-greengrass';
 import * as uuid from 'uuid';
+import { throws } from 'assert';
 
-export namespace LoggerProps {
+export namespace Logger {
     export enum Component {
         LAMBDA = 'Lambda',
         GREENGRASS = 'GreengrassSystem'
@@ -23,48 +24,78 @@ enum LoggerType {
     CLOUD = 'AWSCloudWatch'
 }
 
-interface Logger {
-    level: LoggerProps.LogLevel,
-    component: LoggerProps.Component,
+interface LoggerProps {
+    level: Logger.LogLevel,
 }
 
-export interface LocalLogger extends Logger {
+export interface LocalLoggerProps extends LoggerProps {
     space: number;
 }
 
-export interface AWSCloudWatchLogger extends Logger {
-    
+export abstract class LoggerBase extends cdk.Resource {
+    readonly level: Logger.LogLevel;
+    protected id: string;
+
+    constructor(scope: cdk.Construct, id: string, props: LoggerProps) {
+        super(scope, id);
+        this.level = props.level;
+        this.id = id;
+    }
+
+    abstract resolve(): gg.CfnLoggerDefinition.LoggerProperty;
 }
 
-export class LoggerDefinition extends Construct {
-    constructor(parent: cdk.Stack, name: string) {
-        super(parent, name);
+abstract class LocalLogger extends LoggerBase {
+    readonly space: number;
+    
+    constructor(scope: cdk.Construct, id: string, props: LocalLoggerProps) {
+        super(scope, id, props);
+        this.space = props.space;
     }
 }
 
-
-export class LoggerHelper {
-    static loggersConverter(l: Logger): gg.CfnLoggerDefinition.LoggerProperty {
-        if ('space' in l) {
-            let localLogger = l as LocalLogger;
-            return {
-                id: uuid.v4(),
-                component: localLogger.component,
-                level: localLogger.level,
-                type: LoggerType.LOCAL,
-                space: localLogger.space
-            }
-            
-        } else {
-            let cloudLogger = l as AWSCloudWatchLogger;
-            return {
-                id: uuid.v4(),
-                component: cloudLogger.component,
-                level: cloudLogger.level,
-                type: LoggerType.CLOUD,
-
-            }
+export class LocalGreengrassLogger extends LocalLogger {
+    resolve(): gg.CfnLoggerDefinition.LoggerProperty {
+        return {
+            id: this.id,
+            component: Logger.Component.GREENGRASS,
+            level: this.level,
+            type: LoggerType.LOCAL,
+            space: this.space
         }
-        
+    }
+}
+
+export class LocalUserLambdaLogger extends LocalLogger {
+    resolve(): gg.CfnLoggerDefinition.LoggerProperty {
+        return {
+            id: this.id,
+            component: Logger.Component.LAMBDA,
+            level: this.level,
+            type: LoggerType.LOCAL,
+            space: this.space
+        }
+    }
+}
+
+export class AWSCloudWatchGreengrassLogger extends LoggerBase {
+    resolve(): gg.CfnLoggerDefinition.LoggerProperty {
+        return {
+            id: this.id,
+            component: Logger.Component.GREENGRASS,
+            level: this.level,
+            type: LoggerType.LOCAL,
+        }
+    }
+}
+
+export class AWSCloudWatchUserLambdaLogger extends LoggerBase {
+    resolve(): gg.CfnLoggerDefinition.LoggerProperty {
+        return {
+            id: this.id,
+            component: Logger.Component.LAMBDA,
+            level: this.level,
+            type: LoggerType.LOCAL,
+        }
     }
 }
