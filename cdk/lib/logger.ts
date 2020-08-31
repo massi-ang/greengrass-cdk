@@ -1,7 +1,6 @@
 import * as cdk from '@aws-cdk/core';
 import { Construct } from '@aws-cdk/core';
 import * as gg from '@aws-cdk/aws-greengrass';
-import * as uuid from 'uuid';
 import { throws } from 'assert';
 
 export namespace Logger {

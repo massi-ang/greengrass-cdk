@@ -7,7 +7,6 @@ import { Core } from './core';
 import { Device } from './device';
 import * as gg from '@aws-cdk/aws-greengrass'
 import * as lambda from '@aws-cdk/aws-lambda'
-import * as uuid from 'uuid';
 import { GroupTemplate } from './template';
 import { Role } from '@aws-cdk/aws-iam'
 
