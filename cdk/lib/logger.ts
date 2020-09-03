@@ -83,7 +83,7 @@ export class AWSCloudWatchGreengrassLogger extends LoggerBase {
             id: this.id,
             component: Logger.Component.GREENGRASS,
             level: this.level,
-            type: LoggerType.LOCAL,
+            type: LoggerType.CLOUD,
         }
     }
 }
@@ -94,7 +94,7 @@ export class AWSCloudWatchUserLambdaLogger extends LoggerBase {
             id: this.id,
             component: Logger.Component.LAMBDA,
             level: this.level,
-            type: LoggerType.LOCAL,
+            type: LoggerType.CLOUD,
         }
     }
 }
