@@ -32,13 +32,13 @@ export interface LocalVolumeResourceProps extends ResourceProps {
     readonly groupOwnerSetting: GroupOwnerSetting
 }
 
-export interface SageMakerMachimneLearningModelResource extends ResourceProps {
+export interface SageMakerMachineLearningModelResourceProps extends ResourceProps {
     sageMakerJobArn: string,
     destinationPath: string,
     ownerSettings: OwnerSetting
 }
 
-export interface S3MachimneLearningModelResource extends ResourceProps {
+export interface S3MachineLearningModelResourceProps extends ResourceProps {
     s3Uri: string,
     destinationPath: string
     ownerSettings: OwnerSetting
@@ -100,6 +100,61 @@ export class LocalVolumeResource extends GGResource {
                 localVolumeResourceData: {
                     sourcePath: this.sourcePath,
                     groupOwnerSetting: this.groupOwnerSetting,
+                    destinationPath: this.destinationPath
+                }
+            }
+        }
+    }
+}
+
+export class SageMakerMachineLearningModelResource extends GGResource {
+    constructor(scope: cdk.Construct, id: string, props: SageMakerMachineLearningModelResourceProps) {
+        super(scope, id, props)
+        this.sageMakerJobArn = props.sageMakerJobArn
+        this.ownerSetting = props.ownerSettings
+        this.destinationPath = props.destinationPath
+    }
+
+    readonly sageMakerJobArn: string;
+    readonly destinationPath: string;
+    readonly ownerSetting: OwnerSetting;
+
+    resolve(): gg.CfnResourceDefinition.ResourceInstanceProperty {
+        return {
+            id: this.id,
+            name: this.id,
+            resourceDataContainer: {
+                sageMakerMachineLearningModelResourceData: {
+                    sageMakerJobArn: this.sageMakerJobArn,
+                    ownerSetting: this.ownerSetting,
+                    destinationPath: this.destinationPath
+                }
+            }
+        }
+    }
+}
+
+
+export class S3MachineLearningModelResource extends GGResource {
+    constructor(scope: cdk.Construct, id: string, props: S3MachineLearningModelResourceProps) {
+        super(scope, id, props)
+        this.s3Uri = props.s3Uri
+        this.ownerSetting = props.ownerSettings
+        this.destinationPath = props.destinationPath
+    }
+
+    readonly s3Uri: string;
+    readonly destinationPath: string;
+    readonly ownerSetting: OwnerSetting;
+
+    resolve(): gg.CfnResourceDefinition.ResourceInstanceProperty {
+        return {
+            id: this.id,
+            name: this.id,
+            resourceDataContainer: {
+                s3MachineLearningModelResourceData: {
+                    s3Uri: this.s3Uri,
+                    ownerSetting: this.ownerSetting,
                     destinationPath: this.destinationPath
                 }
             }
