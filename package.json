@@ -1,6 +1,8 @@
 {
-  "name": "cdk-greengrass-l2",
+  "name": "cdk-greengrass",
   "version": "0.2.0",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
@@ -15,8 +17,8 @@
     "ts-jest": "^26.1.3",
     "aws-cdk": "1.61.1",
     "ts-node": "^8.1.0",
-    "typescript": "~3.9.6",
-    "source-map-support": "^0.5.16"
+    "typescript": "~3.9.6"
+    
   },
   "dependencies": {
     "@aws-cdk/aws-greengrass": "1.61.1",
@@ -39,6 +41,15 @@
     "@aws-cdk/aws-iot": "1.61.1",
     "@aws-cdk/aws-lambda": "1.61.1",
     "@aws-cdk/core": "1.61.1",
-    "source-map-support": "^0.5.16"
+    "constructs": "^3.0.4"
+  },
+  "jsii": {
+    "outdir": "dist",
+    "targets": {
+      "python": {
+        "distName": "cdk-greengrass",
+        "module": "cdk_greengrass"
+      }
+    }
   }
 }

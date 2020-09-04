@@ -30,7 +30,7 @@ export interface CoreProps {
      * Enables/disables synching of the ThingShadow locally
      */
 
-    syncShadow: boolean,
+    readonly syncShadow: boolean,
 
     /**
      * One of the certificates associated with the thing to authenticate to the cloud

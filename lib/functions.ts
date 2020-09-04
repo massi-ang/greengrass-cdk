@@ -1,13 +1,13 @@
 import * as cdk from '@aws-cdk/core';
-import { Construct, IResolvable, Duration, Size } from '@aws-cdk/core';
-import { GGResource } from './resource';
+import { IResolvable, Duration, Size } from '@aws-cdk/core';
+import { Resource } from './resource';
 import * as lambda from '@aws-cdk/aws-lambda'
 import * as gg from '@aws-cdk/aws-greengrass'
 
 export namespace Functions {
     export interface RunAs {
-        uid: number,
-        gid: number
+        readonly uid: number,
+        readonly gid: number
     }
 
     export enum IsolationMode {
@@ -21,13 +21,13 @@ export namespace Functions {
     }
 
     export interface Execution {
-        isolationMode: IsolationMode,
-        runAs: RunAs
+        readonly isolationMode: IsolationMode,
+        readonly runAs: RunAs
     }
 
     export interface ResourceAccessPolicy {
-        resource: GGResource,
-        permission: ResourceAccessPermission,
+        readonly resource: Resource,
+        readonly permission: ResourceAccessPermission,
     }
 
     export enum EncodingType {
@@ -40,34 +40,30 @@ export interface FunctionProps {
     readonly function: lambda.Function,
     readonly alias: lambda.Alias,
     readonly pinned: boolean | IResolvable,
-    memorySize: Size,
-    timeout: Duration,
+    readonly memorySize: Size,
+    readonly timeout: Duration,
     readonly executable?: string,
     readonly execArgs?: string,
     readonly encodingType?: Functions.EncodingType,
     readonly isolationMode?: Functions.IsolationMode,
     readonly runAs?: Functions.RunAs,
-    resourceAccessPolicies?: Functions.ResourceAccessPolicy[],
-    readonly variables?: Map<string, string | undefined >,
+    readonly resourceAccessPolicies?: Functions.ResourceAccessPolicy[],
+    readonly variables?: any,
     readonly accessSysFs?: boolean | IResolvable
 }
 
-export interface FunctionDefinitionProps {
-    execution: Functions.Execution
-}
-
 export class Function extends cdk.Resource {
-    readonly creationStack: string[];
+    //readonly creationStack: string[];
     constructor(scope: cdk.Construct, id: string, props: FunctionProps) {
         super(scope, id);
 
-        if (!(props.function.runtime == lambda.Runtime.PYTHON_3_7 ||
-            props.function.runtime == lambda.Runtime.JAVA_8 ||
-            props.function.runtime == lambda.Runtime.NODEJS_8_10)) {
-            throw new Error(`Invalid Lambda runtime ${props.function.runtime}. Greengrass lambdas only support Python 3.7, Java 8 and Node 8.10`)
-        }
+        // if (!(props.function.runtime === lambda.Runtime.PYTHON_3_7 ||
+        //     props.function.runtime === lambda.Runtime.JAVA_8 ||
+        //     props.function.runtime === lambda.Runtime.NODEJS_8_10)) {
+        //     throw new Error(`Invalid Lambda runtime: ${props.function.runtime}. Greengrass functions only support ${lambda.Runtime.PYTHON_3_7}, ${lambda.Runtime.JAVA_8}, and ${lambda.Runtime.NODEJS_8_10}`)
+        // }
         this.name = id;
-        this.function = props.function;
+        this.lambdaFunction = props.function;
         this.alias = props.alias;
         this.pinned = props.pinned;
         this.memorySize = props.memorySize;
@@ -82,7 +78,7 @@ export class Function extends cdk.Resource {
         this.accessSysFs = props.accessSysFs; 
     }
 
-    addResource(resource: GGResource, permission: Functions.ResourceAccessPermission): Function {
+    addResource(resource: Resource, permission: Functions.ResourceAccessPermission): Function {
         if (this.resourceAccessPolicies == undefined) {
             this.resourceAccessPolicies = []
         }
@@ -95,7 +91,7 @@ export class Function extends cdk.Resource {
 
     resolve(): gg.CfnFunctionDefinition.FunctionProperty {
         return {
-            functionArn: this.function.functionArn + ':' + this.alias.aliasName,
+            functionArn: this.lambdaFunction.functionArn + ':' + this.alias.aliasName,
             functionConfiguration: {
                 environment: {
                     accessSysfs: this.accessSysFs,
@@ -119,7 +115,7 @@ export class Function extends cdk.Resource {
     }
 
     readonly name: string;
-    readonly function: lambda.Function;
+    readonly lambdaFunction: lambda.Function;
     readonly alias: lambda.Alias;
     readonly pinned: boolean | IResolvable;
     readonly memorySize: Size;
@@ -130,7 +126,7 @@ export class Function extends cdk.Resource {
     readonly isolationMode?: Functions.IsolationMode;
     readonly runAs?: Functions.RunAs;
     resourceAccessPolicies?: Functions.ResourceAccessPolicy[];
-    readonly variables?: Map<string, string | undefined >;
+    readonly variables?: any;
     readonly accessSysFs ?: boolean | IResolvable;
 }
 

@@ -50,6 +50,7 @@ export class MyStack extends cdk.Stack {
         let tmp_folder = new gg.LocalVolumeResource(this, 'temp', {
             destinationPath: '/tmp',
             sourcePath: '/home/ec2/tmp',
+            name: 'temp',
             groupOwnerSetting: {
                 autoAddGroupOwner: true
             }
@@ -75,7 +76,7 @@ export class MyStack extends cdk.Stack {
 
         let localLogger = new gg.LocalGreengrassLogger(this, 'local_logger', {
             level: gg.Logger.LogLevel.DEBUG,
-            space: 32000
+            space: Size.mebibytes(32)
         })
 
         // and some subscriptions

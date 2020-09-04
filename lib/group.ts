@@ -1,31 +1,35 @@
 import * as cdk from '@aws-cdk/core';
-import { Function } from './functions';
+import { Function, Functions } from './functions';
 import { Subscription } from './subscription'
 import { LoggerBase } from './logger'
-import { GGResource } from './resource'
+import { Resource } from './resource'
 import { Core } from './core';
 import { Device } from './device';
 import * as gg from '@aws-cdk/aws-greengrass'
 import { GroupTemplate } from './template';
 import { Role } from '@aws-cdk/aws-iam'
+import { CfnFunctionDefinition } from '@aws-cdk/aws-greengrass';
 
 
 export interface StreamManagerProps {
-  enableStreamManager: boolean;
-  allowInsecureAccess?: boolean;
+  readonly enableStreamManager: boolean;
+  readonly allowInsecureAccess?: boolean;
 }
+
+
 export interface GroupProps {
-  core: Core;
-  functions?: Function[];
-  subscriptions?: Subscription[];
-  loggers?: LoggerBase[];
-  resources?: GGResource[];
-  devices?: Device[];
-  deviceSpecificSubscriptions?: Subscription[];
-  streamManager?: StreamManagerProps,
-  enableAutomaticIpDiscovery?: boolean;
-  role?: Role
-  initialVersion?: gg.CfnGroup.GroupVersionProperty
+  readonly core: Core;
+  readonly functionExecution?: Functions.Execution
+  readonly functions?: Function[];
+  readonly subscriptions?: Subscription[];
+  readonly loggers?: LoggerBase[];
+  readonly resources?: Resource[];
+  readonly devices?: Device[];
+  readonly deviceSpecificSubscriptions?: Subscription[];
+  readonly streamManager?: StreamManagerProps,
+  readonly enableAutomaticIpDiscovery?: boolean;
+  readonly role?: Role
+  readonly initialVersion?: gg.CfnGroup.GroupVersionProperty
 }
 
 export class Group extends cdk.Construct {
@@ -101,9 +105,18 @@ export class Group extends cdk.Construct {
       }
       var functionDefinition: gg.CfnFunctionDefinition;
       if (props.functions !== undefined) {
+        
+        if (props.functionExecution) {
+          this.defaultConfig = {
+            execution: {
+              ...props.functionExecution
+            }
+          }
+        } 
         functionDefinition = new gg.CfnFunctionDefinition(this, id + '_functions', {
           name: id,
           initialVersion: {
+            defaultConfig: this.defaultConfig,
             functions: [...props.functions!.map(convert), ...systemFunctions]
           }
         })
@@ -134,7 +147,7 @@ export class Group extends cdk.Construct {
 
 
     if (props.resources !== undefined) {
-      function convert(x: GGResource): gg.CfnResourceDefinition.ResourceInstanceProperty {
+      function convert(x: Resource): gg.CfnResourceDefinition.ResourceInstanceProperty {
         return x.resolve();
       }
       let resourceDefinition = new gg.CfnResourceDefinition(this, id + '_resources', {
@@ -201,6 +214,7 @@ export class Group extends cdk.Construct {
     })
   }
 
+  private defaultConfig?: CfnFunctionDefinition.DefaultConfigProperty;
   private streamManagerEnvironment?: gg.CfnFunctionDefinition.EnvironmentProperty;
   readonly functionDefinitionVersionArn?: string;
   readonly subscriptionDefinitionVersionArn?: string;

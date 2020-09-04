@@ -1,10 +1,8 @@
 import * as cdk from '@aws-cdk/core';
-import { Construct } from '@aws-cdk/core';
 import * as gg from '@aws-cdk/aws-greengrass';
-export interface IResource {
-}
 
 export interface ResourceProps {
+    readonly name: string
 }
 
 export enum Permission {
@@ -13,13 +11,13 @@ export enum Permission {
 }
 
 export interface OwnerSetting {
-    groupOwner: string,
-    groupPermission: Permission
+    readonly groupOwner: string,
+    readonly groupPermission: Permission
 }
 
 export interface GroupOwnerSetting  {
-    groupOwner?: string,
-    autoAddGroupOwner: boolean
+    readonly groupOwner?: string,
+    readonly autoAddGroupOwner: boolean
 }
 
 export interface LocalDeviceResourceProps extends ResourceProps {
@@ -33,30 +31,33 @@ export interface LocalVolumeResourceProps extends ResourceProps {
 }
 
 export interface SageMakerMachineLearningModelResourceProps extends ResourceProps {
-    sageMakerJobArn: string,
-    destinationPath: string,
-    ownerSettings: OwnerSetting
+    readonly sageMakerJobArn: string,
+    readonly destinationPath: string,
+    readonly ownerSettings: OwnerSetting
 }
 
 export interface S3MachineLearningModelResourceProps extends ResourceProps {
-    s3Uri: string,
-    destinationPath: string
-    ownerSettings: OwnerSetting
+    readonly s3Uri: string,
+    readonly destinationPath: string
+    readonly ownerSettings: OwnerSetting
 }
 
 
-export abstract class GGResource extends cdk.Resource {
+export abstract class Resource extends cdk.Resource {
     readonly id: string;
+    readonly name: string;
+
     constructor(scope: cdk.Construct, id: string, props: ResourceProps) {
         super(scope, id)
         this.id = id
+        this.name = props.name
     }
 
     abstract resolve(): gg.CfnResourceDefinition.ResourceInstanceProperty;
 } 
 
 
-export class LocalDeviceResource extends GGResource {
+export class LocalDeviceResource extends Resource {
     constructor(scope: cdk.Construct, id: string, props: LocalDeviceResourceProps) {
         super(scope, id, props)
         this.sourcePath = props.sourcePath
@@ -69,7 +70,7 @@ export class LocalDeviceResource extends GGResource {
     resolve(): gg.CfnResourceDefinition.ResourceInstanceProperty {
         return {
             id: this.id,
-            name: this.id,
+            name: this.name,
             resourceDataContainer: {
                 localDeviceResourceData: {
                     sourcePath: this.sourcePath,
@@ -80,7 +81,7 @@ export class LocalDeviceResource extends GGResource {
     }
 }
 
-export class LocalVolumeResource extends GGResource {
+export class LocalVolumeResource extends Resource {
     constructor(scope: cdk.Construct, id: string, props: LocalVolumeResourceProps) {
         super(scope, id, props)
         this.sourcePath = props.sourcePath
@@ -107,7 +108,7 @@ export class LocalVolumeResource extends GGResource {
     }
 }
 
-export class SageMakerMachineLearningModelResource extends GGResource {
+export class SageMakerMachineLearningModelResource extends Resource {
     constructor(scope: cdk.Construct, id: string, props: SageMakerMachineLearningModelResourceProps) {
         super(scope, id, props)
         this.sageMakerJobArn = props.sageMakerJobArn
@@ -135,7 +136,7 @@ export class SageMakerMachineLearningModelResource extends GGResource {
 }
 
 
-export class S3MachineLearningModelResource extends GGResource {
+export class S3MachineLearningModelResource extends Resource {
     constructor(scope: cdk.Construct, id: string, props: S3MachineLearningModelResourceProps) {
         super(scope, id, props)
         this.s3Uri = props.s3Uri
@@ -150,7 +151,7 @@ export class S3MachineLearningModelResource extends GGResource {
     resolve(): gg.CfnResourceDefinition.ResourceInstanceProperty {
         return {
             id: this.id,
-            name: this.id,
+            name: this.name,
             resourceDataContainer: {
                 s3MachineLearningModelResourceData: {
                     s3Uri: this.s3Uri,

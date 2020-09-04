@@ -2,21 +2,19 @@ import * as cdk from '@aws-cdk/core';
 import { Function } from './functions';
 import { Subscription } from './subscription'
 import { LoggerBase } from './logger'
-import { GGResource } from './resource'
-import { Core } from './core';
+import { Resource } from './resource'
 import * as gg from '@aws-cdk/aws-greengrass'
-import * as lambda from '@aws-cdk/aws-lambda'
 import { Role } from '@aws-cdk/aws-iam';
 import { StreamManagerProps } from './group'
 
 export interface GroupTemplateProps {
-    functions?: Function[];
-    subscriptions?: Subscription[];
-    loggers?: LoggerBase[];
-    resources?: GGResource[];
-    role?: Role,
-    streamManager?: StreamManagerProps,
-    enableAutomaticIpDiscovery?: boolean
+    readonly functions?: Function[];
+    readonly subscriptions?: Subscription[];
+    readonly loggers?: LoggerBase[];
+    readonly resources?: Resource[];
+    readonly role?: Role,
+    readonly streamManager?: StreamManagerProps,
+    readonly enableAutomaticIpDiscovery?: boolean
 }
 
 export class GroupTemplate extends cdk.Construct {
@@ -96,7 +94,7 @@ export class GroupTemplate extends cdk.Construct {
 
         if (props.subscriptions !== undefined) {
             console.log('Resources')
-            function convert(x: GGResource): gg.CfnResourceDefinition.ResourceInstanceProperty {
+            function convert(x: Resource): gg.CfnResourceDefinition.ResourceInstanceProperty {
                 return x.resolve();
             }
             let resourceDefinition = new gg.CfnResourceDefinition(this, id + '_resources', {
@@ -122,10 +120,10 @@ export class GroupTemplate extends cdk.Construct {
         }
     }
 
-    private functionDef: gg.CfnFunctionDefinition;
-    private subscriptionDef: gg.CfnSubscriptionDefinition;
-    private loggerDef: gg.CfnLoggerDefinition;
-    private resourceDef: gg.CfnResourceDefinition;
+    // private functionDef?: gg.CfnFunctionDefinition;
+    // private subscriptionDef?: gg.CfnSubscriptionDefinition;
+    // private loggerDef?: gg.CfnLoggerDefinition;
+    // private resourceDef?: gg.CfnResourceDefinition;
     private streamManagerEnvironment?: gg.CfnFunctionDefinition.EnvironmentProperty;
 
     readonly functionDefinitionVersionArn?: string;

@@ -1,7 +1,6 @@
 import * as cdk from '@aws-cdk/core';
-import { Construct } from '@aws-cdk/core';
+import {  Size } from '@aws-cdk/core';
 import * as gg from '@aws-cdk/aws-greengrass';
-import { throws } from 'assert';
 
 export namespace Logger {
     export enum Component {
@@ -23,12 +22,12 @@ enum LoggerType {
     CLOUD = 'AWSCloudWatch'
 }
 
-interface LoggerProps {
-    level: Logger.LogLevel,
+export interface LoggerProps {
+    readonly level: Logger.LogLevel,
 }
 
 export interface LocalLoggerProps extends LoggerProps {
-    space: number;
+    readonly space: cdk.Size;
 }
 
 export abstract class LoggerBase extends cdk.Resource {
@@ -45,7 +44,7 @@ export abstract class LoggerBase extends cdk.Resource {
 }
 
 abstract class LocalLogger extends LoggerBase {
-    readonly space: number;
+    readonly space: Size;
     
     constructor(scope: cdk.Construct, id: string, props: LocalLoggerProps) {
         super(scope, id, props);
@@ -60,7 +59,7 @@ export class LocalGreengrassLogger extends LocalLogger {
             component: Logger.Component.GREENGRASS,
             level: this.level,
             type: LoggerType.LOCAL,
-            space: this.space
+            space: this.space.toKibibytes()
         }
     }
 }
@@ -72,7 +71,7 @@ export class LocalUserLambdaLogger extends LocalLogger {
             component: Logger.Component.LAMBDA,
             level: this.level,
             type: LoggerType.LOCAL,
-            space: this.space
+            space: this.space.toKibibytes()
         }
     }
 }
