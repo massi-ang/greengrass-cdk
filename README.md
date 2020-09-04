@@ -1,28 +1,88 @@
-# Greengrass CDK Construct
+# Welcome to your CDK Greengrass L2 Constructs
 
-To test this construct:
+This project implements a set of constructs wrapping the L1 constructs provided by `@aws-cdk/aws-greengrass` library.
 
-1. Modify `cdk/bin/cdk.ts` with the ARN of thing Certificate that exists in the account you will deploy the stack
+## Concepts
 
-2. Execute:
+To create a new Greengrass group use the `Group` construct.
 
+```typescript
+new Group(this, id, {
+    core: {
+                thing: t,
+                syncShadow: true,
+                certificateArn: props.certificateArn
+            },
+    functions: [],
+    subscriptions: [],
+    loggers: [],
+    resources: [],
+    connectors: [],
+    devices: []
+})
 ```
-cd cdk
-npm i
-npm run build
-cdk synth
-cdk deploy
+
+Where t is a `CfnThing`. Functions, subscriptions, etc are exposed as L2 constructs by this library, and you do not need to work with xxxDefinition and xxxDefintionVersions. All that is managed for you.
+
+An example stack to create a Greengrass Group would then be coded like:
+
+```typescript
+let f = new lambda.Function(this, 'f1', {
+    ...
+})
+let alias = f.currentVersion.addAlias('prod')
+
+
+let t = new iot.CfnThing(this, 'a_thing', {
+    thingName: 'MyThing'
+})
+
+
+let tmp_folder: gg.LocalVolumeResource = {
+    destinationPath: '/tmp',
+    sourcePath: '/home/ec2/tmp',
+    groupOwnerSetting: {
+        autoAddGroupOwner: true
+    },
+    name: 'temp'
+}
+
+let gg_lambda:gg.GGLambda = {
+    function: f,
+    alias: alias,
+    encodingType: gg.Function.EncodingType.JSON,
+    memorySize: 16000,
+    pinned: false,
+    timeout: 3
+}
+
+let localLogger: gg.LocalLogger = {
+    component: gg.LoggerProps.Component.GREENGRASS,
+    level: gg.LoggerProps.LogLevel.DEBUG,
+    space: 32000
+}
+
+new gg.Group(this, 'a_group', {
+    core: {
+        thing: t,
+        syncShadow: true,
+        certificateArn: props.certificateArn
+    },
+    functions: [ gg_lambda ],
+    subscriptions: [
+        {
+            source: gg_lambda,
+            topic: '#',
+            target: new gg.CloudDestination()
+        },
+        {
+            source: new gg.CloudDestination(),
+            topic: '#',
+            target: gg_lambda
+        }
+    ],
+    loggers: [ localLogger ],
+    resources: [ tmp_folder ]
+})
 ```
-
-## Change the stack
-
-The resources deployed by this stack are defined in `cdk/lib/stack.ts`. 
-
-A dummy lambda function is in `src`.
-
-## NOTE
-
-**2020-08-31**
-Devices and Connectors are not fully implemented and are not supposed to work.
-
 

@@ -1,5 +1,5 @@
 import * as cdk from '@aws-cdk/core'
-import * as gg from '../../cdk/lib/index'
+import * as gg from '../../lib/index'
 import * as iot from '@aws-cdk/aws-iot';
 import * as lambda from '@aws-cdk/aws-lambda';
 import { RemovalPolicy } from '@aws-cdk/core';
