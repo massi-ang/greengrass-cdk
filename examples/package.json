@@ -1,5 +1,5 @@
 {
-  "name": "sample",
+  "name": "example-stack",
   "version": "0.1.0",
   "bin": {
     "sample": "bin/sample.js"
@@ -10,6 +10,14 @@
     "test": "jest",
     "cdk": "cdk"
   },
+  "author": {
+    "name": "Massimiliano Angelino"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/massi-ang/greengrass-cdk"
+  },
+  "license": "MIT-0",
   "devDependencies": {
     "@aws-cdk/assert": "1.61.1",
     "@types/jest": "^26.0.10",
