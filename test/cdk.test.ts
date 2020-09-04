@@ -14,25 +14,37 @@
  *  limitations under the License.
  */
 
-import { expect as expectCDK, matchTemplate, MatchStyle } from '@aws-cdk/assert';
+import '@aws-cdk/assert/jest';
 import * as cdk from '@aws-cdk/core';
-import { Core } from '../lib';
+import { Core, Group } from '../lib';
 import * as iot from '@aws-cdk/aws-iot';
 
 
 test('Empty Stack', () => {
-    const app = new cdk.App();
-    // WHEN
-  const thing = new iot.CfnThing(app, 'a_thing', {
+  const stack = new cdk.Stack();
+  // WHEN
+  const t = new iot.CfnThing(stack, 'a_thing', {
     thingName: 'testThing'
   })
-  const stack = new Core(app, 'MyCore', { 
-      certificateArn: 'AAA',
-    syncShadow: false,
-      thing: thing
-    });
-    // THEN
-    expectCDK(stack).to(matchTemplate({
-      "Resources": { }
-    }, MatchStyle.SUPERSET))
+  let c = new Core(stack, 'MyCore', {
+    certificateArn: 'AAA',
+    syncShadow: true,
+    thing: t
+  });
+
+  new Group(stack, 'group', {
+    core: c
+  })
+  // THEN
+  expect(stack).toHaveResourceLike('AWS::Greengrass::CoreDefinition', {
+
+      InitialVersion: {
+        Cores: [
+          {
+            CertificateArn: 'AAA',
+            SyncShadow: true
+          }
+        ]
+      }
+  });
 });
