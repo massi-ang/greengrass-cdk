@@ -760,8 +760,8 @@
       "fqn": "cdk-greengrass.CloudWatchMetrics",
       "initializer": {
         "locationInModule": {
-          "filename": "lib/connector.ts",
-          "line": 41
+          "filename": "lib/connectors/cloudwatchmetrics.ts",
+          "line": 16
         },
         "parameters": [
           {
@@ -786,16 +786,16 @@
       },
       "kind": "class",
       "locationInModule": {
-        "filename": "lib/connector.ts",
-        "line": 39
+        "filename": "lib/connectors/cloudwatchmetrics.ts",
+        "line": 14
       },
       "name": "CloudWatchMetrics",
       "properties": [
         {
           "immutable": true,
           "locationInModule": {
-            "filename": "lib/connector.ts",
-            "line": 50
+            "filename": "lib/connectors/cloudwatchmetrics.ts",
+            "line": 25
           },
           "name": "connectorArn",
           "overrides": "cdk-greengrass.Connector",
@@ -806,8 +806,8 @@
         {
           "immutable": true,
           "locationInModule": {
-            "filename": "lib/connector.ts",
-            "line": 46
+            "filename": "lib/connectors/cloudwatchmetrics.ts",
+            "line": 21
           },
           "name": "parameters",
           "overrides": "cdk-greengrass.Connector",
@@ -823,8 +823,8 @@
       "fqn": "cdk-greengrass.CloudWatchMetricsConnectorProps",
       "kind": "interface",
       "locationInModule": {
-        "filename": "lib/connector.ts",
-        "line": 28
+        "filename": "lib/connectors/cloudwatchmetrics.ts",
+        "line": 3
       },
       "name": "CloudWatchMetricsConnectorProps",
       "properties": [
@@ -835,8 +835,8 @@
           },
           "immutable": true,
           "locationInModule": {
-            "filename": "lib/connector.ts",
-            "line": 36
+            "filename": "lib/connectors/cloudwatchmetrics.ts",
+            "line": 11
           },
           "name": "isolationMode",
           "type": {
@@ -850,8 +850,8 @@
           },
           "immutable": true,
           "locationInModule": {
-            "filename": "lib/connector.ts",
-            "line": 34
+            "filename": "lib/connectors/cloudwatchmetrics.ts",
+            "line": 9
           },
           "name": "maxMetricsToRetain",
           "type": {
@@ -865,8 +865,8 @@
           },
           "immutable": true,
           "locationInModule": {
-            "filename": "lib/connector.ts",
-            "line": 32
+            "filename": "lib/connectors/cloudwatchmetrics.ts",
+            "line": 7
           },
           "name": "memorySize",
           "type": {
@@ -877,8 +877,8 @@
           "abstract": true,
           "immutable": true,
           "locationInModule": {
-            "filename": "lib/connector.ts",
-            "line": 29
+            "filename": "lib/connectors/cloudwatchmetrics.ts",
+            "line": 4
           },
           "name": "publishInterval",
           "type": {
@@ -889,8 +889,8 @@
           "abstract": true,
           "immutable": true,
           "locationInModule": {
-            "filename": "lib/connector.ts",
-            "line": 30
+            "filename": "lib/connectors/cloudwatchmetrics.ts",
+            "line": 5
           },
           "name": "publishRegion",
           "type": {
@@ -907,7 +907,7 @@
       "initializer": {
         "locationInModule": {
           "filename": "lib/connector.ts",
-          "line": 10
+          "line": 15
         },
         "parameters": [
           {
@@ -934,13 +934,13 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/connector.ts",
-        "line": 8
+        "line": 13
       },
       "methods": [
         {
           "locationInModule": {
             "filename": "lib/connector.ts",
-            "line": 19
+            "line": 24
           },
           "name": "resolve",
           "returns": {
@@ -957,7 +957,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connector.ts",
-            "line": 16
+            "line": 21
           },
           "name": "connectorArn",
           "type": {
@@ -969,7 +969,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connector.ts",
-            "line": 17
+            "line": 22
           },
           "name": "parameters",
           "type": {
@@ -985,7 +985,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/connector.ts",
-        "line": 4
+        "line": 9
       },
       "name": "ConnectorProps"
     },
@@ -1265,8 +1265,8 @@
       "fqn": "cdk-greengrass.DeviceDefender",
       "initializer": {
         "locationInModule": {
-          "filename": "lib/connector.ts",
-          "line": 64
+          "filename": "lib/connectors/devicedefender.ts",
+          "line": 11
         },
         "parameters": [
           {
@@ -1291,16 +1291,16 @@
       },
       "kind": "class",
       "locationInModule": {
-        "filename": "lib/connector.ts",
-        "line": 62
+        "filename": "lib/connectors/devicedefender.ts",
+        "line": 9
       },
       "name": "DeviceDefender",
       "properties": [
         {
           "immutable": true,
           "locationInModule": {
-            "filename": "lib/connector.ts",
-            "line": 73
+            "filename": "lib/connectors/devicedefender.ts",
+            "line": 20
           },
           "name": "connectorArn",
           "overrides": "cdk-greengrass.Connector",
@@ -1311,8 +1311,8 @@
         {
           "immutable": true,
           "locationInModule": {
-            "filename": "lib/connector.ts",
-            "line": 69
+            "filename": "lib/connectors/devicedefender.ts",
+            "line": 16
           },
           "name": "parameters",
           "overrides": "cdk-greengrass.Connector",
@@ -1328,8 +1328,8 @@
       "fqn": "cdk-greengrass.DeviceDefenderConnectorProps",
       "kind": "interface",
       "locationInModule": {
-        "filename": "lib/connector.ts",
-        "line": 56
+        "filename": "lib/connectors/devicedefender.ts",
+        "line": 3
       },
       "name": "DeviceDefenderConnectorProps",
       "properties": [
@@ -1337,8 +1337,8 @@
           "abstract": true,
           "immutable": true,
           "locationInModule": {
-            "filename": "lib/connector.ts",
-            "line": 59
+            "filename": "lib/connectors/devicedefender.ts",
+            "line": 6
           },
           "name": "procDestinationPath",
           "type": {
@@ -1349,8 +1349,8 @@
           "abstract": true,
           "immutable": true,
           "locationInModule": {
-            "filename": "lib/connector.ts",
-            "line": 58
+            "filename": "lib/connectors/devicedefender.ts",
+            "line": 5
           },
           "name": "procDestinationPathResourceId",
           "type": {
@@ -1361,8 +1361,8 @@
           "abstract": true,
           "immutable": true,
           "locationInModule": {
-            "filename": "lib/connector.ts",
-            "line": 57
+            "filename": "lib/connectors/devicedefender.ts",
+            "line": 4
           },
           "name": "sampleIntervalSeconds",
           "type": {
@@ -2768,6 +2768,443 @@
         }
       ]
     },
+    "cdk-greengrass.IoTAnalytics": {
+      "assembly": "cdk-greengrass",
+      "base": "cdk-greengrass.Connector",
+      "fqn": "cdk-greengrass.IoTAnalytics",
+      "initializer": {
+        "locationInModule": {
+          "filename": "lib/connectors/iotanalytics.ts",
+          "line": 18
+        },
+        "parameters": [
+          {
+            "name": "scope",
+            "type": {
+              "fqn": "@aws-cdk/core.Construct"
+            }
+          },
+          {
+            "name": "id",
+            "type": {
+              "primitive": "string"
+            }
+          },
+          {
+            "name": "props",
+            "type": {
+              "fqn": "cdk-greengrass.IoTAnalyticsConnectorProps"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/connectors/iotanalytics.ts",
+        "line": 16
+      },
+      "name": "IoTAnalytics",
+      "properties": [
+        {
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/connectors/iotanalytics.ts",
+            "line": 27
+          },
+          "name": "connectorArn",
+          "overrides": "cdk-greengrass.Connector",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/connectors/iotanalytics.ts",
+            "line": 23
+          },
+          "name": "parameters",
+          "overrides": "cdk-greengrass.Connector",
+          "type": {
+            "primitive": "any"
+          }
+        }
+      ]
+    },
+    "cdk-greengrass.IoTAnalyticsConnectorProps": {
+      "assembly": "cdk-greengrass",
+      "datatype": true,
+      "fqn": "cdk-greengrass.IoTAnalyticsConnectorProps",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/connectors/iotanalytics.ts",
+        "line": 3
+      },
+      "name": "IoTAnalyticsConnectorProps",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "summary": "Size in kB."
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/connectors/iotanalytics.ts",
+            "line": 5
+          },
+          "name": "memorySize",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/connectors/iotanalytics.ts",
+            "line": 11
+          },
+          "name": "iotAnalyticsBatchSizePerChannel",
+          "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/connectors/iotanalytics.ts",
+            "line": 12
+          },
+          "name": "iotAnalyticsDefaultChannelName",
+          "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/connectors/iotanalytics.ts",
+            "line": 8
+          },
+          "name": "iotAnalyticsMaxActiveChannels",
+          "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/connectors/iotanalytics.ts",
+            "line": 9
+          },
+          "name": "iotAnalyticsQueueDropBehavior",
+          "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/connectors/iotanalytics.ts",
+            "line": 10
+          },
+          "name": "iotAnalyticsQueueSizePerChannel",
+          "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/connectors/iotanalytics.ts",
+            "line": 13
+          },
+          "name": "isolationMode",
+          "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/connectors/iotanalytics.ts",
+            "line": 6
+          },
+          "name": "publishInterval",
+          "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/connectors/iotanalytics.ts",
+            "line": 7
+          },
+          "name": "publishRegion",
+          "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "cdk-greengrass.IoTSitewise": {
+      "assembly": "cdk-greengrass",
+      "base": "cdk-greengrass.Connector",
+      "fqn": "cdk-greengrass.IoTSitewise",
+      "initializer": {
+        "locationInModule": {
+          "filename": "lib/connectors/iotsitewise.ts",
+          "line": 12
+        },
+        "parameters": [
+          {
+            "name": "scope",
+            "type": {
+              "fqn": "@aws-cdk/core.Construct"
+            }
+          },
+          {
+            "name": "id",
+            "type": {
+              "primitive": "string"
+            }
+          },
+          {
+            "name": "props",
+            "type": {
+              "fqn": "cdk-greengrass.IoTSitewiseConnectorProps"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/connectors/iotsitewise.ts",
+        "line": 10
+      },
+      "name": "IoTSitewise",
+      "properties": [
+        {
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/connectors/iotsitewise.ts",
+            "line": 21
+          },
+          "name": "connectorArn",
+          "overrides": "cdk-greengrass.Connector",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/connectors/iotsitewise.ts",
+            "line": 17
+          },
+          "name": "parameters",
+          "overrides": "cdk-greengrass.Connector",
+          "type": {
+            "primitive": "any"
+          }
+        }
+      ]
+    },
+    "cdk-greengrass.IoTSitewiseConnectorProps": {
+      "assembly": "cdk-greengrass",
+      "datatype": true,
+      "fqn": "cdk-greengrass.IoTSitewiseConnectorProps",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/connectors/iotsitewise.ts",
+        "line": 3
+      },
+      "name": "IoTSitewiseConnectorProps",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/connectors/iotsitewise.ts",
+            "line": 5
+          },
+          "name": "awsSecretArnList",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "summary": "Memory size in KB."
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/connectors/iotsitewise.ts",
+            "line": 7
+          },
+          "name": "maximumBufferSize",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/connectors/iotsitewise.ts",
+            "line": 4
+          },
+          "name": "siteWiseLocalStoragePath",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
+    "cdk-greengrass.KinesisFirehose": {
+      "assembly": "cdk-greengrass",
+      "base": "cdk-greengrass.Connector",
+      "fqn": "cdk-greengrass.KinesisFirehose",
+      "initializer": {
+        "locationInModule": {
+          "filename": "lib/connectors/kinesisfirehose.ts",
+          "line": 14
+        },
+        "parameters": [
+          {
+            "name": "scope",
+            "type": {
+              "fqn": "@aws-cdk/core.Construct"
+            }
+          },
+          {
+            "name": "id",
+            "type": {
+              "primitive": "string"
+            }
+          },
+          {
+            "name": "props",
+            "type": {
+              "fqn": "cdk-greengrass.KinesisFirehoseConnectorProps"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/connectors/kinesisfirehose.ts",
+        "line": 12
+      },
+      "name": "KinesisFirehose",
+      "properties": [
+        {
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/connectors/kinesisfirehose.ts",
+            "line": 23
+          },
+          "name": "connectorArn",
+          "overrides": "cdk-greengrass.Connector",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/connectors/kinesisfirehose.ts",
+            "line": 19
+          },
+          "name": "parameters",
+          "overrides": "cdk-greengrass.Connector",
+          "type": {
+            "primitive": "any"
+          }
+        }
+      ]
+    },
+    "cdk-greengrass.KinesisFirehoseConnectorProps": {
+      "assembly": "cdk-greengrass",
+      "datatype": true,
+      "fqn": "cdk-greengrass.KinesisFirehoseConnectorProps",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/connectors/kinesisfirehose.ts",
+        "line": 3
+      },
+      "name": "KinesisFirehoseConnectorProps",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/connectors/kinesisfirehose.ts",
+            "line": 4
+          },
+          "name": "defaultDeliveryStreamArn",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/connectors/kinesisfirehose.ts",
+            "line": 5
+          },
+          "name": "deliveryStreamQueueSize",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "summary": "Memory size in KB."
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/connectors/kinesisfirehose.ts",
+            "line": 7
+          },
+          "name": "memorySize",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/connectors/kinesisfirehose.ts",
+            "line": 8
+          },
+          "name": "publishInterval",
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
+    },
     "cdk-greengrass.LocalDeviceResource": {
       "assembly": "cdk-greengrass",
       "base": "cdk-greengrass.Resource",
@@ -3352,6 +3789,111 @@
           "name": "level",
           "type": {
             "fqn": "cdk-greengrass.Logger.LogLevel"
+          }
+        }
+      ]
+    },
+    "cdk-greengrass.MLFeedback": {
+      "assembly": "cdk-greengrass",
+      "base": "cdk-greengrass.Connector",
+      "fqn": "cdk-greengrass.MLFeedback",
+      "initializer": {
+        "locationInModule": {
+          "filename": "lib/connectors/mlfeedback.ts",
+          "line": 29
+        },
+        "parameters": [
+          {
+            "name": "scope",
+            "type": {
+              "fqn": "@aws-cdk/core.Construct"
+            }
+          },
+          {
+            "name": "id",
+            "type": {
+              "primitive": "string"
+            }
+          },
+          {
+            "name": "props",
+            "type": {
+              "fqn": "cdk-greengrass.MLFeedbackConnectorProps"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/connectors/mlfeedback.ts",
+        "line": 27
+      },
+      "name": "MLFeedback",
+      "properties": [
+        {
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/connectors/mlfeedback.ts",
+            "line": 38
+          },
+          "name": "connectorArn",
+          "overrides": "cdk-greengrass.Connector",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/connectors/mlfeedback.ts",
+            "line": 34
+          },
+          "name": "parameters",
+          "overrides": "cdk-greengrass.Connector",
+          "type": {
+            "primitive": "any"
+          }
+        }
+      ]
+    },
+    "cdk-greengrass.MLFeedbackConnectorProps": {
+      "assembly": "cdk-greengrass",
+      "datatype": true,
+      "fqn": "cdk-greengrass.MLFeedbackConnectorProps",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/connectors/mlfeedback.ts",
+        "line": 5
+      },
+      "name": "MLFeedbackConnectorProps",
+      "properties": [
+        {
+          "abstract": true,
+          "docs": {
+            "remarks": "Each configuration has the following properties:\n  \n{\n  \"s3-bucket-name\": \"my-aws-bucket-random-sampling\",\n  \"s3-prefix\": \"aa\"\n  \"content-type\": \"image/png\",\n  \"file-ext\": \"png\",\n  \"sampling-strategy\": {\n      \"strategy-name\": \"RANDOM_SAMPLING|LEASTCONFIDENCE|MARGIN|ENTROPY\",\n      \"rate\": 0.5,\n      \"threshold\": 1\n  }\n}",
+            "summary": "A key-value map for different configurations."
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/connectors/mlfeedback.ts",
+            "line": 22
+          },
+          "name": "feedbackConfigurationMap",
+          "type": {
+            "primitive": "any"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/connectors/mlfeedback.ts",
+            "line": 23
+          },
+          "name": "requestLimit",
+          "optional": true,
+          "type": {
+            "primitive": "string"
           }
         }
       ]
@@ -4512,5 +5054,5 @@
     }
   },
   "version": "0.2.0",
-  "fingerprint": "y/bFNNuxMh6z6G8CTMyaEK/mxjxAzp7VW5Fxi5vmjYE="
+  "fingerprint": "QKg5Z/o9t6fQO5/X4lSWfAZn7V32J2cpzmxyKwOF3QM="
 }

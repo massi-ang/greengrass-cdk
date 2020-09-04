@@ -1,6 +1,6 @@
 import { Connector } from '../connector'
 import { Construct } from '@aws-cdk/core'
-export interface CloudWatchMetricsConnectorProps {
+export interface TemplateConnectorProps {
     readonly publishInterval: string;
     readonly publishRegion: string;
     /** Memory size in KB */
@@ -11,9 +11,9 @@ export interface CloudWatchMetricsConnectorProps {
     readonly isolationMode: string;
 }
 
-export class CloudWatchMetrics extends Connector {
+export class Template extends Connector {
     private _parameters: any;
-    constructor(scope: Construct, id: string, props: CloudWatchMetricsConnectorProps) {
+    constructor(scope: Construct, id: string, props: TemplateConnectorProps) {
         super(scope, id)
         this._parameters = props;
     }
@@ -23,6 +23,6 @@ export class CloudWatchMetrics extends Connector {
     }
 
     get connectorArn(): string {
-        return "arn:aws:greengrass:region::/connectors/CloudWatchMetrics/versions/4"
+        return "arn:aws:greengrass:region::/connectors/Template/versions/4"
     }
 }
