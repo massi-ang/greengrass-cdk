@@ -1,8 +1,25 @@
+/* 
+ *  Copyright 2020 Massimiliano Angelino
+ *  
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *  
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *  
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 import * as cdk from '@aws-cdk/core'
 import * as gg from '../../lib/index'
 import * as iot from '@aws-cdk/aws-iot';
 import * as lambda from '@aws-cdk/aws-lambda';
 import { RemovalPolicy, Size, Duration } from '@aws-cdk/core';
+import { CloudDestination } from '../../lib/index';
 
 export interface MyStackProps extends cdk.StackProps {
     certificateArn: string;
@@ -15,7 +32,7 @@ export class MyStack extends cdk.Stack {
         // Let's create a Lambda function 
 
         let f = new lambda.Function(this, 'f1', {
-            code: lambda.Code.fromAsset('../src'),
+            code: lambda.Code.fromAsset('./src'),
             runtime: lambda.Runtime.PYTHON_3_7,
             handler: 'lambda.handler',
             currentVersionOptions: {
@@ -81,10 +98,10 @@ export class MyStack extends cdk.Stack {
 
         // and some subscriptions
 
-        let subscriptions = [
-            gg.Subscription.toCloud(this, 'my_sub1', gg_lambda, '#'),
-            gg.Subscription.fromCloud(this, 'my_sub2', gg_lambda, '#')
-        ];
+        let subscriptions = new gg.Subscriptions(this, 'subscriptions')
+            .add(gg_lambda, '#', new CloudDestination())
+            .add(new CloudDestination(), '#', gg_lambda)
+        
 
         // We create a first group
 

@@ -730,7 +730,7 @@
     },
     "cdk-greengrass.CloudDestination": {
       "assembly": "cdk-greengrass",
-      "base": "cdk-greengrass.DestinationBase",
+      "base": "cdk-greengrass.DestinationInternal",
       "fqn": "cdk-greengrass.CloudDestination",
       "initializer": {},
       "kind": "class",
@@ -747,7 +747,7 @@
             "line": 11
           },
           "name": "arn",
-          "overrides": "cdk-greengrass.DestinationBase",
+          "overrides": "cdk-greengrass.DestinationInternal",
           "type": {
             "primitive": "string"
           }
@@ -1147,17 +1147,17 @@
         }
       ]
     },
-    "cdk-greengrass.DestinationBase": {
+    "cdk-greengrass.DestinationInternal": {
       "abstract": true,
       "assembly": "cdk-greengrass",
-      "fqn": "cdk-greengrass.DestinationBase",
+      "fqn": "cdk-greengrass.DestinationInternal",
       "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/subscription.ts",
         "line": 6
       },
-      "name": "DestinationBase",
+      "name": "DestinationInternal",
       "properties": [
         {
           "abstract": true,
@@ -2093,7 +2093,7 @@
         {
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 204
+            "line": 202
           },
           "name": "fromTemplate",
           "parameters": [
@@ -2132,7 +2132,7 @@
         {
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 192
+            "line": 190
           },
           "name": "cloneToNew",
           "parameters": [
@@ -2195,7 +2195,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 219
+            "line": 217
           },
           "name": "functionDefinitionVersionArn",
           "optional": true,
@@ -2207,7 +2207,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 221
+            "line": 219
           },
           "name": "loggerDefinitionVersionArn",
           "optional": true,
@@ -2219,7 +2219,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 222
+            "line": 220
           },
           "name": "resourceDefinitionVersionArn",
           "optional": true,
@@ -2243,7 +2243,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 220
+            "line": 218
           },
           "name": "subscriptionDefinitionVersionArn",
           "optional": true,
@@ -2342,12 +2342,7 @@
           "name": "deviceSpecificSubscriptions",
           "optional": true,
           "type": {
-            "collection": {
-              "elementtype": {
-                "fqn": "cdk-greengrass.Subscription"
-              },
-              "kind": "array"
-            }
+            "fqn": "cdk-greengrass.Subscriptions"
           }
         },
         {
@@ -2479,12 +2474,7 @@
           "name": "subscriptions",
           "optional": true,
           "type": {
-            "collection": {
-              "elementtype": {
-                "fqn": "cdk-greengrass.Subscription"
-              },
-              "kind": "array"
-            }
+            "fqn": "cdk-greengrass.Subscriptions"
           }
         }
       ]
@@ -2530,7 +2520,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 129
+            "line": 123
           },
           "name": "functionDefinitionVersionArn",
           "optional": true,
@@ -2542,7 +2532,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 131
+            "line": 125
           },
           "name": "loggerDefinitionVersionArn",
           "optional": true,
@@ -2554,7 +2544,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 132
+            "line": 126
           },
           "name": "resourceDefinitionVersionArn",
           "optional": true,
@@ -2566,7 +2556,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 133
+            "line": 127
           },
           "name": "role",
           "optional": true,
@@ -2578,7 +2568,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 130
+            "line": 124
           },
           "name": "subscriptionDefinitionVersionArn",
           "optional": true,
@@ -2702,12 +2692,7 @@
           "name": "subscriptions",
           "optional": true,
           "type": {
-            "collection": {
-              "elementtype": {
-                "fqn": "cdk-greengrass.Subscription"
-              },
-              "kind": "array"
-            }
+            "fqn": "cdk-greengrass.Subscriptions"
           }
         }
       ]
@@ -3416,7 +3401,7 @@
     },
     "cdk-greengrass.LocalShadowDestination": {
       "assembly": "cdk-greengrass",
-      "base": "cdk-greengrass.DestinationBase",
+      "base": "cdk-greengrass.DestinationInternal",
       "fqn": "cdk-greengrass.LocalShadowDestination",
       "initializer": {},
       "kind": "class",
@@ -3433,7 +3418,7 @@
             "line": 17
           },
           "name": "arn",
-          "overrides": "cdk-greengrass.DestinationBase",
+          "overrides": "cdk-greengrass.DestinationInternal",
           "type": {
             "primitive": "string"
           }
@@ -4371,338 +4356,6 @@
         }
       ]
     },
-    "cdk-greengrass.Subscription": {
-      "assembly": "cdk-greengrass",
-      "base": "@aws-cdk/core.Resource",
-      "fqn": "cdk-greengrass.Subscription",
-      "initializer": {
-        "locationInModule": {
-          "filename": "lib/subscription.ts",
-          "line": 122
-        },
-        "parameters": [
-          {
-            "name": "scope",
-            "type": {
-              "fqn": "@aws-cdk/core.Construct"
-            }
-          },
-          {
-            "name": "id",
-            "type": {
-              "primitive": "string"
-            }
-          },
-          {
-            "name": "props",
-            "type": {
-              "fqn": "cdk-greengrass.SubscriptionProps"
-            }
-          }
-        ]
-      },
-      "kind": "class",
-      "locationInModule": {
-        "filename": "lib/subscription.ts",
-        "line": 116
-      },
-      "methods": [
-        {
-          "locationInModule": {
-            "filename": "lib/subscription.ts",
-            "line": 139
-          },
-          "name": "fromCloud",
-          "parameters": [
-            {
-              "name": "scope",
-              "type": {
-                "fqn": "@aws-cdk/core.Construct"
-              }
-            },
-            {
-              "name": "id",
-              "type": {
-                "primitive": "string"
-              }
-            },
-            {
-              "name": "target",
-              "type": {
-                "union": {
-                  "types": [
-                    {
-                      "fqn": "cdk-greengrass.Function"
-                    },
-                    {
-                      "fqn": "cdk-greengrass.CloudDestination"
-                    },
-                    {
-                      "fqn": "cdk-greengrass.LocalShadowDestination"
-                    },
-                    {
-                      "fqn": "cdk-greengrass.Device"
-                    }
-                  ]
-                }
-              }
-            },
-            {
-              "name": "topic",
-              "type": {
-                "primitive": "string"
-              }
-            }
-          ],
-          "returns": {
-            "type": {
-              "fqn": "cdk-greengrass.Subscription"
-            }
-          },
-          "static": true
-        },
-        {
-          "locationInModule": {
-            "filename": "lib/subscription.ts",
-            "line": 156
-          },
-          "name": "fromLocalShadow",
-          "parameters": [
-            {
-              "name": "scope",
-              "type": {
-                "fqn": "@aws-cdk/core.Construct"
-              }
-            },
-            {
-              "name": "id",
-              "type": {
-                "primitive": "string"
-              }
-            },
-            {
-              "name": "target",
-              "type": {
-                "union": {
-                  "types": [
-                    {
-                      "fqn": "cdk-greengrass.Function"
-                    },
-                    {
-                      "fqn": "cdk-greengrass.CloudDestination"
-                    },
-                    {
-                      "fqn": "cdk-greengrass.LocalShadowDestination"
-                    },
-                    {
-                      "fqn": "cdk-greengrass.Device"
-                    }
-                  ]
-                }
-              }
-            },
-            {
-              "name": "topic",
-              "type": {
-                "primitive": "string"
-              }
-            }
-          ],
-          "returns": {
-            "type": {
-              "fqn": "cdk-greengrass.Subscription"
-            }
-          },
-          "static": true
-        },
-        {
-          "locationInModule": {
-            "filename": "lib/subscription.ts",
-            "line": 130
-          },
-          "name": "toCloud",
-          "parameters": [
-            {
-              "name": "scope",
-              "type": {
-                "fqn": "@aws-cdk/core.Construct"
-              }
-            },
-            {
-              "name": "id",
-              "type": {
-                "primitive": "string"
-              }
-            },
-            {
-              "name": "source",
-              "type": {
-                "union": {
-                  "types": [
-                    {
-                      "fqn": "cdk-greengrass.Function"
-                    },
-                    {
-                      "fqn": "cdk-greengrass.CloudDestination"
-                    },
-                    {
-                      "fqn": "cdk-greengrass.LocalShadowDestination"
-                    },
-                    {
-                      "fqn": "cdk-greengrass.Device"
-                    }
-                  ]
-                }
-              }
-            },
-            {
-              "name": "topic",
-              "type": {
-                "primitive": "string"
-              }
-            }
-          ],
-          "returns": {
-            "type": {
-              "fqn": "cdk-greengrass.Subscription"
-            }
-          },
-          "static": true
-        },
-        {
-          "locationInModule": {
-            "filename": "lib/subscription.ts",
-            "line": 147
-          },
-          "name": "toLocalShadow",
-          "parameters": [
-            {
-              "name": "scope",
-              "type": {
-                "fqn": "@aws-cdk/core.Construct"
-              }
-            },
-            {
-              "name": "id",
-              "type": {
-                "primitive": "string"
-              }
-            },
-            {
-              "name": "source",
-              "type": {
-                "union": {
-                  "types": [
-                    {
-                      "fqn": "cdk-greengrass.Function"
-                    },
-                    {
-                      "fqn": "cdk-greengrass.CloudDestination"
-                    },
-                    {
-                      "fqn": "cdk-greengrass.LocalShadowDestination"
-                    },
-                    {
-                      "fqn": "cdk-greengrass.Device"
-                    }
-                  ]
-                }
-              }
-            },
-            {
-              "name": "topic",
-              "type": {
-                "primitive": "string"
-              }
-            }
-          ],
-          "returns": {
-            "type": {
-              "fqn": "cdk-greengrass.Subscription"
-            }
-          },
-          "static": true
-        },
-        {
-          "locationInModule": {
-            "filename": "lib/subscription.ts",
-            "line": 164
-          },
-          "name": "resolve",
-          "returns": {
-            "type": {
-              "fqn": "@aws-cdk/aws-greengrass.CfnSubscriptionDefinition.SubscriptionProperty"
-            }
-          }
-        }
-      ],
-      "name": "Subscription",
-      "properties": [
-        {
-          "immutable": true,
-          "locationInModule": {
-            "filename": "lib/subscription.ts",
-            "line": 118
-          },
-          "name": "source",
-          "type": {
-            "union": {
-              "types": [
-                {
-                  "fqn": "cdk-greengrass.Function"
-                },
-                {
-                  "fqn": "cdk-greengrass.CloudDestination"
-                },
-                {
-                  "fqn": "cdk-greengrass.LocalShadowDestination"
-                },
-                {
-                  "fqn": "cdk-greengrass.Device"
-                }
-              ]
-            }
-          }
-        },
-        {
-          "immutable": true,
-          "locationInModule": {
-            "filename": "lib/subscription.ts",
-            "line": 119
-          },
-          "name": "target",
-          "type": {
-            "union": {
-              "types": [
-                {
-                  "fqn": "cdk-greengrass.Function"
-                },
-                {
-                  "fqn": "cdk-greengrass.CloudDestination"
-                },
-                {
-                  "fqn": "cdk-greengrass.LocalShadowDestination"
-                },
-                {
-                  "fqn": "cdk-greengrass.Device"
-                }
-              ]
-            }
-          }
-        },
-        {
-          "immutable": true,
-          "locationInModule": {
-            "filename": "lib/subscription.ts",
-            "line": 117
-          },
-          "name": "topic",
-          "type": {
-            "primitive": "string"
-          }
-        }
-      ]
-    },
     "cdk-greengrass.SubscriptionProps": {
       "assembly": "cdk-greengrass",
       "datatype": true,
@@ -4822,91 +4475,9 @@
         {
           "locationInModule": {
             "filename": "lib/subscription.ts",
-            "line": 56
-          },
-          "name": "addFromCloud",
-          "parameters": [
-            {
-              "name": "target",
-              "type": {
-                "union": {
-                  "types": [
-                    {
-                      "fqn": "cdk-greengrass.Function"
-                    },
-                    {
-                      "fqn": "cdk-greengrass.CloudDestination"
-                    },
-                    {
-                      "fqn": "cdk-greengrass.LocalShadowDestination"
-                    },
-                    {
-                      "fqn": "cdk-greengrass.Device"
-                    }
-                  ]
-                }
-              }
-            },
-            {
-              "name": "topic",
-              "type": {
-                "primitive": "string"
-              }
-            }
-          ],
-          "returns": {
-            "type": {
-              "fqn": "cdk-greengrass.Subscriptions"
-            }
-          }
-        },
-        {
-          "locationInModule": {
-            "filename": "lib/subscription.ts",
-            "line": 74
-          },
-          "name": "addFromLocalShadow",
-          "parameters": [
-            {
-              "name": "target",
-              "type": {
-                "union": {
-                  "types": [
-                    {
-                      "fqn": "cdk-greengrass.Function"
-                    },
-                    {
-                      "fqn": "cdk-greengrass.CloudDestination"
-                    },
-                    {
-                      "fqn": "cdk-greengrass.LocalShadowDestination"
-                    },
-                    {
-                      "fqn": "cdk-greengrass.Device"
-                    }
-                  ]
-                }
-              }
-            },
-            {
-              "name": "topic",
-              "type": {
-                "primitive": "string"
-              }
-            }
-          ],
-          "returns": {
-            "type": {
-              "fqn": "cdk-greengrass.Subscriptions"
-            }
-          }
-        },
-        {
-          "locationInModule": {
-            "filename": "lib/subscription.ts",
             "line": 47
           },
-          "name": "addToCloud",
+          "name": "add",
           "parameters": [
             {
               "name": "source",
@@ -4934,23 +4505,9 @@
               "type": {
                 "primitive": "string"
               }
-            }
-          ],
-          "returns": {
-            "type": {
-              "fqn": "cdk-greengrass.Subscriptions"
-            }
-          }
-        },
-        {
-          "locationInModule": {
-            "filename": "lib/subscription.ts",
-            "line": 65
-          },
-          "name": "addToLocalShadow",
-          "parameters": [
+            },
             {
-              "name": "source",
+              "name": "target",
               "type": {
                 "union": {
                   "types": [
@@ -4969,12 +4526,6 @@
                   ]
                 }
               }
-            },
-            {
-              "name": "topic",
-              "type": {
-                "primitive": "string"
-              }
             }
           ],
           "returns": {
@@ -4986,7 +4537,7 @@
         {
           "locationInModule": {
             "filename": "lib/subscription.ts",
-            "line": 83
+            "line": 56
           },
           "name": "resolve",
           "returns": {
@@ -5054,5 +4605,5 @@
     }
   },
   "version": "0.2.0",
-  "fingerprint": "QKg5Z/o9t6fQO5/X4lSWfAZn7V32J2cpzmxyKwOF3QM="
+  "fingerprint": "DlDnCUPzCxHniY9dJdDfK4M6+LYzuEBVWffxhY0arF4="
 }

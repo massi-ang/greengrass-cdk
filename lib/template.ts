@@ -1,6 +1,22 @@
+/* 
+ *  Copyright 2020 Massimiliano Angelino
+ *  
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *  
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *  
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 import * as cdk from '@aws-cdk/core';
 import { Function } from './functions';
-import { Subscription } from './subscription'
+import { Subscriptions } from './subscription'
 import { LoggerBase } from './logger'
 import { Resource } from './resource'
 import * as gg from '@aws-cdk/aws-greengrass'
@@ -9,7 +25,7 @@ import { StreamManagerProps } from './group'
 
 export interface GroupTemplateProps {
     readonly functions?: Function[];
-    readonly subscriptions?: Subscription[];
+    readonly subscriptions?: Subscriptions;
     readonly loggers?: LoggerBase[];
     readonly resources?: Resource[];
     readonly role?: Role,
@@ -79,13 +95,11 @@ export class GroupTemplate extends cdk.Construct {
        
 
         if (props.subscriptions !== undefined) {
-            function convert(x: Subscription): gg.CfnSubscriptionDefinition.SubscriptionProperty {
-                return x.resolve();
-            }
+           
             let subscriptionDefinition = new gg.CfnSubscriptionDefinition(this, id + '_subscriptions', {
                 name: id+'_s',
                 initialVersion: {
-                    subscriptions: props.subscriptions!.map(convert)
+                    subscriptions: props.subscriptions!.resolve()
                 }
             })
             this.subscriptionDefinitionVersionArn = subscriptionDefinition.attrLatestVersionArn;
@@ -120,10 +134,6 @@ export class GroupTemplate extends cdk.Construct {
         }
     }
 
-    // private functionDef?: gg.CfnFunctionDefinition;
-    // private subscriptionDef?: gg.CfnSubscriptionDefinition;
-    // private loggerDef?: gg.CfnLoggerDefinition;
-    // private resourceDef?: gg.CfnResourceDefinition;
     private streamManagerEnvironment?: gg.CfnFunctionDefinition.EnvironmentProperty;
 
     readonly functionDefinitionVersionArn?: string;

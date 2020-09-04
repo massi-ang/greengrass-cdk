@@ -1,19 +1,35 @@
+/* 
+ *  Copyright 2020 Massimiliano Angelino
+ *  
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *  
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *  
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 import * as cdk from '@aws-cdk/core';
 import { Function } from './functions';
 import { Device } from './device';
 import * as gg from '@aws-cdk/aws-greengrass';
 
-export abstract class DestinationBase {
+export abstract class DestinationInternal {
     abstract get arn(): string;
 }
 
-export class CloudDestination extends DestinationBase {
+export class CloudDestination extends DestinationInternal {
     get arn(): string {
         return "cloud"
     }
 }
 
-export class LocalShadowDestination extends DestinationBase {
+export class LocalShadowDestination extends DestinationInternal {
     get arn(): string {
         return "GGShadowService"
     }
@@ -44,39 +60,12 @@ export class Subscriptions extends cdk.Resource {
         }
     }
 
-    addToCloud(source: Destination, topic: string): Subscriptions {
+    add(source: Destination, topic: string, target: Destination): Subscriptions {
         this.subscriptionList.push({
             source: source,
-            target: new CloudDestination(),
+            target: target,
             topic: topic
-        })   
-        return this;
-    }
-
-    addFromCloud(target: Destination, topic: string): Subscriptions {
-        this.subscriptionList.push({
-            source: new CloudDestination(),
-            topic: topic,
-            target: target
         })
-        return this;
-    }
-
-    addToLocalShadow(source: Destination, topic: string): Subscriptions {
-        this.subscriptionList.push({
-            source: source,
-            topic: topic,
-            target: new LocalShadowDestination()
-        })
-        return this;
-    }
-
-    addFromLocalShadow(target: Destination, topic: string): Subscriptions {
-        this.subscriptionList.push({
-            source: new LocalShadowDestination(),
-            topic: topic,
-            target: target
-        });
         return this;
     }
 
@@ -84,21 +73,22 @@ export class Subscriptions extends cdk.Resource {
 
         let source: string;
         let target: string;
-        return this.subscriptionList.map(s => {
+
+        const res = this.subscriptionList.map(s => {
             
-            if ('function' in s.source) {
+            if ('lambdaFunction' in s.source) {
                 let f = (s.source as Function);
                 source = f.lambdaFunction.functionArn + ':' + f.alias.aliasName;
             } else {
-                let d = (s.source as DestinationBase);
+                let d = (s.source as DestinationInternal);
                 source = d.arn
             }
 
-            if ('function' in s.target) {
+            if ('lambdaFunction' in s.target) {
                 let f = (s.target as Function);
                 target = f.lambdaFunction.functionArn + ':' + f.alias.aliasName;
             } else {
-                let d = (s.target as DestinationBase);
+                let d = (s.target as DestinationInternal);
                 target = d.arn
             }
             return {
@@ -107,86 +97,8 @@ export class Subscriptions extends cdk.Resource {
                 target: target,
                 subject: s.topic
             }
-        })
-
-        
+        })  
+        return res;
     }
 }
 
-export class Subscription extends cdk.Resource {
-    readonly topic: string;
-    readonly source: Destination;
-    readonly target: Destination;
-    private id: string;
-
-    constructor(scope: cdk.Construct, id: string, props: SubscriptionProps) {
-        super(scope, id);
-        this.id = id;
-        this.topic = props.topic;
-        this.source = props.source;
-        this.target = props.target;
-    }
-
-    static toCloud(scope: cdk.Construct, id: string, source: Destination, topic: string): Subscription {
-        return new Subscription(scope, id, {
-            source: source,
-            topic: topic, 
-            target: new CloudDestination()
-
-        } )
-    }
-
-    static fromCloud(scope: cdk.Construct, id: string, target: Destination, topic: string): Subscription {
-        return new Subscription(scope, id, {
-            source: new CloudDestination(),
-            topic: topic,
-            target: target
-        })
-    }
-
-    static toLocalShadow(scope: cdk.Construct, id: string, source: Destination, topic: string): Subscription {
-        return new Subscription(scope, id, {
-            source: source,
-            topic: topic,
-            target: new LocalShadowDestination()
-
-        })
-    }
-
-    static fromLocalShadow(scope: cdk.Construct, id: string, target: Destination, topic: string): Subscription {
-        return new Subscription(scope, id, {
-            source: new LocalShadowDestination(),
-            topic: topic,
-            target: target
-        })
-    }
-
-    resolve(): gg.CfnSubscriptionDefinition.SubscriptionProperty {
-        let source: string;
-        let target: string;
-
-        if ('function' in this.source) {
-            let f = (this.source as Function);
-            source = f.lambdaFunction.functionArn + ':' + f.alias.aliasName;
-        } else {
-            let d = (this.source as DestinationBase);
-            source = d.arn
-        }
-
-        if ('function' in this.target) {
-            let f = (this.target as Function);
-            target = f.lambdaFunction.functionArn + ':' + f.alias.aliasName;
-        } else {
-            let d = (this.target as DestinationBase);
-            target = d.arn
-        }
-        return {
-            id: this.id,
-            source: source,
-            target: target,
-            subject: this.topic
-        }
-    }
-}
-
-  
