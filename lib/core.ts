@@ -1,7 +1,5 @@
 import * as cdk from '@aws-cdk/core';
-import { Construct, IResolvable, IConstruct } from '@aws-cdk/core';
-import { CfnThing, CfnCertificate } from '@aws-cdk/aws-iot'
-import { GGLambda } from './functions';
+import { CfnThing } from '@aws-cdk/aws-iot'
 import * as gg from '@aws-cdk/aws-greengrass'
 
 export interface ICore {
