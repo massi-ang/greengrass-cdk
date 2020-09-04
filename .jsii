@@ -604,13 +604,13 @@
     "cdk-greengrass.Functions": {
       "locationInModule": {
         "filename": "lib/functions.ts",
-        "line": 7
+        "line": 23
       }
     },
     "cdk-greengrass.Logger": {
       "locationInModule": {
         "filename": "lib/logger.ts",
-        "line": 5
+        "line": 21
       }
     }
   },
@@ -631,7 +631,7 @@
       "initializer": {
         "locationInModule": {
           "filename": "lib/logger.ts",
-          "line": 37
+          "line": 53
         },
         "parameters": [
           {
@@ -657,13 +657,13 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/logger.ts",
-        "line": 79
+        "line": 95
       },
       "methods": [
         {
           "locationInModule": {
             "filename": "lib/logger.ts",
-            "line": 80
+            "line": 96
           },
           "name": "resolve",
           "overrides": "cdk-greengrass.LoggerBase",
@@ -683,7 +683,7 @@
       "initializer": {
         "locationInModule": {
           "filename": "lib/logger.ts",
-          "line": 37
+          "line": 53
         },
         "parameters": [
           {
@@ -709,13 +709,13 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/logger.ts",
-        "line": 90
+        "line": 106
       },
       "methods": [
         {
           "locationInModule": {
             "filename": "lib/logger.ts",
-            "line": 91
+            "line": 107
           },
           "name": "resolve",
           "overrides": "cdk-greengrass.LoggerBase",
@@ -736,7 +736,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/subscription.ts",
-        "line": 10
+        "line": 26
       },
       "name": "CloudDestination",
       "properties": [
@@ -744,7 +744,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/subscription.ts",
-            "line": 11
+            "line": 27
           },
           "name": "arn",
           "overrides": "cdk-greengrass.DestinationInternal",
@@ -761,7 +761,7 @@
       "initializer": {
         "locationInModule": {
           "filename": "lib/connectors/cloudwatchmetrics.ts",
-          "line": 16
+          "line": 32
         },
         "parameters": [
           {
@@ -787,7 +787,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/connectors/cloudwatchmetrics.ts",
-        "line": 14
+        "line": 30
       },
       "name": "CloudWatchMetrics",
       "properties": [
@@ -795,7 +795,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/cloudwatchmetrics.ts",
-            "line": 25
+            "line": 41
           },
           "name": "connectorArn",
           "overrides": "cdk-greengrass.Connector",
@@ -807,7 +807,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/cloudwatchmetrics.ts",
-            "line": 21
+            "line": 37
           },
           "name": "parameters",
           "overrides": "cdk-greengrass.Connector",
@@ -821,10 +821,13 @@
       "assembly": "cdk-greengrass",
       "datatype": true,
       "fqn": "cdk-greengrass.CloudWatchMetricsConnectorProps",
+      "interfaces": [
+        "cdk-greengrass.ConnectorProps"
+      ],
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/connectors/cloudwatchmetrics.ts",
-        "line": 3
+        "line": 19
       },
       "name": "CloudWatchMetricsConnectorProps",
       "properties": [
@@ -836,7 +839,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/cloudwatchmetrics.ts",
-            "line": 11
+            "line": 27
           },
           "name": "isolationMode",
           "type": {
@@ -851,7 +854,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/cloudwatchmetrics.ts",
-            "line": 9
+            "line": 25
           },
           "name": "maxMetricsToRetain",
           "type": {
@@ -866,7 +869,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/cloudwatchmetrics.ts",
-            "line": 7
+            "line": 23
           },
           "name": "memorySize",
           "type": {
@@ -878,7 +881,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/cloudwatchmetrics.ts",
-            "line": 4
+            "line": 20
           },
           "name": "publishInterval",
           "type": {
@@ -890,7 +893,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/cloudwatchmetrics.ts",
-            "line": 5
+            "line": 21
           },
           "name": "publishRegion",
           "type": {
@@ -907,7 +910,7 @@
       "initializer": {
         "locationInModule": {
           "filename": "lib/connector.ts",
-          "line": 15
+          "line": 26
         },
         "parameters": [
           {
@@ -934,13 +937,13 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/connector.ts",
-        "line": 13
+        "line": 24
       },
       "methods": [
         {
           "locationInModule": {
             "filename": "lib/connector.ts",
-            "line": 24
+            "line": 35
           },
           "name": "resolve",
           "returns": {
@@ -957,7 +960,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connector.ts",
-            "line": 21
+            "line": 32
           },
           "name": "connectorArn",
           "type": {
@@ -969,7 +972,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connector.ts",
-            "line": 22
+            "line": 33
           },
           "name": "parameters",
           "type": {
@@ -985,7 +988,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/connector.ts",
-        "line": 9
+        "line": 20
       },
       "name": "ConnectorProps"
     },
@@ -996,7 +999,7 @@
       "initializer": {
         "locationInModule": {
           "filename": "lib/core.ts",
-          "line": 46
+          "line": 62
         },
         "parameters": [
           {
@@ -1025,13 +1028,13 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/core.ts",
-        "line": 41
+        "line": 57
       },
       "methods": [
         {
           "locationInModule": {
             "filename": "lib/core.ts",
-            "line": 53
+            "line": 69
           },
           "name": "resolve",
           "returns": {
@@ -1050,7 +1053,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/core.ts",
-            "line": 43
+            "line": 59
           },
           "name": "certificateArn",
           "overrides": "cdk-greengrass.ICore",
@@ -1065,7 +1068,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/core.ts",
-            "line": 42
+            "line": 58
           },
           "name": "thing",
           "overrides": "cdk-greengrass.ICore",
@@ -1079,7 +1082,7 @@
           },
           "locationInModule": {
             "filename": "lib/core.ts",
-            "line": 44
+            "line": 60
           },
           "name": "syncShadow",
           "overrides": "cdk-greengrass.ICore",
@@ -1096,7 +1099,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/core.ts",
-        "line": 23
+        "line": 39
       },
       "name": "CoreProps",
       "properties": [
@@ -1108,7 +1111,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/core.ts",
-            "line": 38
+            "line": 54
           },
           "name": "certificateArn",
           "type": {
@@ -1123,7 +1126,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/core.ts",
-            "line": 33
+            "line": 49
           },
           "name": "syncShadow",
           "type": {
@@ -1138,7 +1141,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/core.ts",
-            "line": 27
+            "line": 43
           },
           "name": "thing",
           "type": {
@@ -1155,7 +1158,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/subscription.ts",
-        "line": 6
+        "line": 22
       },
       "name": "DestinationInternal",
       "properties": [
@@ -1164,7 +1167,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/subscription.ts",
-            "line": 7
+            "line": 23
           },
           "name": "arn",
           "type": {
@@ -1180,7 +1183,7 @@
       "initializer": {
         "locationInModule": {
           "filename": "lib/device.ts",
-          "line": 18
+          "line": 34
         },
         "parameters": [
           {
@@ -1206,13 +1209,13 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/device.ts",
-        "line": 12
+        "line": 28
       },
       "methods": [
         {
           "locationInModule": {
             "filename": "lib/device.ts",
-            "line": 26
+            "line": 42
           },
           "name": "resolve",
           "returns": {
@@ -1228,7 +1231,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/device.ts",
-            "line": 15
+            "line": 31
           },
           "name": "certificateArn",
           "type": {
@@ -1239,7 +1242,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/device.ts",
-            "line": 14
+            "line": 30
           },
           "name": "syncShadow",
           "type": {
@@ -1250,7 +1253,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/device.ts",
-            "line": 13
+            "line": 29
           },
           "name": "thing",
           "type": {
@@ -1266,7 +1269,7 @@
       "initializer": {
         "locationInModule": {
           "filename": "lib/connectors/devicedefender.ts",
-          "line": 11
+          "line": 27
         },
         "parameters": [
           {
@@ -1292,7 +1295,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/connectors/devicedefender.ts",
-        "line": 9
+        "line": 25
       },
       "name": "DeviceDefender",
       "properties": [
@@ -1300,7 +1303,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/devicedefender.ts",
-            "line": 20
+            "line": 36
           },
           "name": "connectorArn",
           "overrides": "cdk-greengrass.Connector",
@@ -1312,7 +1315,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/devicedefender.ts",
-            "line": 16
+            "line": 32
           },
           "name": "parameters",
           "overrides": "cdk-greengrass.Connector",
@@ -1326,10 +1329,13 @@
       "assembly": "cdk-greengrass",
       "datatype": true,
       "fqn": "cdk-greengrass.DeviceDefenderConnectorProps",
+      "interfaces": [
+        "cdk-greengrass.ConnectorProps"
+      ],
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/connectors/devicedefender.ts",
-        "line": 3
+        "line": 19
       },
       "name": "DeviceDefenderConnectorProps",
       "properties": [
@@ -1338,7 +1344,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/devicedefender.ts",
-            "line": 6
+            "line": 22
           },
           "name": "procDestinationPath",
           "type": {
@@ -1350,7 +1356,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/devicedefender.ts",
-            "line": 5
+            "line": 21
           },
           "name": "procDestinationPathResourceId",
           "type": {
@@ -1362,7 +1368,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/devicedefender.ts",
-            "line": 4
+            "line": 20
           },
           "name": "sampleIntervalSeconds",
           "type": {
@@ -1378,7 +1384,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/device.ts",
-        "line": 6
+        "line": 22
       },
       "name": "DeviceProps",
       "properties": [
@@ -1387,7 +1393,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/device.ts",
-            "line": 9
+            "line": 25
           },
           "name": "certificateArn",
           "type": {
@@ -1399,7 +1405,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/device.ts",
-            "line": 8
+            "line": 24
           },
           "name": "syncShadow",
           "type": {
@@ -1411,7 +1417,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/device.ts",
-            "line": 7
+            "line": 23
           },
           "name": "thing",
           "type": {
@@ -1427,7 +1433,7 @@
       "initializer": {
         "locationInModule": {
           "filename": "lib/functions.ts",
-          "line": 57
+          "line": 73
         },
         "parameters": [
           {
@@ -1453,13 +1459,13 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/functions.ts",
-        "line": 55
+        "line": 71
       },
       "methods": [
         {
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 81
+            "line": 97
           },
           "name": "addResource",
           "parameters": [
@@ -1485,7 +1491,7 @@
         {
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 92
+            "line": 108
           },
           "name": "resolve",
           "returns": {
@@ -1501,7 +1507,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 119
+            "line": 135
           },
           "name": "alias",
           "type": {
@@ -1512,7 +1518,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 118
+            "line": 134
           },
           "name": "lambdaFunction",
           "type": {
@@ -1523,7 +1529,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 121
+            "line": 137
           },
           "name": "memorySize",
           "type": {
@@ -1534,7 +1540,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 117
+            "line": 133
           },
           "name": "name",
           "type": {
@@ -1545,7 +1551,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 120
+            "line": 136
           },
           "name": "pinned",
           "type": {
@@ -1565,7 +1571,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 122
+            "line": 138
           },
           "name": "timeout",
           "type": {
@@ -1576,7 +1582,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 130
+            "line": 146
           },
           "name": "accessSysFs",
           "optional": true,
@@ -1597,7 +1603,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 125
+            "line": 141
           },
           "name": "encodingType",
           "optional": true,
@@ -1609,7 +1615,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 124
+            "line": 140
           },
           "name": "execArgs",
           "optional": true,
@@ -1621,7 +1627,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 123
+            "line": 139
           },
           "name": "executable",
           "optional": true,
@@ -1633,7 +1639,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 126
+            "line": 142
           },
           "name": "isolationMode",
           "optional": true,
@@ -1645,7 +1651,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 127
+            "line": 143
           },
           "name": "runAs",
           "optional": true,
@@ -1657,7 +1663,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 129
+            "line": 145
           },
           "name": "variables",
           "optional": true,
@@ -1668,7 +1674,7 @@
         {
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 128
+            "line": 144
           },
           "name": "resourceAccessPolicies",
           "optional": true,
@@ -1690,7 +1696,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/functions.ts",
-        "line": 39
+        "line": 55
       },
       "name": "FunctionProps",
       "properties": [
@@ -1699,7 +1705,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 41
+            "line": 57
           },
           "name": "alias",
           "type": {
@@ -1711,7 +1717,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 40
+            "line": 56
           },
           "name": "function",
           "type": {
@@ -1723,7 +1729,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 43
+            "line": 59
           },
           "name": "memorySize",
           "type": {
@@ -1735,7 +1741,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 42
+            "line": 58
           },
           "name": "pinned",
           "type": {
@@ -1756,7 +1762,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 44
+            "line": 60
           },
           "name": "timeout",
           "type": {
@@ -1768,7 +1774,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 52
+            "line": 68
           },
           "name": "accessSysFs",
           "optional": true,
@@ -1790,7 +1796,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 47
+            "line": 63
           },
           "name": "encodingType",
           "optional": true,
@@ -1803,7 +1809,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 46
+            "line": 62
           },
           "name": "execArgs",
           "optional": true,
@@ -1816,7 +1822,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 45
+            "line": 61
           },
           "name": "executable",
           "optional": true,
@@ -1829,7 +1835,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 48
+            "line": 64
           },
           "name": "isolationMode",
           "optional": true,
@@ -1842,7 +1848,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 50
+            "line": 66
           },
           "name": "resourceAccessPolicies",
           "optional": true,
@@ -1860,7 +1866,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 49
+            "line": 65
           },
           "name": "runAs",
           "optional": true,
@@ -1873,7 +1879,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 51
+            "line": 67
           },
           "name": "variables",
           "optional": true,
@@ -1889,7 +1895,7 @@
       "kind": "enum",
       "locationInModule": {
         "filename": "lib/functions.ts",
-        "line": 33
+        "line": 49
       },
       "members": [
         {
@@ -1909,7 +1915,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/functions.ts",
-        "line": 23
+        "line": 39
       },
       "name": "Execution",
       "namespace": "Functions",
@@ -1919,7 +1925,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 24
+            "line": 40
           },
           "name": "isolationMode",
           "type": {
@@ -1931,7 +1937,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 25
+            "line": 41
           },
           "name": "runAs",
           "type": {
@@ -1946,7 +1952,7 @@
       "kind": "enum",
       "locationInModule": {
         "filename": "lib/functions.ts",
-        "line": 13
+        "line": 29
       },
       "members": [
         {
@@ -1965,7 +1971,7 @@
       "kind": "enum",
       "locationInModule": {
         "filename": "lib/functions.ts",
-        "line": 18
+        "line": 34
       },
       "members": [
         {
@@ -1985,7 +1991,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/functions.ts",
-        "line": 28
+        "line": 44
       },
       "name": "ResourceAccessPolicy",
       "namespace": "Functions",
@@ -1995,7 +2001,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 30
+            "line": 46
           },
           "name": "permission",
           "type": {
@@ -2007,7 +2013,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 29
+            "line": 45
           },
           "name": "resource",
           "type": {
@@ -2023,7 +2029,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/functions.ts",
-        "line": 8
+        "line": 24
       },
       "name": "RunAs",
       "namespace": "Functions",
@@ -2033,7 +2039,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 10
+            "line": 26
           },
           "name": "gid",
           "type": {
@@ -2045,7 +2051,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 9
+            "line": 25
           },
           "name": "uid",
           "type": {
@@ -2061,7 +2067,7 @@
       "initializer": {
         "locationInModule": {
           "filename": "lib/group.ts",
-          "line": 41
+          "line": 57
         },
         "parameters": [
           {
@@ -2087,13 +2093,13 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/group.ts",
-        "line": 35
+        "line": 51
       },
       "methods": [
         {
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 202
+            "line": 218
           },
           "name": "fromTemplate",
           "parameters": [
@@ -2132,7 +2138,7 @@
         {
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 190
+            "line": 206
           },
           "name": "cloneToNew",
           "parameters": [
@@ -2162,7 +2168,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 37
+            "line": 53
           },
           "name": "arn",
           "type": {
@@ -2173,7 +2179,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 36
+            "line": 52
           },
           "name": "id",
           "type": {
@@ -2184,7 +2190,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 38
+            "line": 54
           },
           "name": "latestVersionArn",
           "type": {
@@ -2195,7 +2201,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 217
+            "line": 233
           },
           "name": "functionDefinitionVersionArn",
           "optional": true,
@@ -2207,7 +2213,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 219
+            "line": 235
           },
           "name": "loggerDefinitionVersionArn",
           "optional": true,
@@ -2219,7 +2225,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 220
+            "line": 236
           },
           "name": "resourceDefinitionVersionArn",
           "optional": true,
@@ -2231,7 +2237,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 39
+            "line": 55
           },
           "name": "roleArn",
           "optional": true,
@@ -2243,7 +2249,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 218
+            "line": 234
           },
           "name": "subscriptionDefinitionVersionArn",
           "optional": true,
@@ -2260,7 +2266,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/resource.ts",
-        "line": 18
+        "line": 34
       },
       "name": "GroupOwnerSetting",
       "properties": [
@@ -2269,7 +2275,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/resource.ts",
-            "line": 20
+            "line": 36
           },
           "name": "autoAddGroupOwner",
           "type": {
@@ -2281,7 +2287,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/resource.ts",
-            "line": 19
+            "line": 35
           },
           "name": "groupOwner",
           "optional": true,
@@ -2298,7 +2304,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/group.ts",
-        "line": 20
+        "line": 36
       },
       "name": "GroupProps",
       "properties": [
@@ -2307,7 +2313,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 21
+            "line": 37
           },
           "name": "core",
           "type": {
@@ -2319,7 +2325,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 27
+            "line": 43
           },
           "name": "devices",
           "optional": true,
@@ -2337,7 +2343,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 28
+            "line": 44
           },
           "name": "deviceSpecificSubscriptions",
           "optional": true,
@@ -2350,7 +2356,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 30
+            "line": 46
           },
           "name": "enableAutomaticIpDiscovery",
           "optional": true,
@@ -2363,7 +2369,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 22
+            "line": 38
           },
           "name": "functionExecution",
           "optional": true,
@@ -2376,7 +2382,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 23
+            "line": 39
           },
           "name": "functions",
           "optional": true,
@@ -2394,7 +2400,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 32
+            "line": 48
           },
           "name": "initialVersion",
           "optional": true,
@@ -2407,7 +2413,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 25
+            "line": 41
           },
           "name": "loggers",
           "optional": true,
@@ -2425,7 +2431,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 26
+            "line": 42
           },
           "name": "resources",
           "optional": true,
@@ -2443,7 +2449,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 31
+            "line": 47
           },
           "name": "role",
           "optional": true,
@@ -2456,7 +2462,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 29
+            "line": 45
           },
           "name": "streamManager",
           "optional": true,
@@ -2469,7 +2475,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 24
+            "line": 40
           },
           "name": "subscriptions",
           "optional": true,
@@ -2486,7 +2492,7 @@
       "initializer": {
         "locationInModule": {
           "filename": "lib/template.ts",
-          "line": 21
+          "line": 37
         },
         "parameters": [
           {
@@ -2512,7 +2518,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/template.ts",
-        "line": 20
+        "line": 36
       },
       "name": "GroupTemplate",
       "properties": [
@@ -2520,7 +2526,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 123
+            "line": 139
           },
           "name": "functionDefinitionVersionArn",
           "optional": true,
@@ -2532,7 +2538,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 125
+            "line": 141
           },
           "name": "loggerDefinitionVersionArn",
           "optional": true,
@@ -2544,7 +2550,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 126
+            "line": 142
           },
           "name": "resourceDefinitionVersionArn",
           "optional": true,
@@ -2556,7 +2562,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 127
+            "line": 143
           },
           "name": "role",
           "optional": true,
@@ -2568,7 +2574,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 124
+            "line": 140
           },
           "name": "subscriptionDefinitionVersionArn",
           "optional": true,
@@ -2585,7 +2591,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/template.ts",
-        "line": 10
+        "line": 26
       },
       "name": "GroupTemplateProps",
       "properties": [
@@ -2594,7 +2600,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 17
+            "line": 33
           },
           "name": "enableAutomaticIpDiscovery",
           "optional": true,
@@ -2607,7 +2613,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 11
+            "line": 27
           },
           "name": "functions",
           "optional": true,
@@ -2625,7 +2631,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 13
+            "line": 29
           },
           "name": "loggers",
           "optional": true,
@@ -2643,7 +2649,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 14
+            "line": 30
           },
           "name": "resources",
           "optional": true,
@@ -2661,7 +2667,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 15
+            "line": 31
           },
           "name": "role",
           "optional": true,
@@ -2674,7 +2680,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 16
+            "line": 32
           },
           "name": "streamManager",
           "optional": true,
@@ -2687,7 +2693,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 12
+            "line": 28
           },
           "name": "subscriptions",
           "optional": true,
@@ -2703,7 +2709,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/core.ts",
-        "line": 5
+        "line": 21
       },
       "name": "ICore",
       "properties": [
@@ -2715,7 +2721,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/core.ts",
-            "line": 20
+            "line": 36
           },
           "name": "certificateArn",
           "type": {
@@ -2730,7 +2736,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/core.ts",
-            "line": 9
+            "line": 25
           },
           "name": "thing",
           "type": {
@@ -2744,7 +2750,7 @@
           },
           "locationInModule": {
             "filename": "lib/core.ts",
-            "line": 15
+            "line": 31
           },
           "name": "syncShadow",
           "type": {
@@ -2760,7 +2766,7 @@
       "initializer": {
         "locationInModule": {
           "filename": "lib/connectors/iotanalytics.ts",
-          "line": 18
+          "line": 34
         },
         "parameters": [
           {
@@ -2786,7 +2792,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/connectors/iotanalytics.ts",
-        "line": 16
+        "line": 32
       },
       "name": "IoTAnalytics",
       "properties": [
@@ -2794,7 +2800,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/iotanalytics.ts",
-            "line": 27
+            "line": 43
           },
           "name": "connectorArn",
           "overrides": "cdk-greengrass.Connector",
@@ -2806,7 +2812,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/iotanalytics.ts",
-            "line": 23
+            "line": 39
           },
           "name": "parameters",
           "overrides": "cdk-greengrass.Connector",
@@ -2820,10 +2826,13 @@
       "assembly": "cdk-greengrass",
       "datatype": true,
       "fqn": "cdk-greengrass.IoTAnalyticsConnectorProps",
+      "interfaces": [
+        "cdk-greengrass.ConnectorProps"
+      ],
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/connectors/iotanalytics.ts",
-        "line": 3
+        "line": 19
       },
       "name": "IoTAnalyticsConnectorProps",
       "properties": [
@@ -2835,7 +2844,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/iotanalytics.ts",
-            "line": 5
+            "line": 21
           },
           "name": "memorySize",
           "type": {
@@ -2847,7 +2856,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/iotanalytics.ts",
-            "line": 11
+            "line": 27
           },
           "name": "iotAnalyticsBatchSizePerChannel",
           "optional": true,
@@ -2860,7 +2869,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/iotanalytics.ts",
-            "line": 12
+            "line": 28
           },
           "name": "iotAnalyticsDefaultChannelName",
           "optional": true,
@@ -2873,7 +2882,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/iotanalytics.ts",
-            "line": 8
+            "line": 24
           },
           "name": "iotAnalyticsMaxActiveChannels",
           "optional": true,
@@ -2886,7 +2895,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/iotanalytics.ts",
-            "line": 9
+            "line": 25
           },
           "name": "iotAnalyticsQueueDropBehavior",
           "optional": true,
@@ -2899,7 +2908,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/iotanalytics.ts",
-            "line": 10
+            "line": 26
           },
           "name": "iotAnalyticsQueueSizePerChannel",
           "optional": true,
@@ -2912,7 +2921,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/iotanalytics.ts",
-            "line": 13
+            "line": 29
           },
           "name": "isolationMode",
           "optional": true,
@@ -2925,7 +2934,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/iotanalytics.ts",
-            "line": 6
+            "line": 22
           },
           "name": "publishInterval",
           "optional": true,
@@ -2938,7 +2947,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/iotanalytics.ts",
-            "line": 7
+            "line": 23
           },
           "name": "publishRegion",
           "optional": true,
@@ -2955,7 +2964,7 @@
       "initializer": {
         "locationInModule": {
           "filename": "lib/connectors/iotsitewise.ts",
-          "line": 12
+          "line": 28
         },
         "parameters": [
           {
@@ -2981,7 +2990,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/connectors/iotsitewise.ts",
-        "line": 10
+        "line": 26
       },
       "name": "IoTSitewise",
       "properties": [
@@ -2989,7 +2998,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/iotsitewise.ts",
-            "line": 21
+            "line": 37
           },
           "name": "connectorArn",
           "overrides": "cdk-greengrass.Connector",
@@ -3001,7 +3010,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/iotsitewise.ts",
-            "line": 17
+            "line": 33
           },
           "name": "parameters",
           "overrides": "cdk-greengrass.Connector",
@@ -3015,10 +3024,13 @@
       "assembly": "cdk-greengrass",
       "datatype": true,
       "fqn": "cdk-greengrass.IoTSitewiseConnectorProps",
+      "interfaces": [
+        "cdk-greengrass.ConnectorProps"
+      ],
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/connectors/iotsitewise.ts",
-        "line": 3
+        "line": 19
       },
       "name": "IoTSitewiseConnectorProps",
       "properties": [
@@ -3027,7 +3039,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/iotsitewise.ts",
-            "line": 5
+            "line": 21
           },
           "name": "awsSecretArnList",
           "type": {
@@ -3042,7 +3054,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/iotsitewise.ts",
-            "line": 7
+            "line": 23
           },
           "name": "maximumBufferSize",
           "type": {
@@ -3054,7 +3066,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/iotsitewise.ts",
-            "line": 4
+            "line": 20
           },
           "name": "siteWiseLocalStoragePath",
           "type": {
@@ -3070,7 +3082,7 @@
       "initializer": {
         "locationInModule": {
           "filename": "lib/connectors/kinesisfirehose.ts",
-          "line": 14
+          "line": 30
         },
         "parameters": [
           {
@@ -3096,7 +3108,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/connectors/kinesisfirehose.ts",
-        "line": 12
+        "line": 28
       },
       "name": "KinesisFirehose",
       "properties": [
@@ -3104,7 +3116,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/kinesisfirehose.ts",
-            "line": 23
+            "line": 39
           },
           "name": "connectorArn",
           "overrides": "cdk-greengrass.Connector",
@@ -3116,7 +3128,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/kinesisfirehose.ts",
-            "line": 19
+            "line": 35
           },
           "name": "parameters",
           "overrides": "cdk-greengrass.Connector",
@@ -3130,10 +3142,13 @@
       "assembly": "cdk-greengrass",
       "datatype": true,
       "fqn": "cdk-greengrass.KinesisFirehoseConnectorProps",
+      "interfaces": [
+        "cdk-greengrass.ConnectorProps"
+      ],
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/connectors/kinesisfirehose.ts",
-        "line": 3
+        "line": 19
       },
       "name": "KinesisFirehoseConnectorProps",
       "properties": [
@@ -3142,7 +3157,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/kinesisfirehose.ts",
-            "line": 4
+            "line": 20
           },
           "name": "defaultDeliveryStreamArn",
           "type": {
@@ -3154,7 +3169,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/kinesisfirehose.ts",
-            "line": 5
+            "line": 21
           },
           "name": "deliveryStreamQueueSize",
           "type": {
@@ -3169,7 +3184,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/kinesisfirehose.ts",
-            "line": 7
+            "line": 23
           },
           "name": "memorySize",
           "type": {
@@ -3181,7 +3196,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/kinesisfirehose.ts",
-            "line": 8
+            "line": 24
           },
           "name": "publishInterval",
           "type": {
@@ -3197,7 +3212,7 @@
       "initializer": {
         "locationInModule": {
           "filename": "lib/resource.ts",
-          "line": 61
+          "line": 77
         },
         "parameters": [
           {
@@ -3223,13 +3238,13 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/resource.ts",
-        "line": 60
+        "line": 76
       },
       "methods": [
         {
           "locationInModule": {
             "filename": "lib/resource.ts",
-            "line": 70
+            "line": 86
           },
           "name": "resolve",
           "overrides": "cdk-greengrass.Resource",
@@ -3246,7 +3261,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/resource.ts",
-            "line": 68
+            "line": 84
           },
           "name": "groupOwnerSetting",
           "type": {
@@ -3257,7 +3272,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/resource.ts",
-            "line": 67
+            "line": 83
           },
           "name": "sourcePath",
           "type": {
@@ -3276,7 +3291,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/resource.ts",
-        "line": 23
+        "line": 39
       },
       "name": "LocalDeviceResourceProps",
       "properties": [
@@ -3285,7 +3300,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/resource.ts",
-            "line": 25
+            "line": 41
           },
           "name": "groupOwnerSetting",
           "type": {
@@ -3297,7 +3312,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/resource.ts",
-            "line": 24
+            "line": 40
           },
           "name": "sourcePath",
           "type": {
@@ -3313,7 +3328,7 @@
       "initializer": {
         "locationInModule": {
           "filename": "lib/logger.ts",
-          "line": 49
+          "line": 65
         },
         "parameters": [
           {
@@ -3339,13 +3354,13 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/logger.ts",
-        "line": 55
+        "line": 71
       },
       "methods": [
         {
           "locationInModule": {
             "filename": "lib/logger.ts",
-            "line": 56
+            "line": 72
           },
           "name": "resolve",
           "overrides": "cdk-greengrass.LoggerBase",
@@ -3362,7 +3377,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/logger.ts",
-            "line": 47
+            "line": 63
           },
           "name": "space",
           "type": {
@@ -3381,7 +3396,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/logger.ts",
-        "line": 29
+        "line": 45
       },
       "name": "LocalLoggerProps",
       "properties": [
@@ -3390,7 +3405,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/logger.ts",
-            "line": 30
+            "line": 46
           },
           "name": "space",
           "type": {
@@ -3407,7 +3422,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/subscription.ts",
-        "line": 16
+        "line": 32
       },
       "name": "LocalShadowDestination",
       "properties": [
@@ -3415,7 +3430,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/subscription.ts",
-            "line": 17
+            "line": 33
           },
           "name": "arn",
           "overrides": "cdk-greengrass.DestinationInternal",
@@ -3432,7 +3447,7 @@
       "initializer": {
         "locationInModule": {
           "filename": "lib/logger.ts",
-          "line": 49
+          "line": 65
         },
         "parameters": [
           {
@@ -3458,13 +3473,13 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/logger.ts",
-        "line": 67
+        "line": 83
       },
       "methods": [
         {
           "locationInModule": {
             "filename": "lib/logger.ts",
-            "line": 68
+            "line": 84
           },
           "name": "resolve",
           "overrides": "cdk-greengrass.LoggerBase",
@@ -3481,7 +3496,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/logger.ts",
-            "line": 47
+            "line": 63
           },
           "name": "space",
           "type": {
@@ -3497,7 +3512,7 @@
       "initializer": {
         "locationInModule": {
           "filename": "lib/resource.ts",
-          "line": 85
+          "line": 101
         },
         "parameters": [
           {
@@ -3523,13 +3538,13 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/resource.ts",
-        "line": 84
+        "line": 100
       },
       "methods": [
         {
           "locationInModule": {
             "filename": "lib/resource.ts",
-            "line": 96
+            "line": 112
           },
           "name": "resolve",
           "overrides": "cdk-greengrass.Resource",
@@ -3546,7 +3561,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/resource.ts",
-            "line": 93
+            "line": 109
           },
           "name": "destinationPath",
           "type": {
@@ -3557,7 +3572,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/resource.ts",
-            "line": 94
+            "line": 110
           },
           "name": "groupOwnerSetting",
           "type": {
@@ -3568,7 +3583,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/resource.ts",
-            "line": 92
+            "line": 108
           },
           "name": "sourcePath",
           "type": {
@@ -3587,7 +3602,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/resource.ts",
-        "line": 27
+        "line": 43
       },
       "name": "LocalVolumeResourceProps",
       "properties": [
@@ -3596,7 +3611,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/resource.ts",
-            "line": 29
+            "line": 45
           },
           "name": "destinationPath",
           "type": {
@@ -3608,7 +3623,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/resource.ts",
-            "line": 30
+            "line": 46
           },
           "name": "groupOwnerSetting",
           "type": {
@@ -3620,7 +3635,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/resource.ts",
-            "line": 28
+            "line": 44
           },
           "name": "sourcePath",
           "type": {
@@ -3635,7 +3650,7 @@
       "kind": "enum",
       "locationInModule": {
         "filename": "lib/logger.ts",
-        "line": 6
+        "line": 22
       },
       "members": [
         {
@@ -3654,7 +3669,7 @@
       "kind": "enum",
       "locationInModule": {
         "filename": "lib/logger.ts",
-        "line": 11
+        "line": 27
       },
       "members": [
         {
@@ -3684,7 +3699,7 @@
       "initializer": {
         "locationInModule": {
           "filename": "lib/logger.ts",
-          "line": 37
+          "line": 53
         },
         "parameters": [
           {
@@ -3710,14 +3725,14 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/logger.ts",
-        "line": 33
+        "line": 49
       },
       "methods": [
         {
           "abstract": true,
           "locationInModule": {
             "filename": "lib/logger.ts",
-            "line": 43
+            "line": 59
           },
           "name": "resolve",
           "returns": {
@@ -3733,7 +3748,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/logger.ts",
-            "line": 34
+            "line": 50
           },
           "name": "level",
           "type": {
@@ -3743,7 +3758,7 @@
         {
           "locationInModule": {
             "filename": "lib/logger.ts",
-            "line": 35
+            "line": 51
           },
           "name": "id",
           "protected": true,
@@ -3760,7 +3775,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/logger.ts",
-        "line": 25
+        "line": 41
       },
       "name": "LoggerProps",
       "properties": [
@@ -3769,7 +3784,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/logger.ts",
-            "line": 26
+            "line": 42
           },
           "name": "level",
           "type": {
@@ -3785,7 +3800,7 @@
       "initializer": {
         "locationInModule": {
           "filename": "lib/connectors/mlfeedback.ts",
-          "line": 29
+          "line": 45
         },
         "parameters": [
           {
@@ -3811,7 +3826,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/connectors/mlfeedback.ts",
-        "line": 27
+        "line": 43
       },
       "name": "MLFeedback",
       "properties": [
@@ -3819,7 +3834,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/mlfeedback.ts",
-            "line": 38
+            "line": 54
           },
           "name": "connectorArn",
           "overrides": "cdk-greengrass.Connector",
@@ -3831,7 +3846,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/mlfeedback.ts",
-            "line": 34
+            "line": 50
           },
           "name": "parameters",
           "overrides": "cdk-greengrass.Connector",
@@ -3845,10 +3860,13 @@
       "assembly": "cdk-greengrass",
       "datatype": true,
       "fqn": "cdk-greengrass.MLFeedbackConnectorProps",
+      "interfaces": [
+        "cdk-greengrass.ConnectorProps"
+      ],
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/connectors/mlfeedback.ts",
-        "line": 5
+        "line": 21
       },
       "name": "MLFeedbackConnectorProps",
       "properties": [
@@ -3861,7 +3879,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/mlfeedback.ts",
-            "line": 22
+            "line": 38
           },
           "name": "feedbackConfigurationMap",
           "type": {
@@ -3873,7 +3891,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/mlfeedback.ts",
-            "line": 23
+            "line": 39
           },
           "name": "requestLimit",
           "optional": true,
@@ -3890,7 +3908,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/resource.ts",
-        "line": 13
+        "line": 29
       },
       "name": "OwnerSetting",
       "properties": [
@@ -3899,7 +3917,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/resource.ts",
-            "line": 14
+            "line": 30
           },
           "name": "groupOwner",
           "type": {
@@ -3911,7 +3929,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/resource.ts",
-            "line": 15
+            "line": 31
           },
           "name": "groupPermission",
           "type": {
@@ -3926,7 +3944,7 @@
       "kind": "enum",
       "locationInModule": {
         "filename": "lib/resource.ts",
-        "line": 8
+        "line": 24
       },
       "members": [
         {
@@ -3946,7 +3964,7 @@
       "initializer": {
         "locationInModule": {
           "filename": "lib/resource.ts",
-          "line": 50
+          "line": 66
         },
         "parameters": [
           {
@@ -3972,14 +3990,14 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/resource.ts",
-        "line": 46
+        "line": 62
       },
       "methods": [
         {
           "abstract": true,
           "locationInModule": {
             "filename": "lib/resource.ts",
-            "line": 56
+            "line": 72
           },
           "name": "resolve",
           "returns": {
@@ -3995,7 +4013,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/resource.ts",
-            "line": 47
+            "line": 63
           },
           "name": "id",
           "type": {
@@ -4006,7 +4024,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/resource.ts",
-            "line": 48
+            "line": 64
           },
           "name": "name",
           "type": {
@@ -4022,7 +4040,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/resource.ts",
-        "line": 4
+        "line": 20
       },
       "name": "ResourceProps",
       "properties": [
@@ -4031,7 +4049,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/resource.ts",
-            "line": 5
+            "line": 21
           },
           "name": "name",
           "type": {
@@ -4047,7 +4065,7 @@
       "initializer": {
         "locationInModule": {
           "filename": "lib/resource.ts",
-          "line": 140
+          "line": 156
         },
         "parameters": [
           {
@@ -4073,13 +4091,13 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/resource.ts",
-        "line": 139
+        "line": 155
       },
       "methods": [
         {
           "locationInModule": {
             "filename": "lib/resource.ts",
-            "line": 151
+            "line": 167
           },
           "name": "resolve",
           "overrides": "cdk-greengrass.Resource",
@@ -4096,7 +4114,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/resource.ts",
-            "line": 148
+            "line": 164
           },
           "name": "destinationPath",
           "type": {
@@ -4107,7 +4125,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/resource.ts",
-            "line": 149
+            "line": 165
           },
           "name": "ownerSetting",
           "type": {
@@ -4118,7 +4136,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/resource.ts",
-            "line": 147
+            "line": 163
           },
           "name": "s3Uri",
           "type": {
@@ -4137,7 +4155,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/resource.ts",
-        "line": 39
+        "line": 55
       },
       "name": "S3MachineLearningModelResourceProps",
       "properties": [
@@ -4146,7 +4164,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/resource.ts",
-            "line": 41
+            "line": 57
           },
           "name": "destinationPath",
           "type": {
@@ -4158,7 +4176,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/resource.ts",
-            "line": 42
+            "line": 58
           },
           "name": "ownerSettings",
           "type": {
@@ -4170,7 +4188,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/resource.ts",
-            "line": 40
+            "line": 56
           },
           "name": "s3Uri",
           "type": {
@@ -4186,7 +4204,7 @@
       "initializer": {
         "locationInModule": {
           "filename": "lib/resource.ts",
-          "line": 112
+          "line": 128
         },
         "parameters": [
           {
@@ -4212,13 +4230,13 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/resource.ts",
-        "line": 111
+        "line": 127
       },
       "methods": [
         {
           "locationInModule": {
             "filename": "lib/resource.ts",
-            "line": 123
+            "line": 139
           },
           "name": "resolve",
           "overrides": "cdk-greengrass.Resource",
@@ -4235,7 +4253,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/resource.ts",
-            "line": 120
+            "line": 136
           },
           "name": "destinationPath",
           "type": {
@@ -4246,7 +4264,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/resource.ts",
-            "line": 121
+            "line": 137
           },
           "name": "ownerSetting",
           "type": {
@@ -4257,7 +4275,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/resource.ts",
-            "line": 119
+            "line": 135
           },
           "name": "sageMakerJobArn",
           "type": {
@@ -4276,7 +4294,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/resource.ts",
-        "line": 33
+        "line": 49
       },
       "name": "SageMakerMachineLearningModelResourceProps",
       "properties": [
@@ -4285,7 +4303,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/resource.ts",
-            "line": 35
+            "line": 51
           },
           "name": "destinationPath",
           "type": {
@@ -4297,7 +4315,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/resource.ts",
-            "line": 36
+            "line": 52
           },
           "name": "ownerSettings",
           "type": {
@@ -4309,7 +4327,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/resource.ts",
-            "line": 34
+            "line": 50
           },
           "name": "sageMakerJobArn",
           "type": {
@@ -4325,7 +4343,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/group.ts",
-        "line": 14
+        "line": 30
       },
       "name": "StreamManagerProps",
       "properties": [
@@ -4334,7 +4352,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 15
+            "line": 31
           },
           "name": "enableStreamManager",
           "type": {
@@ -4346,7 +4364,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 16
+            "line": 32
           },
           "name": "allowInsecureAccess",
           "optional": true,
@@ -4363,7 +4381,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/subscription.ts",
-        "line": 25
+        "line": 41
       },
       "name": "SubscriptionProps",
       "properties": [
@@ -4372,7 +4390,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/subscription.ts",
-            "line": 27
+            "line": 43
           },
           "name": "source",
           "type": {
@@ -4399,7 +4417,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/subscription.ts",
-            "line": 28
+            "line": 44
           },
           "name": "target",
           "type": {
@@ -4426,7 +4444,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/subscription.ts",
-            "line": 26
+            "line": 42
           },
           "name": "topic",
           "type": {
@@ -4442,7 +4460,7 @@
       "initializer": {
         "locationInModule": {
           "filename": "lib/subscription.ts",
-          "line": 38
+          "line": 54
         },
         "parameters": [
           {
@@ -4469,13 +4487,13 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/subscription.ts",
-        "line": 35
+        "line": 51
       },
       "methods": [
         {
           "locationInModule": {
             "filename": "lib/subscription.ts",
-            "line": 47
+            "line": 63
           },
           "name": "add",
           "parameters": [
@@ -4537,7 +4555,7 @@
         {
           "locationInModule": {
             "filename": "lib/subscription.ts",
-            "line": 56
+            "line": 72
           },
           "name": "resolve",
           "returns": {
@@ -4558,7 +4576,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/subscription.ts",
-            "line": 36
+            "line": 52
           },
           "name": "subscriptionList",
           "type": {
@@ -4579,7 +4597,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/subscription.ts",
-        "line": 31
+        "line": 47
       },
       "name": "SubscriptionsProps",
       "properties": [
@@ -4588,7 +4606,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/subscription.ts",
-            "line": 32
+            "line": 48
           },
           "name": "subscriptions",
           "optional": true,
@@ -4605,5 +4623,5 @@
     }
   },
   "version": "0.2.0",
-  "fingerprint": "DlDnCUPzCxHniY9dJdDfK4M6+LYzuEBVWffxhY0arF4="
+  "fingerprint": "OarV0w3OCJGGILEsR4I4fdBOkvocuSTul966st2AwJc="
 }
