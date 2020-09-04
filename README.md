@@ -47,13 +47,13 @@ let tmp_folder: gg.LocalVolumeResource = {
     name: 'temp'
 }
 
-let gg_lambda:gg.GGLambda = {
+let gg_lambda:gg.Function = {
     function: f,
     alias: alias,
-    encodingType: gg.Function.EncodingType.JSON,
-    memorySize: 16000,
+    encodingType: gg.Functions.EncodingType.JSON,
+    memorySize: cdk.Size.mibibytes(16),
     pinned: false,
-    timeout: 3
+    timeout: cdk.Duration.seconds(3)
 }
 
 let localLogger: gg.LocalLogger = {

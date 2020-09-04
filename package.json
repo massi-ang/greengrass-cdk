@@ -1,9 +1,6 @@
 {
-  "name": "cdk",
-  "version": "0.1.0",
-  "bin": {
-    "cdk": "bin/cdk.js"
-  },
+  "name": "cdk-greengrass-l2",
+  "version": "0.2.0",
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
