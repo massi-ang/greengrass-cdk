@@ -40,13 +40,3 @@ export abstract class Connector extends Construct {
         }
     }
 }
-
-class TestConnector extends Connector {
-    get connectorArn(): string {
-        return "a";
-    }
-
-    get parameters(): any {
-        return { 'x': 1}
-    }
-}
