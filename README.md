@@ -53,7 +53,10 @@ let gg_lambda:gg.Function = {
     encodingType: gg.Functions.EncodingType.JSON,
     memorySize: cdk.Size.mibibytes(16),
     pinned: false,
-    timeout: cdk.Duration.seconds(3)
+    timeout: cdk.Duration.seconds(3),
+    variables: new Map([
+        ["name": "value"]
+    ])
 }
 
 let localLogger: gg.LocalLogger = {
