@@ -1,9 +1,8 @@
 import * as cdk from '@aws-cdk/core'
-import * as gg from './greengrass'
+import * as gg from '../../cdk/lib/index'
 import * as iot from '@aws-cdk/aws-iot';
-import * as lambda  from '@aws-cdk/aws-lambda';
+import * as lambda from '@aws-cdk/aws-lambda';
 import { RemovalPolicy } from '@aws-cdk/core';
-import { Subscription } from './subscription';
 
 export interface MyStackProps extends cdk.StackProps {
     certificateArn: string;
@@ -27,9 +26,9 @@ export class MyStack extends cdk.Stack {
             version: f.currentVersion,
             aliasName: 'prod',
         });
-        
+
         // and then we need few Things as cores
-        
+
         let a_t = new iot.CfnThing(this, 'a_thing', {
             thingName: 'MyThing'
         })
@@ -71,7 +70,7 @@ export class MyStack extends cdk.Stack {
         // we add the resource to the function
 
         gg_lambda.addResource(tmp_folder, gg.Function.ResourceAccessPermission.READ_ONLY);
-        
+
         // setting up local logging for greenfrass components
 
         let localLogger = new gg.LocalGreengrassLogger(this, 'local_logger', {
@@ -82,8 +81,8 @@ export class MyStack extends cdk.Stack {
         // and some subscriptions
 
         let subscriptions = [
-            Subscription.toCloud(this, 'my_sub1', gg_lambda, '#'),
-            Subscription.fromCloud(this, 'my_sub2', gg_lambda, '#')
+            gg.Subscription.toCloud(this, 'my_sub1', gg_lambda, '#'),
+            gg.Subscription.fromCloud(this, 'my_sub2', gg_lambda, '#')
         ];
 
         // We create a first group
@@ -94,10 +93,10 @@ export class MyStack extends cdk.Stack {
                 syncShadow: true,
                 certificateArn: props.certificateArn
             }),
-            functions: [ gg_lambda ],
+            functions: [gg_lambda],
             subscriptions: subscriptions,
-            loggers: [ localLogger ],
-            resources: [ tmp_folder ]
+            loggers: [localLogger],
+            resources: [tmp_folder]
         })
 
         // and a second group, using the same configuration, but different cores
@@ -119,10 +118,9 @@ export class MyStack extends cdk.Stack {
         // in this template we only add a lambda and a logger
         let template = new gg.GroupTemplate(this, 'gg_template', {
             functions: [gg_lambda],
-            loggers: [ localLogger ]
+            loggers: [localLogger]
         })
 
-        
         new cdk.CfnOutput(this, 'function_version', {
             description: 'FunctionVersionArn',
             value: template.functionDefinitionVersionArn!,
@@ -147,6 +145,6 @@ export class MyStack extends cdk.Stack {
 
         // or we can simply clone an existing one:
         b_group.cloneToNew('d_group', core_d)
-        
+
     }
 }
