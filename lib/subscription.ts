@@ -1,5 +1,5 @@
 import * as cdk from '@aws-cdk/core';
-import { GGLambda } from './functions';
+import { Function } from './functions';
 import { Device } from './device';
 import * as gg from '@aws-cdk/aws-greengrass';
 export abstract class DestinationBase {
@@ -18,7 +18,7 @@ export class LocalShadowDestination extends DestinationBase {
     }
 }
 
-type Destination = CloudDestination | LocalShadowDestination | GGLambda | Device
+type Destination = CloudDestination | LocalShadowDestination | Function | Device
 
 
 export interface SubscriptionProps {
@@ -80,7 +80,7 @@ export class Subscription extends cdk.Resource {
         let target: string;
 
         if ('function' in this.source) {
-            let f = (this.source as GGLambda);
+            let f = (this.source as Function);
             source = f.function.functionArn + ':' + f.alias.aliasName;
         } else {
             let d = (this.source as DestinationBase);
@@ -88,7 +88,7 @@ export class Subscription extends cdk.Resource {
         }
 
         if ('function' in this.target) {
-            let f = (this.target as GGLambda);
+            let f = (this.target as Function);
             target = f.function.functionArn + ':' + f.alias.aliasName;
         } else {
             let d = (this.target as DestinationBase);

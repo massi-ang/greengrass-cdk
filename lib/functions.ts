@@ -1,10 +1,10 @@
 import * as cdk from '@aws-cdk/core';
-import { Construct, IResolvable } from '@aws-cdk/core';
+import { Construct, IResolvable, Duration, Size } from '@aws-cdk/core';
 import { GGResource } from './resource';
 import * as lambda from '@aws-cdk/aws-lambda'
 import * as gg from '@aws-cdk/aws-greengrass'
 
-export namespace Function {
+export namespace Functions {
     export interface RunAs {
         uid: number,
         gid: number
@@ -35,45 +35,30 @@ export namespace Function {
         BINARY = 'binary'
     }
 }
-export interface IGGLambda {
-    readonly function: lambda.Function,
-    readonly alias: lambda.Alias,
-    readonly pinned: boolean | IResolvable,
-    memorySize: number,
-    timeout: number,
-    readonly executable?: string,
-    readonly execArgs?: string,
-    readonly encodingType?: Function.EncodingType,
-    readonly isolationMode?: Function.IsolationMode,
-    readonly runAs?: Function.RunAs,
-    resourceAccessPolicies?: Function.ResourceAccessPolicy[],
-    readonly variables?: Map<string, string>,
-    readonly accessSysFs?: boolean | IResolvable
-}
 
-export interface GGLambdaProps {
+export interface FunctionProps {
     readonly function: lambda.Function,
     readonly alias: lambda.Alias,
     readonly pinned: boolean | IResolvable,
-    memorySize: number,
-    timeout: number,
+    memorySize: Size,
+    timeout: Duration,
     readonly executable?: string,
     readonly execArgs?: string,
-    readonly encodingType?: Function.EncodingType,
-    readonly isolationMode?: Function.IsolationMode,
-    readonly runAs?: Function.RunAs,
-    resourceAccessPolicies?: Function.ResourceAccessPolicy[],
-    readonly variables?: Map<string, string>,
+    readonly encodingType?: Functions.EncodingType,
+    readonly isolationMode?: Functions.IsolationMode,
+    readonly runAs?: Functions.RunAs,
+    resourceAccessPolicies?: Functions.ResourceAccessPolicy[],
+    readonly variables?: Map<string, string | undefined >,
     readonly accessSysFs?: boolean | IResolvable
 }
 
 export interface FunctionDefinitionProps {
-    execution: Function.Execution
+    execution: Functions.Execution
 }
 
-export class GGLambda extends cdk.Resource implements IGGLambda {
+export class Function extends cdk.Resource {
     readonly creationStack: string[];
-    constructor(scope: cdk.Construct, id: string, props: GGLambdaProps) {
+    constructor(scope: cdk.Construct, id: string, props: FunctionProps) {
         super(scope, id);
 
         if (!(props.function.runtime == lambda.Runtime.PYTHON_3_7 ||
@@ -97,7 +82,7 @@ export class GGLambda extends cdk.Resource implements IGGLambda {
         this.accessSysFs = props.accessSysFs; 
     }
 
-    addResource(resource: GGResource, permission: Function.ResourceAccessPermission): GGLambda {
+    addResource(resource: GGResource, permission: Functions.ResourceAccessPermission): Function {
         if (this.resourceAccessPolicies == undefined) {
             this.resourceAccessPolicies = []
         }
@@ -124,8 +109,8 @@ export class GGLambda extends cdk.Resource implements IGGLambda {
                 encodingType: this.encodingType,
                 execArgs: this.execArgs,
                 executable: this.executable,
-                memorySize: this.memorySize,
-                timeout: this.timeout,
+                memorySize: this.memorySize.toKibibytes(),
+                timeout: this.timeout.toSeconds(),
                 pinned: this.pinned
             },
             id: this.name
@@ -137,19 +122,19 @@ export class GGLambda extends cdk.Resource implements IGGLambda {
     readonly function: lambda.Function;
     readonly alias: lambda.Alias;
     readonly pinned: boolean | IResolvable;
-    memorySize: number;
-    timeout: number;
+    readonly memorySize: Size;
+    readonly timeout: Duration;
     readonly executable?: string;
     readonly execArgs?: string;
-    readonly encodingType?: Function.EncodingType;
-    readonly isolationMode?: Function.IsolationMode;
-    readonly runAs?: Function.RunAs;
-    resourceAccessPolicies?: Function.ResourceAccessPolicy[];
-    readonly variables?: Map<string, string>;
+    readonly encodingType?: Functions.EncodingType;
+    readonly isolationMode?: Functions.IsolationMode;
+    readonly runAs?: Functions.RunAs;
+    resourceAccessPolicies?: Functions.ResourceAccessPolicy[];
+    readonly variables?: Map<string, string | undefined >;
     readonly accessSysFs ?: boolean | IResolvable;
 }
 
-function convertResouceAccessPolicies(rap: Function.ResourceAccessPolicy): gg.CfnFunctionDefinition.ResourceAccessPolicyProperty {
+function convertResouceAccessPolicies(rap: Functions.ResourceAccessPolicy): gg.CfnFunctionDefinition.ResourceAccessPolicyProperty {
     return {
         resourceId: rap.resource.id,
         permission: rap.permission

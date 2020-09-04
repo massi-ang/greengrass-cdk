@@ -1,6 +1,6 @@
 import * as cdk from '@aws-cdk/core';
-import { GGLambda, Function } from './functions';
-import { DestinationBase, Subscription } from './subscription'
+import { Function } from './functions';
+import { Subscription } from './subscription'
 import { LoggerBase } from './logger'
 import { GGResource } from './resource'
 import { Core } from './core';
@@ -10,7 +10,7 @@ import { Role } from '@aws-cdk/aws-iam';
 import { StreamManagerProps } from './group'
 
 export interface GroupTemplateProps {
-    functions?: GGLambda[];
+    functions?: Function[];
     subscriptions?: Subscription[];
     loggers?: LoggerBase[];
     resources?: GGResource[];
@@ -57,7 +57,7 @@ export class GroupTemplate extends cdk.Construct {
         }
 
         if (props.functions !== undefined || systemFunctions.length > 0) {
-            function convert(x: GGLambda): gg.CfnFunctionDefinition.FunctionProperty {
+            function convert(x: Function): gg.CfnFunctionDefinition.FunctionProperty {
                 return x.resolve();
             }
             var functionDefinition: gg.CfnFunctionDefinition;

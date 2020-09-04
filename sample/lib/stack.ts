@@ -2,7 +2,7 @@ import * as cdk from '@aws-cdk/core'
 import * as gg from '../../lib/index'
 import * as iot from '@aws-cdk/aws-iot';
 import * as lambda from '@aws-cdk/aws-lambda';
-import { RemovalPolicy } from '@aws-cdk/core';
+import { RemovalPolicy, Size, Duration } from '@aws-cdk/core';
 
 export interface MyStackProps extends cdk.StackProps {
     certificateArn: string;
@@ -58,18 +58,18 @@ export class MyStack extends cdk.Stack {
         // we define the Greengrass Lambda using the Lambda create before
         // this construct also validates the runtime type
 
-        let gg_lambda = new gg.GGLambda(this, 'a_lambda', {
+        let gg_lambda = new gg.Function(this, 'a_lambda', {
             function: f,
             alias: alias,
-            encodingType: gg.Function.EncodingType.JSON,
-            memorySize: 16000,
+            encodingType: gg.Functions.EncodingType.JSON,
+            memorySize: Size.mebibytes(128),
             pinned: false,
-            timeout: 3
+            timeout: Duration.seconds(3)
         })
 
         // we add the resource to the function
 
-        gg_lambda.addResource(tmp_folder, gg.Function.ResourceAccessPermission.READ_ONLY);
+        gg_lambda.addResource(tmp_folder, gg.Functions.ResourceAccessPermission.READ_ONLY);
 
         // setting up local logging for greenfrass components
 
