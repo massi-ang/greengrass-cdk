@@ -19,17 +19,17 @@ import * as cdk from '@aws-cdk/core';
 import * as Sample from '../lib/simple_stack';
 import {MyStack} from '../lib/stack';
 
-// test('Empty Stack', () => {
-//     const app = new cdk.App();
-//     // WHEN
-//     const stack = new Sample.SimpleGGStack(app, 'MyTestStack', { certificateArn: 'arn::1'});
-//     // THEN
+test('Empty Stack', () => {
+    const app = new cdk.App();
+    // WHEN
+    const stack = new Sample.SimpleGGStack(app, 'MyTestStack', { certificateArn: 'arn::1'});
+    // THEN
   
-//   console.log(JSON.stringify(SynthUtils.toCloudFormation(stack), undefined, 2));
-//     expectCDK(stack).to(matchTemplate({
-//       "Resources": {}
-//     }, MatchStyle.EXACT))
-// });
+  console.log(JSON.stringify(SynthUtils.toCloudFormation(stack), undefined, 2));
+    expectCDK(stack).to(matchTemplate({
+      "Resources": {}
+    }, MatchStyle.EXACT))
+});
 
 test('The other stack', () => {
   const app = new cdk.App();

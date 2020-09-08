@@ -754,6 +754,100 @@
         }
       ]
     },
+    "greengrass-cdk.CloudSpoolerProps": {
+      "assembly": "greengrass-cdk",
+      "datatype": true,
+      "fqn": "greengrass-cdk.CloudSpoolerProps",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/group.ts",
+        "line": 46
+      },
+      "name": "CloudSpoolerProps",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/group.ts",
+            "line": 48
+          },
+          "name": "enablePersistentSessions",
+          "optional": true,
+          "type": {
+            "primitive": "boolean"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/group.ts",
+            "line": 47
+          },
+          "name": "storage",
+          "optional": true,
+          "type": {
+            "fqn": "greengrass-cdk.CloudSpoolerStorageProps"
+          }
+        }
+      ]
+    },
+    "greengrass-cdk.CloudSpoolerStorageProps": {
+      "assembly": "greengrass-cdk",
+      "datatype": true,
+      "fqn": "greengrass-cdk.CloudSpoolerStorageProps",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/group.ts",
+        "line": 41
+      },
+      "name": "CloudSpoolerStorageProps",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/group.ts",
+            "line": 43
+          },
+          "name": "maxSize",
+          "type": {
+            "fqn": "@aws-cdk/core.Size"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/group.ts",
+            "line": 42
+          },
+          "name": "type",
+          "type": {
+            "fqn": "greengrass-cdk.CloudSpoolerStorageType"
+          }
+        }
+      ]
+    },
+    "greengrass-cdk.CloudSpoolerStorageType": {
+      "assembly": "greengrass-cdk",
+      "fqn": "greengrass-cdk.CloudSpoolerStorageType",
+      "kind": "enum",
+      "locationInModule": {
+        "filename": "lib/group.ts",
+        "line": 36
+      },
+      "members": [
+        {
+          "name": "MEMORY"
+        },
+        {
+          "name": "FILE_SYSTEM"
+        }
+      ],
+      "name": "CloudSpoolerStorageType"
+    },
     "greengrass-cdk.CloudWatchMetrics": {
       "assembly": "greengrass-cdk",
       "base": "greengrass-cdk.Connector",
@@ -2060,6 +2154,121 @@
         }
       ]
     },
+    "greengrass-cdk.Generic": {
+      "assembly": "greengrass-cdk",
+      "base": "greengrass-cdk.Connector",
+      "fqn": "greengrass-cdk.Generic",
+      "initializer": {
+        "locationInModule": {
+          "filename": "lib/connectors/generic.ts",
+          "line": 30
+        },
+        "parameters": [
+          {
+            "name": "scope",
+            "type": {
+              "fqn": "@aws-cdk/core.Construct"
+            }
+          },
+          {
+            "name": "id",
+            "type": {
+              "primitive": "string"
+            }
+          },
+          {
+            "name": "props",
+            "type": {
+              "fqn": "greengrass-cdk.GenericConnectorProps"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/connectors/generic.ts",
+        "line": 25
+      },
+      "name": "Generic",
+      "properties": [
+        {
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/connectors/generic.ts",
+            "line": 41
+          },
+          "name": "connectorArn",
+          "overrides": "greengrass-cdk.Connector",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/connectors/generic.ts",
+            "line": 37
+          },
+          "name": "parameters",
+          "overrides": "greengrass-cdk.Connector",
+          "type": {
+            "primitive": "any"
+          }
+        }
+      ]
+    },
+    "greengrass-cdk.GenericConnectorProps": {
+      "assembly": "greengrass-cdk",
+      "datatype": true,
+      "fqn": "greengrass-cdk.GenericConnectorProps",
+      "interfaces": [
+        "greengrass-cdk.ConnectorProps"
+      ],
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/connectors/generic.ts",
+        "line": 19
+      },
+      "name": "GenericConnectorProps",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/connectors/generic.ts",
+            "line": 21
+          },
+          "name": "name",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/connectors/generic.ts",
+            "line": 20
+          },
+          "name": "parameters",
+          "type": {
+            "primitive": "any"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/connectors/generic.ts",
+            "line": 22
+          },
+          "name": "version",
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ]
+    },
     "greengrass-cdk.Group": {
       "assembly": "greengrass-cdk",
       "base": "@aws-cdk/core.Construct",
@@ -2354,7 +2563,7 @@
           "name": "cloudSpooler",
           "optional": true,
           "type": {
-            "fqn": "cdk-greengrass.CloudSpoolerProps"
+            "fqn": "greengrass-cdk.CloudSpoolerProps"
           }
         },
         {
@@ -2369,7 +2578,7 @@
           "type": {
             "collection": {
               "elementtype": {
-                "fqn": "greengrass-cdk.Device"
+                "fqn": "greengrass-cdk.Connector"
               },
               "kind": "array"
             }
@@ -2385,7 +2594,7 @@
           "name": "defaultFunctionExecution",
           "optional": true,
           "type": {
-            "fqn": "greengrass-cdk.Subscriptions"
+            "fqn": "greengrass-cdk.Functions.Execution"
           }
         },
         {
@@ -2400,7 +2609,7 @@
           "type": {
             "collection": {
               "elementtype": {
-                "fqn": "cdk-greengrass.Device"
+                "fqn": "greengrass-cdk.Device"
               },
               "kind": "array"
             }
@@ -2416,7 +2625,7 @@
           "name": "deviceSpecificSubscriptions",
           "optional": true,
           "type": {
-            "fqn": "cdk-greengrass.Subscriptions"
+            "fqn": "greengrass-cdk.Subscriptions"
           }
         },
         {
@@ -2429,7 +2638,7 @@
           "name": "enableAutomaticIpDiscovery",
           "optional": true,
           "type": {
-            "fqn": "greengrass-cdk.Functions.Execution"
+            "primitive": "boolean"
           }
         },
         {
@@ -4678,5 +4887,5 @@
     }
   },
   "version": "0.3.1",
-  "fingerprint": "K2pnZ8q3wtiLIzrqx19UhCRiskNOQllq40CJWy0LfDA="
+  "fingerprint": "4QXW4mJl/WMsedcU20SY0vYnaWWnQvYr9XvBhB6Y164="
 }
