@@ -78,7 +78,7 @@ export class Subscriptions extends cdk.Resource {
             
             if ('lambdaFunction' in s.source) {
                 let f = (s.source as Function);
-                source = f.lambdaFunction.functionArn + ':' + f.alias.aliasName;
+                source = f.lambdaFunction.functionArn + ':' + f.reference;
             } else {
                 let d = (s.source as DestinationInternal);
                 source = d.arn
@@ -86,7 +86,7 @@ export class Subscriptions extends cdk.Resource {
 
             if ('lambdaFunction' in s.target) {
                 let f = (s.target as Function);
-                target = f.lambdaFunction.functionArn + ':' + f.alias.aliasName;
+                target = f.lambdaFunction.functionArn + ':' + f.reference;
             } else {
                 let d = (s.target as DestinationInternal);
                 target = d.arn

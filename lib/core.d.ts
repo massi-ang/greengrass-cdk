@@ -30,7 +30,13 @@ export interface CoreProps {
     readonly certificateArn: string;
 }
 export declare class Core extends cdk.Resource implements ICore {
+    /**
+     * The Thing associated to this Core
+     */
     readonly thing: CfnThing;
+    /**
+     * The certificate Arn used to authenticate to AWS IoT Core
+     */
     readonly certificateArn: string;
     syncShadow: boolean;
     constructor(scope: cdk.Construct, id: string, props: CoreProps);

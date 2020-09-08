@@ -22,12 +22,25 @@ import * as gg from '@aws-cdk/aws-greengrass'
 
 export namespace Functions {
     export interface RunAs {
+        /**
+         * The linux user id of the user executing the process
+         */
         readonly uid: number,
+        /**
+         * The linux group id of the user executing the process
+         */
         readonly gid: number
     }
 
     export enum IsolationMode {
+        /**
+         * Run lamnda function in isolated mode
+         */
         CONTAINER_MODE = 'GreengrassContainer',
+        /**
+         * Run lambda function as processes. This must be used when 
+         * running Greengrass in a docker container
+         */
         NO_CONTAINER_MODE = 'NoContainer'
     }
 
@@ -37,15 +50,26 @@ export namespace Functions {
     }
 
     export interface Execution {
+        /** The mode in which the process for the function is run */
         readonly isolationMode: IsolationMode,
+        /** The user running the process */
         readonly runAs: RunAs
     }
 
     export interface ResourceAccessPolicy {
+        /**
+         * The Resource to associate to this function
+         */
         readonly resource: Resource,
+        /**
+         * The permissions of the function on the resource
+         */
         readonly permission: ResourceAccessPermission,
     }
 
+    /**
+     * The encoding type of the `event` paramter passed to the handler
+     */
     export enum EncodingType {
         JSON = 'json',
         BINARY = 'binary'
@@ -53,34 +77,64 @@ export namespace Functions {
 }
 
 export interface FunctionProps {
+    /**
+     * The Lambda function whose code will be used for this Greengrass function
+     */
     readonly function: lambda.Function,
-    readonly alias: lambda.Alias,
+    /**
+     * THe alias of the function. This is the recommended way to refer to the function
+     */
+    readonly alias?: lambda.Alias,
+    /** The version of the function to use */
+    readonly version?: lambda.Version,
+    /** If set to true, the function is long running */
     readonly pinned: boolean | IResolvable,
-    readonly memorySize: Size,
+    /** The memory allocated to the lambda */
+    readonly memorySize?: Size,
+    /** The timeout for the execution of the handler */
     readonly timeout: Duration,
+    /** THe name of the executable when using compiled executables */
     readonly executable?: string,
+    /** The arguments to pass to the executable */
     readonly execArgs?: string,
+    /** The encoding type of the event message. */
     readonly encodingType?: Functions.EncodingType,
+    /** Determines if the lambda is run in containerized or non-containerized mode */
     readonly isolationMode?: Functions.IsolationMode,
+    /** The user running the lambda */
     readonly runAs?: Functions.RunAs,
+    /** The resource access policies for the function to associated resources */
     readonly resourceAccessPolicies?: Functions.ResourceAccessPolicy[],
+    /** Environment variables to associate to the Lambda */
     readonly variables?: any,
+    /** Allow access to the SysFs */
     readonly accessSysFs?: boolean | IResolvable
 }
 
 export class Function extends cdk.Resource {
     //readonly creationStack: string[];
+    get reference(): string {
+        if (this.alias) {
+            return this.alias.aliasName
+        } else if (this.version) {
+            return this.version.version
+        } else {
+            throw Error('Either alias or version must be specified')
+        }
+    }
+
     constructor(scope: cdk.Construct, id: string, props: FunctionProps) {
         super(scope, id);
 
-        // if (!(props.function.runtime === lambda.Runtime.PYTHON_3_7 ||
-        //     props.function.runtime === lambda.Runtime.JAVA_8 ||
-        //     props.function.runtime === lambda.Runtime.NODEJS_8_10)) {
-        //     throw new Error(`Invalid Lambda runtime: ${props.function.runtime}. Greengrass functions only support ${lambda.Runtime.PYTHON_3_7}, ${lambda.Runtime.JAVA_8}, and ${lambda.Runtime.NODEJS_8_10}`)
-        // }
+        if (!(props.function.runtime === lambda.Runtime.PYTHON_3_7 ||
+            props.function.runtime === lambda.Runtime.JAVA_8 ||
+            props.function.runtime === lambda.Runtime.NODEJS_8_10)) {
+            throw new Error(`Invalid Lambda runtime: ${props.function.runtime}. Greengrass functions only support ${lambda.Runtime.PYTHON_3_7}, ${lambda.Runtime.JAVA_8}, and ${lambda.Runtime.NODEJS_8_10}`)
+        }
         this.name = id;
         this.lambdaFunction = props.function;
         this.alias = props.alias;
+        this.version = props.version;
         this.pinned = props.pinned;
         this.memorySize = props.memorySize;
         this.timeout = props.timeout;
@@ -106,8 +160,10 @@ export class Function extends cdk.Resource {
     }
 
     resolve(): gg.CfnFunctionDefinition.FunctionProperty {
+
+        
         return {
-            functionArn: this.lambdaFunction.functionArn + ':' + this.alias.aliasName,
+            functionArn: this.lambdaFunction.functionArn + ':' + this.reference,
             functionConfiguration: {
                 environment: {
                     accessSysfs: this.accessSysFs,
@@ -121,7 +177,7 @@ export class Function extends cdk.Resource {
                 encodingType: this.encodingType,
                 execArgs: this.execArgs,
                 executable: this.executable,
-                memorySize: this.memorySize.toKibibytes(),
+                memorySize: this.memorySize?.toKibibytes(),
                 timeout: this.timeout.toSeconds(),
                 pinned: this.pinned
             },
@@ -132,9 +188,10 @@ export class Function extends cdk.Resource {
 
     readonly name: string;
     readonly lambdaFunction: lambda.Function;
-    readonly alias: lambda.Alias;
+    readonly alias?: lambda.Alias;
+    readonly version?: lambda.Version;
     readonly pinned: boolean | IResolvable;
-    readonly memorySize: Size;
+    readonly memorySize?: Size;
     readonly timeout: Duration;
     readonly executable?: string;
     readonly execArgs?: string;

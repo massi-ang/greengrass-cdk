@@ -19,7 +19,7 @@ import * as cdk from '@aws-cdk/core';
 import { Core, Group, Function, Functions } from '../lib';
 import * as iot from '@aws-cdk/aws-iot';
 import { Size, Duration } from '@aws-cdk/core';
-import { SynthUtils } from '@aws-cdk/assert';
+//import { SynthUtils } from '@aws-cdk/assert';
 import * as lambda from '@aws-cdk/aws-lambda';
 
 
@@ -55,7 +55,7 @@ beforeEach(() => {
 })
 
 afterEach(() => {
-  console.log(JSON.stringify(SynthUtils.toCloudFormation(stack), undefined, 2))
+  //console.log(JSON.stringify(SynthUtils.toCloudFormation(stack), undefined, 2))
 });
 
 test('functions all compulsory', () => {

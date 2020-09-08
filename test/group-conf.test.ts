@@ -19,7 +19,7 @@ import * as cdk from '@aws-cdk/core';
 import { Core, Group, CloudSpoolerStorageType} from '../lib';
 import * as iot from '@aws-cdk/aws-iot';
 import { Size } from '@aws-cdk/core';
-import { SynthUtils } from '@aws-cdk/assert';
+//import { SynthUtils } from '@aws-cdk/assert';
 
 
 
@@ -40,7 +40,7 @@ beforeEach(() => {
 })
 
 afterEach(() => {
-  console.log(JSON.stringify(SynthUtils.toCloudFormation(stack), undefined, 2))
+  //console.log(JSON.stringify(SynthUtils.toCloudFormation(stack), undefined, 2))
 });
 
 

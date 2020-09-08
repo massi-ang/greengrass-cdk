@@ -1093,7 +1093,7 @@
       "initializer": {
         "locationInModule": {
           "filename": "lib/core.ts",
-          "line": 62
+          "line": 68
         },
         "parameters": [
           {
@@ -1128,7 +1128,7 @@
         {
           "locationInModule": {
             "filename": "lib/core.ts",
-            "line": 69
+            "line": 75
           },
           "name": "resolve",
           "returns": {
@@ -1142,12 +1142,12 @@
       "properties": [
         {
           "docs": {
-            "summary": "One of the certificates associated with the thing to authenticate to the cloud."
+            "summary": "The certificate Arn used to authenticate to AWS IoT Core."
           },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/core.ts",
-            "line": 59
+            "line": 65
           },
           "name": "certificateArn",
           "overrides": "greengrass-cdk.ICore",
@@ -1157,12 +1157,12 @@
         },
         {
           "docs": {
-            "summary": "The thing acting as core."
+            "summary": "The Thing associated to this Core."
           },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/core.ts",
-            "line": 58
+            "line": 61
           },
           "name": "thing",
           "overrides": "greengrass-cdk.ICore",
@@ -1176,7 +1176,7 @@
           },
           "locationInModule": {
             "filename": "lib/core.ts",
-            "line": 60
+            "line": 66
           },
           "name": "syncShadow",
           "overrides": "greengrass-cdk.ICore",
@@ -1277,7 +1277,7 @@
       "initializer": {
         "locationInModule": {
           "filename": "lib/device.ts",
-          "line": 34
+          "line": 52
         },
         "parameters": [
           {
@@ -1303,13 +1303,13 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/device.ts",
-        "line": 28
+        "line": 37
       },
       "methods": [
         {
           "locationInModule": {
             "filename": "lib/device.ts",
-            "line": 42
+            "line": 60
           },
           "name": "resolve",
           "returns": {
@@ -1322,10 +1322,13 @@
       "name": "Device",
       "properties": [
         {
+          "docs": {
+            "summary": "The certificate arn."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/device.ts",
-            "line": 31
+            "line": 49
           },
           "name": "certificateArn",
           "type": {
@@ -1333,10 +1336,13 @@
           }
         },
         {
+          "docs": {
+            "summary": "Local shadow synching to cloud."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/device.ts",
-            "line": 30
+            "line": 45
           },
           "name": "syncShadow",
           "type": {
@@ -1344,10 +1350,13 @@
           }
         },
         {
+          "docs": {
+            "summary": "THe thing associated to this device."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/device.ts",
-            "line": 29
+            "line": 41
           },
           "name": "thing",
           "type": {
@@ -1484,10 +1493,13 @@
       "properties": [
         {
           "abstract": true,
+          "docs": {
+            "summary": "The certificate Arn used to authenticate."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/device.ts",
-            "line": 25
+            "line": 34
           },
           "name": "certificateArn",
           "type": {
@@ -1496,10 +1508,13 @@
         },
         {
           "abstract": true,
+          "docs": {
+            "summary": "Enable device shadow synching to the cloud."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/device.ts",
-            "line": 24
+            "line": 30
           },
           "name": "syncShadow",
           "type": {
@@ -1508,10 +1523,13 @@
         },
         {
           "abstract": true,
+          "docs": {
+            "summary": "The Thing associated to this Device."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/device.ts",
-            "line": 23
+            "line": 26
           },
           "name": "thing",
           "type": {
@@ -1527,7 +1545,7 @@
       "initializer": {
         "locationInModule": {
           "filename": "lib/functions.ts",
-          "line": 73
+          "line": 126
         },
         "parameters": [
           {
@@ -1553,13 +1571,13 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/functions.ts",
-        "line": 71
+        "line": 114
       },
       "methods": [
         {
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 97
+            "line": 151
           },
           "name": "addResource",
           "parameters": [
@@ -1585,7 +1603,7 @@
         {
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 108
+            "line": 162
           },
           "name": "resolve",
           "returns": {
@@ -1601,18 +1619,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 135
-          },
-          "name": "alias",
-          "type": {
-            "fqn": "@aws-cdk/aws-lambda.Alias"
-          }
-        },
-        {
-          "immutable": true,
-          "locationInModule": {
-            "filename": "lib/functions.ts",
-            "line": 134
+            "line": 190
           },
           "name": "lambdaFunction",
           "type": {
@@ -1623,18 +1630,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 137
-          },
-          "name": "memorySize",
-          "type": {
-            "fqn": "@aws-cdk/core.Size"
-          }
-        },
-        {
-          "immutable": true,
-          "locationInModule": {
-            "filename": "lib/functions.ts",
-            "line": 133
+            "line": 189
           },
           "name": "name",
           "type": {
@@ -1645,7 +1641,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 136
+            "line": 193
           },
           "name": "pinned",
           "type": {
@@ -1665,7 +1661,18 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 138
+            "line": 116
+          },
+          "name": "reference",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/functions.ts",
+            "line": 195
           },
           "name": "timeout",
           "type": {
@@ -1676,7 +1683,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 146
+            "line": 203
           },
           "name": "accessSysFs",
           "optional": true,
@@ -1697,7 +1704,19 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 141
+            "line": 191
+          },
+          "name": "alias",
+          "optional": true,
+          "type": {
+            "fqn": "@aws-cdk/aws-lambda.Alias"
+          }
+        },
+        {
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/functions.ts",
+            "line": 198
           },
           "name": "encodingType",
           "optional": true,
@@ -1709,7 +1728,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 140
+            "line": 197
           },
           "name": "execArgs",
           "optional": true,
@@ -1721,7 +1740,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 139
+            "line": 196
           },
           "name": "executable",
           "optional": true,
@@ -1733,7 +1752,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 142
+            "line": 199
           },
           "name": "isolationMode",
           "optional": true,
@@ -1745,7 +1764,19 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 143
+            "line": 194
+          },
+          "name": "memorySize",
+          "optional": true,
+          "type": {
+            "fqn": "@aws-cdk/core.Size"
+          }
+        },
+        {
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/functions.ts",
+            "line": 200
           },
           "name": "runAs",
           "optional": true,
@@ -1757,7 +1788,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 145
+            "line": 202
           },
           "name": "variables",
           "optional": true,
@@ -1766,9 +1797,21 @@
           }
         },
         {
+          "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 144
+            "line": 192
+          },
+          "name": "version",
+          "optional": true,
+          "type": {
+            "fqn": "@aws-cdk/aws-lambda.Version"
+          }
+        },
+        {
+          "locationInModule": {
+            "filename": "lib/functions.ts",
+            "line": 201
           },
           "name": "resourceAccessPolicies",
           "optional": true,
@@ -1790,28 +1833,19 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/functions.ts",
-        "line": 55
+        "line": 79
       },
       "name": "FunctionProps",
       "properties": [
         {
           "abstract": true,
-          "immutable": true,
-          "locationInModule": {
-            "filename": "lib/functions.ts",
-            "line": 57
+          "docs": {
+            "summary": "The Lambda function whose code will be used for this Greengrass function."
           },
-          "name": "alias",
-          "type": {
-            "fqn": "@aws-cdk/aws-lambda.Alias"
-          }
-        },
-        {
-          "abstract": true,
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 56
+            "line": 83
           },
           "name": "function",
           "type": {
@@ -1820,22 +1854,13 @@
         },
         {
           "abstract": true,
-          "immutable": true,
-          "locationInModule": {
-            "filename": "lib/functions.ts",
-            "line": 59
+          "docs": {
+            "summary": "If set to true, the function is long running."
           },
-          "name": "memorySize",
-          "type": {
-            "fqn": "@aws-cdk/core.Size"
-          }
-        },
-        {
-          "abstract": true,
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 58
+            "line": 91
           },
           "name": "pinned",
           "type": {
@@ -1853,10 +1878,13 @@
         },
         {
           "abstract": true,
+          "docs": {
+            "summary": "The timeout for the execution of the handler."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 60
+            "line": 95
           },
           "name": "timeout",
           "type": {
@@ -1865,10 +1893,13 @@
         },
         {
           "abstract": true,
+          "docs": {
+            "summary": "Allow access to the SysFs."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 68
+            "line": 111
           },
           "name": "accessSysFs",
           "optional": true,
@@ -1887,10 +1918,30 @@
         },
         {
           "abstract": true,
+          "docs": {
+            "remarks": "This is the recommended way to refer to the function",
+            "summary": "THe alias of the function."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 63
+            "line": 87
+          },
+          "name": "alias",
+          "optional": true,
+          "type": {
+            "fqn": "@aws-cdk/aws-lambda.Alias"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "summary": "The encoding type of the event message."
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/functions.ts",
+            "line": 101
           },
           "name": "encodingType",
           "optional": true,
@@ -1900,10 +1951,13 @@
         },
         {
           "abstract": true,
+          "docs": {
+            "summary": "The arguments to pass to the executable."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 62
+            "line": 99
           },
           "name": "execArgs",
           "optional": true,
@@ -1913,10 +1967,13 @@
         },
         {
           "abstract": true,
+          "docs": {
+            "summary": "THe name of the executable when using compiled executables."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 61
+            "line": 97
           },
           "name": "executable",
           "optional": true,
@@ -1926,10 +1983,13 @@
         },
         {
           "abstract": true,
+          "docs": {
+            "summary": "Determines if the lambda is run in containerized or non-containerized mode."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 64
+            "line": 103
           },
           "name": "isolationMode",
           "optional": true,
@@ -1939,10 +1999,29 @@
         },
         {
           "abstract": true,
+          "docs": {
+            "summary": "The memory allocated to the lambda."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 66
+            "line": 93
+          },
+          "name": "memorySize",
+          "optional": true,
+          "type": {
+            "fqn": "@aws-cdk/core.Size"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "summary": "The resource access policies for the function to associated resources."
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/functions.ts",
+            "line": 107
           },
           "name": "resourceAccessPolicies",
           "optional": true,
@@ -1957,10 +2036,13 @@
         },
         {
           "abstract": true,
+          "docs": {
+            "summary": "The user running the lambda."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 65
+            "line": 105
           },
           "name": "runAs",
           "optional": true,
@@ -1970,26 +2052,48 @@
         },
         {
           "abstract": true,
+          "docs": {
+            "summary": "Environment variables to associate to the Lambda."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 67
+            "line": 109
           },
           "name": "variables",
           "optional": true,
           "type": {
             "primitive": "any"
           }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "summary": "The version of the function to use."
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/functions.ts",
+            "line": 89
+          },
+          "name": "version",
+          "optional": true,
+          "type": {
+            "fqn": "@aws-cdk/aws-lambda.Version"
+          }
         }
       ]
     },
     "greengrass-cdk.Functions.EncodingType": {
       "assembly": "greengrass-cdk",
+      "docs": {
+        "summary": "The encoding type of the `event` paramter passed to the handler."
+      },
       "fqn": "greengrass-cdk.Functions.EncodingType",
       "kind": "enum",
       "locationInModule": {
         "filename": "lib/functions.ts",
-        "line": 49
+        "line": 73
       },
       "members": [
         {
@@ -2009,17 +2113,20 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/functions.ts",
-        "line": 39
+        "line": 52
       },
       "name": "Execution",
       "namespace": "Functions",
       "properties": [
         {
           "abstract": true,
+          "docs": {
+            "summary": "The mode in which the process for the function is run."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 40
+            "line": 54
           },
           "name": "isolationMode",
           "type": {
@@ -2028,10 +2135,13 @@
         },
         {
           "abstract": true,
+          "docs": {
+            "summary": "The user running the process."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 41
+            "line": 56
           },
           "name": "runAs",
           "type": {
@@ -2046,13 +2156,20 @@
       "kind": "enum",
       "locationInModule": {
         "filename": "lib/functions.ts",
-        "line": 29
+        "line": 35
       },
       "members": [
         {
+          "docs": {
+            "summary": "Run lamnda function in isolated mode."
+          },
           "name": "CONTAINER_MODE"
         },
         {
+          "docs": {
+            "remarks": "This must be used when \nrunning Greengrass in a docker container",
+            "summary": "Run lambda function as processes."
+          },
           "name": "NO_CONTAINER_MODE"
         }
       ],
@@ -2065,7 +2182,7 @@
       "kind": "enum",
       "locationInModule": {
         "filename": "lib/functions.ts",
-        "line": 34
+        "line": 47
       },
       "members": [
         {
@@ -2085,17 +2202,20 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/functions.ts",
-        "line": 44
+        "line": 59
       },
       "name": "ResourceAccessPolicy",
       "namespace": "Functions",
       "properties": [
         {
           "abstract": true,
+          "docs": {
+            "summary": "The permissions of the function on the resource."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 46
+            "line": 67
           },
           "name": "permission",
           "type": {
@@ -2104,10 +2224,13 @@
         },
         {
           "abstract": true,
+          "docs": {
+            "summary": "The Resource to associate to this function."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 45
+            "line": 63
           },
           "name": "resource",
           "type": {
@@ -2130,10 +2253,13 @@
       "properties": [
         {
           "abstract": true,
+          "docs": {
+            "summary": "The linux group id of the user executing the process."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 26
+            "line": 32
           },
           "name": "gid",
           "type": {
@@ -2142,10 +2268,13 @@
         },
         {
           "abstract": true,
+          "docs": {
+            "summary": "The linux user id of the user executing the process."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 25
+            "line": 28
           },
           "name": "uid",
           "type": {
@@ -2157,11 +2286,14 @@
     "greengrass-cdk.Generic": {
       "assembly": "greengrass-cdk",
       "base": "greengrass-cdk.Connector",
+      "docs": {
+        "summary": "A generic Connector bag for adding those connectors not yet implemented with specific classes Documentation for all connectors can be found https://docs.aws.amazon.com/greengrass/latest/developerguide/connectors-list.html."
+      },
       "fqn": "greengrass-cdk.Generic",
       "initializer": {
         "locationInModule": {
           "filename": "lib/connectors/generic.ts",
-          "line": 30
+          "line": 44
         },
         "parameters": [
           {
@@ -2187,7 +2319,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/connectors/generic.ts",
-        "line": 25
+        "line": 39
       },
       "name": "Generic",
       "properties": [
@@ -2195,7 +2327,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/generic.ts",
-            "line": 41
+            "line": 55
           },
           "name": "connectorArn",
           "overrides": "greengrass-cdk.Connector",
@@ -2207,7 +2339,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/generic.ts",
-            "line": 37
+            "line": 51
           },
           "name": "parameters",
           "overrides": "greengrass-cdk.Connector",
@@ -2233,10 +2365,13 @@
       "properties": [
         {
           "abstract": true,
+          "docs": {
+            "summary": "The name of the connector, eg IotAnalitics."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/generic.ts",
-            "line": 21
+            "line": 28
           },
           "name": "name",
           "type": {
@@ -2245,10 +2380,14 @@
         },
         {
           "abstract": true,
+          "docs": {
+            "remarks": "Supported values can be found https://docs.aws.amazon.com/greengrass/latest/developerguide/connectors-list.html",
+            "summary": "The paramters for the connector."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/generic.ts",
-            "line": 20
+            "line": 24
           },
           "name": "parameters",
           "type": {
@@ -2257,10 +2396,13 @@
         },
         {
           "abstract": true,
+          "docs": {
+            "summary": "The version of the connector to use."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/generic.ts",
-            "line": 22
+            "line": 32
           },
           "name": "version",
           "type": {
@@ -4887,5 +5029,5 @@
     }
   },
   "version": "0.3.3",
-  "fingerprint": "EIjlEgSS/VMMcjjszqygSrh7dqb/M6VfiN2N+1blhX0="
+  "fingerprint": "htTXJwR4RgPv9u8e8zfOgcSuKqBjuyUK5G2VmwgBWlI="
 }
