@@ -6,11 +6,11 @@
     ]
   },
   "dependencies": {
-    "@aws-cdk/aws-greengrass": "1.61.1",
-    "@aws-cdk/aws-iam": "1.61.1",
-    "@aws-cdk/aws-iot": "1.61.1",
-    "@aws-cdk/aws-lambda": "1.61.1",
-    "@aws-cdk/core": "1.61.1",
+    "@aws-cdk/aws-greengrass": "1.62.0",
+    "@aws-cdk/aws-iam": "1.62.0",
+    "@aws-cdk/aws-iot": "1.62.0",
+    "@aws-cdk/aws-lambda": "1.62.0",
+    "@aws-cdk/core": "1.62.0",
     "constructs": "^3.0.4"
   },
   "dependencyClosure": {
@@ -4886,6 +4886,6 @@
       ]
     }
   },
-  "version": "0.3.1",
-  "fingerprint": "4QXW4mJl/WMsedcU20SY0vYnaWWnQvYr9XvBhB6Y164="
+  "version": "0.3.2",
+  "fingerprint": "P7chDHStvJQlUwuTwr/Ghkzt5josBHcuFTHo0AA6v5Q="
 }
