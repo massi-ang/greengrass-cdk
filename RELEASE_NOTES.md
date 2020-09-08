@@ -9,7 +9,7 @@
 * support for automatic IP detection configuration
 * support for `Devices`
 * tests
-* implementation of `Subscirptions` class to manage subscriptions
+* implementation of `Subscriptions` class to manage subscriptions
 
 ## v0.2.0 
 2020-09-04
