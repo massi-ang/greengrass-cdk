@@ -587,11 +587,11 @@
       }
     }
   },
-  "description": "cdk-greengrass",
+  "description": "greengrass-cdk",
   "homepage": "https://github.com/massi-ang/greengrass-cdk",
   "jsiiVersion": "1.12.0 (build 5ddc9f2)",
   "license": "Apache-2.0",
-  "name": "cdk-greengrass",
+  "name": "greengrass-cdk",
   "readme": {
     "markdown": "# Welcome to your CDK Greengrass L2 Constructs\n\nThis project implements a set of constructs wrapping the L1 constructs provided by `@aws-cdk/aws-greengrass` library.\n\n## Concepts\n\nTo create a new Greengrass group use the `Group` construct.\n\n```typescript\nnew Group(this, id, {\n    core: {\n                thing: t,\n                syncShadow: true,\n                certificateArn: props.certificateArn\n            },\n    functions: [],\n    subscriptions: [],\n    loggers: [],\n    resources: [],\n    connectors: [],\n    devices: []\n})\n```\n\nWhere t is a `CfnThing`. Functions, subscriptions, etc are exposed as L2 constructs by this library, and you do not need to work with xxxDefinition and xxxDefintionVersions. All that is managed for you.\n\nAn example stack to create a Greengrass Group would then be coded like:\n\n```typescript\nlet f = new lambda.Function(this, 'f1', {\n    ...\n})\nlet alias = f.currentVersion.addAlias('prod')\n\n\nlet t = new iot.CfnThing(this, 'a_thing', {\n    thingName: 'MyThing'\n})\n\n\nlet tmp_folder: gg.LocalVolumeResource = {\n    destinationPath: '/tmp',\n    sourcePath: '/home/ec2/tmp',\n    groupOwnerSetting: {\n        autoAddGroupOwner: true\n    },\n    name: 'temp'\n}\n\nlet gg_lambda:gg.Function = {\n    function: f,\n    alias: alias,\n    encodingType: gg.Functions.EncodingType.JSON,\n    memorySize: cdk.Size.mibibytes(16),\n    pinned: false,\n    timeout: cdk.Duration.seconds(3),\n    variables: new Map([\n        [\"name\": \"value\"]\n    ])\n}\n\nlet localLogger: gg.LocalLogger = {\n    component: gg.LoggerProps.Component.GREENGRASS,\n    level: gg.LoggerProps.LogLevel.DEBUG,\n    space: 32000\n}\n\nnew gg.Group(this, 'a_group', {\n    core: {\n        thing: t,\n        syncShadow: true,\n        certificateArn: props.certificateArn\n    },\n    functions: [ gg_lambda ],\n    subscriptions: [\n        {\n            source: gg_lambda,\n            topic: '#',\n            target: new gg.CloudDestination()\n        },\n        {\n            source: new gg.CloudDestination(),\n            topic: '#',\n            target: gg_lambda\n        }\n    ],\n    loggers: [ localLogger ],\n    resources: [ tmp_folder ]\n})\n```\n\n"
   },
@@ -601,13 +601,13 @@
   },
   "schema": "jsii/0.10.0",
   "submodules": {
-    "cdk-greengrass.Functions": {
+    "greengrass-cdk.Functions": {
       "locationInModule": {
         "filename": "lib/functions.ts",
         "line": 23
       }
     },
-    "cdk-greengrass.Logger": {
+    "greengrass-cdk.Logger": {
       "locationInModule": {
         "filename": "lib/logger.ts",
         "line": 21
@@ -616,7 +616,7 @@
   },
   "targets": {
     "js": {
-      "npm": "cdk-greengrass"
+      "npm": "greengrass-cdk"
     },
     "python": {
       "distName": "cdk-greengrass",
@@ -624,10 +624,10 @@
     }
   },
   "types": {
-    "cdk-greengrass.AWSCloudWatchGreengrassLogger": {
-      "assembly": "cdk-greengrass",
-      "base": "cdk-greengrass.LoggerBase",
-      "fqn": "cdk-greengrass.AWSCloudWatchGreengrassLogger",
+    "greengrass-cdk.AWSCloudWatchGreengrassLogger": {
+      "assembly": "greengrass-cdk",
+      "base": "greengrass-cdk.LoggerBase",
+      "fqn": "greengrass-cdk.AWSCloudWatchGreengrassLogger",
       "initializer": {
         "locationInModule": {
           "filename": "lib/logger.ts",
@@ -649,7 +649,7 @@
           {
             "name": "props",
             "type": {
-              "fqn": "cdk-greengrass.LoggerProps"
+              "fqn": "greengrass-cdk.LoggerProps"
             }
           }
         ]
@@ -666,7 +666,7 @@
             "line": 96
           },
           "name": "resolve",
-          "overrides": "cdk-greengrass.LoggerBase",
+          "overrides": "greengrass-cdk.LoggerBase",
           "returns": {
             "type": {
               "fqn": "@aws-cdk/aws-greengrass.CfnLoggerDefinition.LoggerProperty"
@@ -676,10 +676,10 @@
       ],
       "name": "AWSCloudWatchGreengrassLogger"
     },
-    "cdk-greengrass.AWSCloudWatchUserLambdaLogger": {
-      "assembly": "cdk-greengrass",
-      "base": "cdk-greengrass.LoggerBase",
-      "fqn": "cdk-greengrass.AWSCloudWatchUserLambdaLogger",
+    "greengrass-cdk.AWSCloudWatchUserLambdaLogger": {
+      "assembly": "greengrass-cdk",
+      "base": "greengrass-cdk.LoggerBase",
+      "fqn": "greengrass-cdk.AWSCloudWatchUserLambdaLogger",
       "initializer": {
         "locationInModule": {
           "filename": "lib/logger.ts",
@@ -701,7 +701,7 @@
           {
             "name": "props",
             "type": {
-              "fqn": "cdk-greengrass.LoggerProps"
+              "fqn": "greengrass-cdk.LoggerProps"
             }
           }
         ]
@@ -718,7 +718,7 @@
             "line": 107
           },
           "name": "resolve",
-          "overrides": "cdk-greengrass.LoggerBase",
+          "overrides": "greengrass-cdk.LoggerBase",
           "returns": {
             "type": {
               "fqn": "@aws-cdk/aws-greengrass.CfnLoggerDefinition.LoggerProperty"
@@ -728,10 +728,10 @@
       ],
       "name": "AWSCloudWatchUserLambdaLogger"
     },
-    "cdk-greengrass.CloudDestination": {
-      "assembly": "cdk-greengrass",
-      "base": "cdk-greengrass.DestinationInternal",
-      "fqn": "cdk-greengrass.CloudDestination",
+    "greengrass-cdk.CloudDestination": {
+      "assembly": "greengrass-cdk",
+      "base": "greengrass-cdk.DestinationInternal",
+      "fqn": "greengrass-cdk.CloudDestination",
       "initializer": {},
       "kind": "class",
       "locationInModule": {
@@ -747,111 +747,17 @@
             "line": 27
           },
           "name": "arn",
-          "overrides": "cdk-greengrass.DestinationInternal",
+          "overrides": "greengrass-cdk.DestinationInternal",
           "type": {
             "primitive": "string"
           }
         }
       ]
     },
-    "cdk-greengrass.CloudSpoolerProps": {
-      "assembly": "cdk-greengrass",
-      "datatype": true,
-      "fqn": "cdk-greengrass.CloudSpoolerProps",
-      "kind": "interface",
-      "locationInModule": {
-        "filename": "lib/group.ts",
-        "line": 46
-      },
-      "name": "CloudSpoolerProps",
-      "properties": [
-        {
-          "abstract": true,
-          "immutable": true,
-          "locationInModule": {
-            "filename": "lib/group.ts",
-            "line": 48
-          },
-          "name": "enablePersistentSessions",
-          "optional": true,
-          "type": {
-            "primitive": "boolean"
-          }
-        },
-        {
-          "abstract": true,
-          "immutable": true,
-          "locationInModule": {
-            "filename": "lib/group.ts",
-            "line": 47
-          },
-          "name": "storage",
-          "optional": true,
-          "type": {
-            "fqn": "cdk-greengrass.CloudSpoolerStorageProps"
-          }
-        }
-      ]
-    },
-    "cdk-greengrass.CloudSpoolerStorageProps": {
-      "assembly": "cdk-greengrass",
-      "datatype": true,
-      "fqn": "cdk-greengrass.CloudSpoolerStorageProps",
-      "kind": "interface",
-      "locationInModule": {
-        "filename": "lib/group.ts",
-        "line": 41
-      },
-      "name": "CloudSpoolerStorageProps",
-      "properties": [
-        {
-          "abstract": true,
-          "immutable": true,
-          "locationInModule": {
-            "filename": "lib/group.ts",
-            "line": 43
-          },
-          "name": "maxSize",
-          "type": {
-            "fqn": "@aws-cdk/core.Size"
-          }
-        },
-        {
-          "abstract": true,
-          "immutable": true,
-          "locationInModule": {
-            "filename": "lib/group.ts",
-            "line": 42
-          },
-          "name": "type",
-          "type": {
-            "fqn": "cdk-greengrass.CloudSpoolerStorageType"
-          }
-        }
-      ]
-    },
-    "cdk-greengrass.CloudSpoolerStorageType": {
-      "assembly": "cdk-greengrass",
-      "fqn": "cdk-greengrass.CloudSpoolerStorageType",
-      "kind": "enum",
-      "locationInModule": {
-        "filename": "lib/group.ts",
-        "line": 36
-      },
-      "members": [
-        {
-          "name": "MEMORY"
-        },
-        {
-          "name": "FILE_SYSTEM"
-        }
-      ],
-      "name": "CloudSpoolerStorageType"
-    },
-    "cdk-greengrass.CloudWatchMetrics": {
-      "assembly": "cdk-greengrass",
-      "base": "cdk-greengrass.Connector",
-      "fqn": "cdk-greengrass.CloudWatchMetrics",
+    "greengrass-cdk.CloudWatchMetrics": {
+      "assembly": "greengrass-cdk",
+      "base": "greengrass-cdk.Connector",
+      "fqn": "greengrass-cdk.CloudWatchMetrics",
       "initializer": {
         "locationInModule": {
           "filename": "lib/connectors/cloudwatchmetrics.ts",
@@ -873,7 +779,7 @@
           {
             "name": "props",
             "type": {
-              "fqn": "cdk-greengrass.CloudWatchMetricsConnectorProps"
+              "fqn": "greengrass-cdk.CloudWatchMetricsConnectorProps"
             }
           }
         ]
@@ -892,7 +798,7 @@
             "line": 41
           },
           "name": "connectorArn",
-          "overrides": "cdk-greengrass.Connector",
+          "overrides": "greengrass-cdk.Connector",
           "type": {
             "primitive": "string"
           }
@@ -904,19 +810,19 @@
             "line": 37
           },
           "name": "parameters",
-          "overrides": "cdk-greengrass.Connector",
+          "overrides": "greengrass-cdk.Connector",
           "type": {
             "primitive": "any"
           }
         }
       ]
     },
-    "cdk-greengrass.CloudWatchMetricsConnectorProps": {
-      "assembly": "cdk-greengrass",
+    "greengrass-cdk.CloudWatchMetricsConnectorProps": {
+      "assembly": "greengrass-cdk",
       "datatype": true,
-      "fqn": "cdk-greengrass.CloudWatchMetricsConnectorProps",
+      "fqn": "greengrass-cdk.CloudWatchMetricsConnectorProps",
       "interfaces": [
-        "cdk-greengrass.ConnectorProps"
+        "greengrass-cdk.ConnectorProps"
       ],
       "kind": "interface",
       "locationInModule": {
@@ -996,11 +902,11 @@
         }
       ]
     },
-    "cdk-greengrass.Connector": {
+    "greengrass-cdk.Connector": {
       "abstract": true,
-      "assembly": "cdk-greengrass",
+      "assembly": "greengrass-cdk",
       "base": "@aws-cdk/core.Construct",
-      "fqn": "cdk-greengrass.Connector",
+      "fqn": "greengrass-cdk.Connector",
       "initializer": {
         "locationInModule": {
           "filename": "lib/connector.ts",
@@ -1023,7 +929,7 @@
             "name": "props",
             "optional": true,
             "type": {
-              "fqn": "cdk-greengrass.ConnectorProps"
+              "fqn": "greengrass-cdk.ConnectorProps"
             }
           }
         ]
@@ -1075,10 +981,10 @@
         }
       ]
     },
-    "cdk-greengrass.ConnectorProps": {
-      "assembly": "cdk-greengrass",
+    "greengrass-cdk.ConnectorProps": {
+      "assembly": "greengrass-cdk",
       "datatype": true,
-      "fqn": "cdk-greengrass.ConnectorProps",
+      "fqn": "greengrass-cdk.ConnectorProps",
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/connector.ts",
@@ -1086,10 +992,10 @@
       },
       "name": "ConnectorProps"
     },
-    "cdk-greengrass.Core": {
-      "assembly": "cdk-greengrass",
+    "greengrass-cdk.Core": {
+      "assembly": "greengrass-cdk",
       "base": "@aws-cdk/core.Resource",
-      "fqn": "cdk-greengrass.Core",
+      "fqn": "greengrass-cdk.Core",
       "initializer": {
         "locationInModule": {
           "filename": "lib/core.ts",
@@ -1111,13 +1017,13 @@
           {
             "name": "props",
             "type": {
-              "fqn": "cdk-greengrass.CoreProps"
+              "fqn": "greengrass-cdk.CoreProps"
             }
           }
         ]
       },
       "interfaces": [
-        "cdk-greengrass.ICore"
+        "greengrass-cdk.ICore"
       ],
       "kind": "class",
       "locationInModule": {
@@ -1150,7 +1056,7 @@
             "line": 59
           },
           "name": "certificateArn",
-          "overrides": "cdk-greengrass.ICore",
+          "overrides": "greengrass-cdk.ICore",
           "type": {
             "primitive": "string"
           }
@@ -1165,7 +1071,7 @@
             "line": 58
           },
           "name": "thing",
-          "overrides": "cdk-greengrass.ICore",
+          "overrides": "greengrass-cdk.ICore",
           "type": {
             "fqn": "@aws-cdk/aws-iot.CfnThing"
           }
@@ -1179,17 +1085,17 @@
             "line": 60
           },
           "name": "syncShadow",
-          "overrides": "cdk-greengrass.ICore",
+          "overrides": "greengrass-cdk.ICore",
           "type": {
             "primitive": "boolean"
           }
         }
       ]
     },
-    "cdk-greengrass.CoreProps": {
-      "assembly": "cdk-greengrass",
+    "greengrass-cdk.CoreProps": {
+      "assembly": "greengrass-cdk",
       "datatype": true,
-      "fqn": "cdk-greengrass.CoreProps",
+      "fqn": "greengrass-cdk.CoreProps",
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/core.ts",
@@ -1244,10 +1150,10 @@
         }
       ]
     },
-    "cdk-greengrass.DestinationInternal": {
+    "greengrass-cdk.DestinationInternal": {
       "abstract": true,
-      "assembly": "cdk-greengrass",
-      "fqn": "cdk-greengrass.DestinationInternal",
+      "assembly": "greengrass-cdk",
+      "fqn": "greengrass-cdk.DestinationInternal",
       "initializer": {},
       "kind": "class",
       "locationInModule": {
@@ -1270,10 +1176,10 @@
         }
       ]
     },
-    "cdk-greengrass.Device": {
-      "assembly": "cdk-greengrass",
+    "greengrass-cdk.Device": {
+      "assembly": "greengrass-cdk",
       "base": "@aws-cdk/core.Construct",
-      "fqn": "cdk-greengrass.Device",
+      "fqn": "greengrass-cdk.Device",
       "initializer": {
         "locationInModule": {
           "filename": "lib/device.ts",
@@ -1295,7 +1201,7 @@
           {
             "name": "props",
             "type": {
-              "fqn": "cdk-greengrass.DeviceProps"
+              "fqn": "greengrass-cdk.DeviceProps"
             }
           }
         ]
@@ -1356,10 +1262,10 @@
         }
       ]
     },
-    "cdk-greengrass.DeviceDefender": {
-      "assembly": "cdk-greengrass",
-      "base": "cdk-greengrass.Connector",
-      "fqn": "cdk-greengrass.DeviceDefender",
+    "greengrass-cdk.DeviceDefender": {
+      "assembly": "greengrass-cdk",
+      "base": "greengrass-cdk.Connector",
+      "fqn": "greengrass-cdk.DeviceDefender",
       "initializer": {
         "locationInModule": {
           "filename": "lib/connectors/devicedefender.ts",
@@ -1381,7 +1287,7 @@
           {
             "name": "props",
             "type": {
-              "fqn": "cdk-greengrass.DeviceDefenderConnectorProps"
+              "fqn": "greengrass-cdk.DeviceDefenderConnectorProps"
             }
           }
         ]
@@ -1400,7 +1306,7 @@
             "line": 36
           },
           "name": "connectorArn",
-          "overrides": "cdk-greengrass.Connector",
+          "overrides": "greengrass-cdk.Connector",
           "type": {
             "primitive": "string"
           }
@@ -1412,19 +1318,19 @@
             "line": 32
           },
           "name": "parameters",
-          "overrides": "cdk-greengrass.Connector",
+          "overrides": "greengrass-cdk.Connector",
           "type": {
             "primitive": "any"
           }
         }
       ]
     },
-    "cdk-greengrass.DeviceDefenderConnectorProps": {
-      "assembly": "cdk-greengrass",
+    "greengrass-cdk.DeviceDefenderConnectorProps": {
+      "assembly": "greengrass-cdk",
       "datatype": true,
-      "fqn": "cdk-greengrass.DeviceDefenderConnectorProps",
+      "fqn": "greengrass-cdk.DeviceDefenderConnectorProps",
       "interfaces": [
-        "cdk-greengrass.ConnectorProps"
+        "greengrass-cdk.ConnectorProps"
       ],
       "kind": "interface",
       "locationInModule": {
@@ -1471,10 +1377,10 @@
         }
       ]
     },
-    "cdk-greengrass.DeviceProps": {
-      "assembly": "cdk-greengrass",
+    "greengrass-cdk.DeviceProps": {
+      "assembly": "greengrass-cdk",
       "datatype": true,
-      "fqn": "cdk-greengrass.DeviceProps",
+      "fqn": "greengrass-cdk.DeviceProps",
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/device.ts",
@@ -1520,10 +1426,10 @@
         }
       ]
     },
-    "cdk-greengrass.Function": {
-      "assembly": "cdk-greengrass",
+    "greengrass-cdk.Function": {
+      "assembly": "greengrass-cdk",
       "base": "@aws-cdk/core.Resource",
-      "fqn": "cdk-greengrass.Function",
+      "fqn": "greengrass-cdk.Function",
       "initializer": {
         "locationInModule": {
           "filename": "lib/functions.ts",
@@ -1545,7 +1451,7 @@
           {
             "name": "props",
             "type": {
-              "fqn": "cdk-greengrass.FunctionProps"
+              "fqn": "greengrass-cdk.FunctionProps"
             }
           }
         ]
@@ -1566,19 +1472,19 @@
             {
               "name": "resource",
               "type": {
-                "fqn": "cdk-greengrass.Resource"
+                "fqn": "greengrass-cdk.Resource"
               }
             },
             {
               "name": "permission",
               "type": {
-                "fqn": "cdk-greengrass.Functions.ResourceAccessPermission"
+                "fqn": "greengrass-cdk.Functions.ResourceAccessPermission"
               }
             }
           ],
           "returns": {
             "type": {
-              "fqn": "cdk-greengrass.Function"
+              "fqn": "greengrass-cdk.Function"
             }
           }
         },
@@ -1702,7 +1608,7 @@
           "name": "encodingType",
           "optional": true,
           "type": {
-            "fqn": "cdk-greengrass.Functions.EncodingType"
+            "fqn": "greengrass-cdk.Functions.EncodingType"
           }
         },
         {
@@ -1738,7 +1644,7 @@
           "name": "isolationMode",
           "optional": true,
           "type": {
-            "fqn": "cdk-greengrass.Functions.IsolationMode"
+            "fqn": "greengrass-cdk.Functions.IsolationMode"
           }
         },
         {
@@ -1750,7 +1656,7 @@
           "name": "runAs",
           "optional": true,
           "type": {
-            "fqn": "cdk-greengrass.Functions.RunAs"
+            "fqn": "greengrass-cdk.Functions.RunAs"
           }
         },
         {
@@ -1775,7 +1681,7 @@
           "type": {
             "collection": {
               "elementtype": {
-                "fqn": "cdk-greengrass.Functions.ResourceAccessPolicy"
+                "fqn": "greengrass-cdk.Functions.ResourceAccessPolicy"
               },
               "kind": "array"
             }
@@ -1783,10 +1689,10 @@
         }
       ]
     },
-    "cdk-greengrass.FunctionProps": {
-      "assembly": "cdk-greengrass",
+    "greengrass-cdk.FunctionProps": {
+      "assembly": "greengrass-cdk",
       "datatype": true,
-      "fqn": "cdk-greengrass.FunctionProps",
+      "fqn": "greengrass-cdk.FunctionProps",
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/functions.ts",
@@ -1895,7 +1801,7 @@
           "name": "encodingType",
           "optional": true,
           "type": {
-            "fqn": "cdk-greengrass.Functions.EncodingType"
+            "fqn": "greengrass-cdk.Functions.EncodingType"
           }
         },
         {
@@ -1934,7 +1840,7 @@
           "name": "isolationMode",
           "optional": true,
           "type": {
-            "fqn": "cdk-greengrass.Functions.IsolationMode"
+            "fqn": "greengrass-cdk.Functions.IsolationMode"
           }
         },
         {
@@ -1949,7 +1855,7 @@
           "type": {
             "collection": {
               "elementtype": {
-                "fqn": "cdk-greengrass.Functions.ResourceAccessPolicy"
+                "fqn": "greengrass-cdk.Functions.ResourceAccessPolicy"
               },
               "kind": "array"
             }
@@ -1965,7 +1871,7 @@
           "name": "runAs",
           "optional": true,
           "type": {
-            "fqn": "cdk-greengrass.Functions.RunAs"
+            "fqn": "greengrass-cdk.Functions.RunAs"
           }
         },
         {
@@ -1983,9 +1889,9 @@
         }
       ]
     },
-    "cdk-greengrass.Functions.EncodingType": {
-      "assembly": "cdk-greengrass",
-      "fqn": "cdk-greengrass.Functions.EncodingType",
+    "greengrass-cdk.Functions.EncodingType": {
+      "assembly": "greengrass-cdk",
+      "fqn": "greengrass-cdk.Functions.EncodingType",
       "kind": "enum",
       "locationInModule": {
         "filename": "lib/functions.ts",
@@ -2002,10 +1908,10 @@
       "name": "EncodingType",
       "namespace": "Functions"
     },
-    "cdk-greengrass.Functions.Execution": {
-      "assembly": "cdk-greengrass",
+    "greengrass-cdk.Functions.Execution": {
+      "assembly": "greengrass-cdk",
       "datatype": true,
-      "fqn": "cdk-greengrass.Functions.Execution",
+      "fqn": "greengrass-cdk.Functions.Execution",
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/functions.ts",
@@ -2023,7 +1929,7 @@
           },
           "name": "isolationMode",
           "type": {
-            "fqn": "cdk-greengrass.Functions.IsolationMode"
+            "fqn": "greengrass-cdk.Functions.IsolationMode"
           }
         },
         {
@@ -2035,14 +1941,14 @@
           },
           "name": "runAs",
           "type": {
-            "fqn": "cdk-greengrass.Functions.RunAs"
+            "fqn": "greengrass-cdk.Functions.RunAs"
           }
         }
       ]
     },
-    "cdk-greengrass.Functions.IsolationMode": {
-      "assembly": "cdk-greengrass",
-      "fqn": "cdk-greengrass.Functions.IsolationMode",
+    "greengrass-cdk.Functions.IsolationMode": {
+      "assembly": "greengrass-cdk",
+      "fqn": "greengrass-cdk.Functions.IsolationMode",
       "kind": "enum",
       "locationInModule": {
         "filename": "lib/functions.ts",
@@ -2059,9 +1965,9 @@
       "name": "IsolationMode",
       "namespace": "Functions"
     },
-    "cdk-greengrass.Functions.ResourceAccessPermission": {
-      "assembly": "cdk-greengrass",
-      "fqn": "cdk-greengrass.Functions.ResourceAccessPermission",
+    "greengrass-cdk.Functions.ResourceAccessPermission": {
+      "assembly": "greengrass-cdk",
+      "fqn": "greengrass-cdk.Functions.ResourceAccessPermission",
       "kind": "enum",
       "locationInModule": {
         "filename": "lib/functions.ts",
@@ -2078,10 +1984,10 @@
       "name": "ResourceAccessPermission",
       "namespace": "Functions"
     },
-    "cdk-greengrass.Functions.ResourceAccessPolicy": {
-      "assembly": "cdk-greengrass",
+    "greengrass-cdk.Functions.ResourceAccessPolicy": {
+      "assembly": "greengrass-cdk",
       "datatype": true,
-      "fqn": "cdk-greengrass.Functions.ResourceAccessPolicy",
+      "fqn": "greengrass-cdk.Functions.ResourceAccessPolicy",
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/functions.ts",
@@ -2099,7 +2005,7 @@
           },
           "name": "permission",
           "type": {
-            "fqn": "cdk-greengrass.Functions.ResourceAccessPermission"
+            "fqn": "greengrass-cdk.Functions.ResourceAccessPermission"
           }
         },
         {
@@ -2111,15 +2017,15 @@
           },
           "name": "resource",
           "type": {
-            "fqn": "cdk-greengrass.Resource"
+            "fqn": "greengrass-cdk.Resource"
           }
         }
       ]
     },
-    "cdk-greengrass.Functions.RunAs": {
-      "assembly": "cdk-greengrass",
+    "greengrass-cdk.Functions.RunAs": {
+      "assembly": "greengrass-cdk",
       "datatype": true,
-      "fqn": "cdk-greengrass.Functions.RunAs",
+      "fqn": "greengrass-cdk.Functions.RunAs",
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/functions.ts",
@@ -2154,125 +2060,10 @@
         }
       ]
     },
-    "cdk-greengrass.Generic": {
-      "assembly": "cdk-greengrass",
-      "base": "cdk-greengrass.Connector",
-      "fqn": "cdk-greengrass.Generic",
-      "initializer": {
-        "locationInModule": {
-          "filename": "lib/connectors/generic.ts",
-          "line": 30
-        },
-        "parameters": [
-          {
-            "name": "scope",
-            "type": {
-              "fqn": "@aws-cdk/core.Construct"
-            }
-          },
-          {
-            "name": "id",
-            "type": {
-              "primitive": "string"
-            }
-          },
-          {
-            "name": "props",
-            "type": {
-              "fqn": "cdk-greengrass.GenericConnectorProps"
-            }
-          }
-        ]
-      },
-      "kind": "class",
-      "locationInModule": {
-        "filename": "lib/connectors/generic.ts",
-        "line": 25
-      },
-      "name": "Generic",
-      "properties": [
-        {
-          "immutable": true,
-          "locationInModule": {
-            "filename": "lib/connectors/generic.ts",
-            "line": 41
-          },
-          "name": "connectorArn",
-          "overrides": "cdk-greengrass.Connector",
-          "type": {
-            "primitive": "string"
-          }
-        },
-        {
-          "immutable": true,
-          "locationInModule": {
-            "filename": "lib/connectors/generic.ts",
-            "line": 37
-          },
-          "name": "parameters",
-          "overrides": "cdk-greengrass.Connector",
-          "type": {
-            "primitive": "any"
-          }
-        }
-      ]
-    },
-    "cdk-greengrass.GenericConnectorProps": {
-      "assembly": "cdk-greengrass",
-      "datatype": true,
-      "fqn": "cdk-greengrass.GenericConnectorProps",
-      "interfaces": [
-        "cdk-greengrass.ConnectorProps"
-      ],
-      "kind": "interface",
-      "locationInModule": {
-        "filename": "lib/connectors/generic.ts",
-        "line": 19
-      },
-      "name": "GenericConnectorProps",
-      "properties": [
-        {
-          "abstract": true,
-          "immutable": true,
-          "locationInModule": {
-            "filename": "lib/connectors/generic.ts",
-            "line": 21
-          },
-          "name": "name",
-          "type": {
-            "primitive": "string"
-          }
-        },
-        {
-          "abstract": true,
-          "immutable": true,
-          "locationInModule": {
-            "filename": "lib/connectors/generic.ts",
-            "line": 20
-          },
-          "name": "parameters",
-          "type": {
-            "primitive": "any"
-          }
-        },
-        {
-          "abstract": true,
-          "immutable": true,
-          "locationInModule": {
-            "filename": "lib/connectors/generic.ts",
-            "line": 22
-          },
-          "name": "version",
-          "type": {
-            "primitive": "number"
-          }
-        }
-      ]
-    },
-    "cdk-greengrass.Group": {
-      "assembly": "cdk-greengrass",
+    "greengrass-cdk.Group": {
+      "assembly": "greengrass-cdk",
       "base": "@aws-cdk/core.Construct",
-      "fqn": "cdk-greengrass.Group",
+      "fqn": "greengrass-cdk.Group",
       "initializer": {
         "locationInModule": {
           "filename": "lib/group.ts",
@@ -2294,7 +2085,7 @@
           {
             "name": "props",
             "type": {
-              "fqn": "cdk-greengrass.GroupProps"
+              "fqn": "greengrass-cdk.GroupProps"
             }
           }
         ]
@@ -2327,19 +2118,19 @@
             {
               "name": "core",
               "type": {
-                "fqn": "cdk-greengrass.Core"
+                "fqn": "greengrass-cdk.Core"
               }
             },
             {
               "name": "template",
               "type": {
-                "fqn": "cdk-greengrass.GroupTemplate"
+                "fqn": "greengrass-cdk.GroupTemplate"
               }
             }
           ],
           "returns": {
             "type": {
-              "fqn": "cdk-greengrass.Group"
+              "fqn": "greengrass-cdk.Group"
             }
           },
           "static": true
@@ -2360,13 +2151,13 @@
             {
               "name": "core",
               "type": {
-                "fqn": "cdk-greengrass.Core"
+                "fqn": "greengrass-cdk.Core"
               }
             }
           ],
           "returns": {
             "type": {
-              "fqn": "cdk-greengrass.Group"
+              "fqn": "greengrass-cdk.Group"
             }
           }
         }
@@ -2492,10 +2283,10 @@
         }
       ]
     },
-    "cdk-greengrass.GroupOwnerSetting": {
-      "assembly": "cdk-greengrass",
+    "greengrass-cdk.GroupOwnerSetting": {
+      "assembly": "greengrass-cdk",
       "datatype": true,
-      "fqn": "cdk-greengrass.GroupOwnerSetting",
+      "fqn": "greengrass-cdk.GroupOwnerSetting",
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/resource.ts",
@@ -2530,10 +2321,10 @@
         }
       ]
     },
-    "cdk-greengrass.GroupProps": {
-      "assembly": "cdk-greengrass",
+    "greengrass-cdk.GroupProps": {
+      "assembly": "greengrass-cdk",
       "datatype": true,
-      "fqn": "cdk-greengrass.GroupProps",
+      "fqn": "greengrass-cdk.GroupProps",
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/group.ts",
@@ -2550,7 +2341,7 @@
           },
           "name": "core",
           "type": {
-            "fqn": "cdk-greengrass.Core"
+            "fqn": "greengrass-cdk.Core"
           }
         },
         {
@@ -2578,7 +2369,7 @@
           "type": {
             "collection": {
               "elementtype": {
-                "fqn": "cdk-greengrass.Connector"
+                "fqn": "greengrass-cdk.Device"
               },
               "kind": "array"
             }
@@ -2594,7 +2385,7 @@
           "name": "defaultFunctionExecution",
           "optional": true,
           "type": {
-            "fqn": "cdk-greengrass.Functions.Execution"
+            "fqn": "greengrass-cdk.Subscriptions"
           }
         },
         {
@@ -2638,7 +2429,7 @@
           "name": "enableAutomaticIpDiscovery",
           "optional": true,
           "type": {
-            "primitive": "boolean"
+            "fqn": "greengrass-cdk.Functions.Execution"
           }
         },
         {
@@ -2653,7 +2444,7 @@
           "type": {
             "collection": {
               "elementtype": {
-                "fqn": "cdk-greengrass.Function"
+                "fqn": "greengrass-cdk.Function"
               },
               "kind": "array"
             }
@@ -2684,7 +2475,7 @@
           "type": {
             "collection": {
               "elementtype": {
-                "fqn": "cdk-greengrass.LoggerBase"
+                "fqn": "greengrass-cdk.LoggerBase"
               },
               "kind": "array"
             }
@@ -2702,7 +2493,7 @@
           "type": {
             "collection": {
               "elementtype": {
-                "fqn": "cdk-greengrass.Resource"
+                "fqn": "greengrass-cdk.Resource"
               },
               "kind": "array"
             }
@@ -2731,7 +2522,7 @@
           "name": "streamManager",
           "optional": true,
           "type": {
-            "fqn": "cdk-greengrass.StreamManagerProps"
+            "fqn": "greengrass-cdk.StreamManagerProps"
           }
         },
         {
@@ -2744,15 +2535,15 @@
           "name": "subscriptions",
           "optional": true,
           "type": {
-            "fqn": "cdk-greengrass.Subscriptions"
+            "fqn": "greengrass-cdk.Subscriptions"
           }
         }
       ]
     },
-    "cdk-greengrass.GroupTemplate": {
-      "assembly": "cdk-greengrass",
+    "greengrass-cdk.GroupTemplate": {
+      "assembly": "greengrass-cdk",
       "base": "@aws-cdk/core.Construct",
-      "fqn": "cdk-greengrass.GroupTemplate",
+      "fqn": "greengrass-cdk.GroupTemplate",
       "initializer": {
         "locationInModule": {
           "filename": "lib/template.ts",
@@ -2774,7 +2565,7 @@
           {
             "name": "props",
             "type": {
-              "fqn": "cdk-greengrass.GroupTemplateProps"
+              "fqn": "greengrass-cdk.GroupTemplateProps"
             }
           }
         ]
@@ -2848,10 +2639,10 @@
         }
       ]
     },
-    "cdk-greengrass.GroupTemplateProps": {
-      "assembly": "cdk-greengrass",
+    "greengrass-cdk.GroupTemplateProps": {
+      "assembly": "greengrass-cdk",
       "datatype": true,
-      "fqn": "cdk-greengrass.GroupTemplateProps",
+      "fqn": "greengrass-cdk.GroupTemplateProps",
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/template.ts",
@@ -2884,7 +2675,7 @@
           "type": {
             "collection": {
               "elementtype": {
-                "fqn": "cdk-greengrass.Function"
+                "fqn": "greengrass-cdk.Function"
               },
               "kind": "array"
             }
@@ -2902,7 +2693,7 @@
           "type": {
             "collection": {
               "elementtype": {
-                "fqn": "cdk-greengrass.LoggerBase"
+                "fqn": "greengrass-cdk.LoggerBase"
               },
               "kind": "array"
             }
@@ -2920,7 +2711,7 @@
           "type": {
             "collection": {
               "elementtype": {
-                "fqn": "cdk-greengrass.Resource"
+                "fqn": "greengrass-cdk.Resource"
               },
               "kind": "array"
             }
@@ -2949,7 +2740,7 @@
           "name": "streamManager",
           "optional": true,
           "type": {
-            "fqn": "cdk-greengrass.StreamManagerProps"
+            "fqn": "greengrass-cdk.StreamManagerProps"
           }
         },
         {
@@ -2962,14 +2753,14 @@
           "name": "subscriptions",
           "optional": true,
           "type": {
-            "fqn": "cdk-greengrass.Subscriptions"
+            "fqn": "greengrass-cdk.Subscriptions"
           }
         }
       ]
     },
-    "cdk-greengrass.ICore": {
-      "assembly": "cdk-greengrass",
-      "fqn": "cdk-greengrass.ICore",
+    "greengrass-cdk.ICore": {
+      "assembly": "greengrass-cdk",
+      "fqn": "greengrass-cdk.ICore",
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/core.ts",
@@ -3023,10 +2814,10 @@
         }
       ]
     },
-    "cdk-greengrass.IoTAnalytics": {
-      "assembly": "cdk-greengrass",
-      "base": "cdk-greengrass.Connector",
-      "fqn": "cdk-greengrass.IoTAnalytics",
+    "greengrass-cdk.IoTAnalytics": {
+      "assembly": "greengrass-cdk",
+      "base": "greengrass-cdk.Connector",
+      "fqn": "greengrass-cdk.IoTAnalytics",
       "initializer": {
         "locationInModule": {
           "filename": "lib/connectors/iotanalytics.ts",
@@ -3048,7 +2839,7 @@
           {
             "name": "props",
             "type": {
-              "fqn": "cdk-greengrass.IoTAnalyticsConnectorProps"
+              "fqn": "greengrass-cdk.IoTAnalyticsConnectorProps"
             }
           }
         ]
@@ -3067,7 +2858,7 @@
             "line": 43
           },
           "name": "connectorArn",
-          "overrides": "cdk-greengrass.Connector",
+          "overrides": "greengrass-cdk.Connector",
           "type": {
             "primitive": "string"
           }
@@ -3079,19 +2870,19 @@
             "line": 39
           },
           "name": "parameters",
-          "overrides": "cdk-greengrass.Connector",
+          "overrides": "greengrass-cdk.Connector",
           "type": {
             "primitive": "any"
           }
         }
       ]
     },
-    "cdk-greengrass.IoTAnalyticsConnectorProps": {
-      "assembly": "cdk-greengrass",
+    "greengrass-cdk.IoTAnalyticsConnectorProps": {
+      "assembly": "greengrass-cdk",
       "datatype": true,
-      "fqn": "cdk-greengrass.IoTAnalyticsConnectorProps",
+      "fqn": "greengrass-cdk.IoTAnalyticsConnectorProps",
       "interfaces": [
-        "cdk-greengrass.ConnectorProps"
+        "greengrass-cdk.ConnectorProps"
       ],
       "kind": "interface",
       "locationInModule": {
@@ -3221,10 +3012,10 @@
         }
       ]
     },
-    "cdk-greengrass.IoTSitewise": {
-      "assembly": "cdk-greengrass",
-      "base": "cdk-greengrass.Connector",
-      "fqn": "cdk-greengrass.IoTSitewise",
+    "greengrass-cdk.IoTSitewise": {
+      "assembly": "greengrass-cdk",
+      "base": "greengrass-cdk.Connector",
+      "fqn": "greengrass-cdk.IoTSitewise",
       "initializer": {
         "locationInModule": {
           "filename": "lib/connectors/iotsitewise.ts",
@@ -3246,7 +3037,7 @@
           {
             "name": "props",
             "type": {
-              "fqn": "cdk-greengrass.IoTSitewiseConnectorProps"
+              "fqn": "greengrass-cdk.IoTSitewiseConnectorProps"
             }
           }
         ]
@@ -3265,7 +3056,7 @@
             "line": 37
           },
           "name": "connectorArn",
-          "overrides": "cdk-greengrass.Connector",
+          "overrides": "greengrass-cdk.Connector",
           "type": {
             "primitive": "string"
           }
@@ -3277,19 +3068,19 @@
             "line": 33
           },
           "name": "parameters",
-          "overrides": "cdk-greengrass.Connector",
+          "overrides": "greengrass-cdk.Connector",
           "type": {
             "primitive": "any"
           }
         }
       ]
     },
-    "cdk-greengrass.IoTSitewiseConnectorProps": {
-      "assembly": "cdk-greengrass",
+    "greengrass-cdk.IoTSitewiseConnectorProps": {
+      "assembly": "greengrass-cdk",
       "datatype": true,
-      "fqn": "cdk-greengrass.IoTSitewiseConnectorProps",
+      "fqn": "greengrass-cdk.IoTSitewiseConnectorProps",
       "interfaces": [
-        "cdk-greengrass.ConnectorProps"
+        "greengrass-cdk.ConnectorProps"
       ],
       "kind": "interface",
       "locationInModule": {
@@ -3339,10 +3130,10 @@
         }
       ]
     },
-    "cdk-greengrass.KinesisFirehose": {
-      "assembly": "cdk-greengrass",
-      "base": "cdk-greengrass.Connector",
-      "fqn": "cdk-greengrass.KinesisFirehose",
+    "greengrass-cdk.KinesisFirehose": {
+      "assembly": "greengrass-cdk",
+      "base": "greengrass-cdk.Connector",
+      "fqn": "greengrass-cdk.KinesisFirehose",
       "initializer": {
         "locationInModule": {
           "filename": "lib/connectors/kinesisfirehose.ts",
@@ -3364,7 +3155,7 @@
           {
             "name": "props",
             "type": {
-              "fqn": "cdk-greengrass.KinesisFirehoseConnectorProps"
+              "fqn": "greengrass-cdk.KinesisFirehoseConnectorProps"
             }
           }
         ]
@@ -3383,7 +3174,7 @@
             "line": 39
           },
           "name": "connectorArn",
-          "overrides": "cdk-greengrass.Connector",
+          "overrides": "greengrass-cdk.Connector",
           "type": {
             "primitive": "string"
           }
@@ -3395,19 +3186,19 @@
             "line": 35
           },
           "name": "parameters",
-          "overrides": "cdk-greengrass.Connector",
+          "overrides": "greengrass-cdk.Connector",
           "type": {
             "primitive": "any"
           }
         }
       ]
     },
-    "cdk-greengrass.KinesisFirehoseConnectorProps": {
-      "assembly": "cdk-greengrass",
+    "greengrass-cdk.KinesisFirehoseConnectorProps": {
+      "assembly": "greengrass-cdk",
       "datatype": true,
-      "fqn": "cdk-greengrass.KinesisFirehoseConnectorProps",
+      "fqn": "greengrass-cdk.KinesisFirehoseConnectorProps",
       "interfaces": [
-        "cdk-greengrass.ConnectorProps"
+        "greengrass-cdk.ConnectorProps"
       ],
       "kind": "interface",
       "locationInModule": {
@@ -3469,10 +3260,10 @@
         }
       ]
     },
-    "cdk-greengrass.LocalDeviceResource": {
-      "assembly": "cdk-greengrass",
-      "base": "cdk-greengrass.Resource",
-      "fqn": "cdk-greengrass.LocalDeviceResource",
+    "greengrass-cdk.LocalDeviceResource": {
+      "assembly": "greengrass-cdk",
+      "base": "greengrass-cdk.Resource",
+      "fqn": "greengrass-cdk.LocalDeviceResource",
       "initializer": {
         "locationInModule": {
           "filename": "lib/resource.ts",
@@ -3494,7 +3285,7 @@
           {
             "name": "props",
             "type": {
-              "fqn": "cdk-greengrass.LocalDeviceResourceProps"
+              "fqn": "greengrass-cdk.LocalDeviceResourceProps"
             }
           }
         ]
@@ -3511,7 +3302,7 @@
             "line": 86
           },
           "name": "resolve",
-          "overrides": "cdk-greengrass.Resource",
+          "overrides": "greengrass-cdk.Resource",
           "returns": {
             "type": {
               "fqn": "@aws-cdk/aws-greengrass.CfnResourceDefinition.ResourceInstanceProperty"
@@ -3529,7 +3320,7 @@
           },
           "name": "groupOwnerSetting",
           "type": {
-            "fqn": "cdk-greengrass.GroupOwnerSetting"
+            "fqn": "greengrass-cdk.GroupOwnerSetting"
           }
         },
         {
@@ -3545,12 +3336,12 @@
         }
       ]
     },
-    "cdk-greengrass.LocalDeviceResourceProps": {
-      "assembly": "cdk-greengrass",
+    "greengrass-cdk.LocalDeviceResourceProps": {
+      "assembly": "greengrass-cdk",
       "datatype": true,
-      "fqn": "cdk-greengrass.LocalDeviceResourceProps",
+      "fqn": "greengrass-cdk.LocalDeviceResourceProps",
       "interfaces": [
-        "cdk-greengrass.ResourceProps"
+        "greengrass-cdk.ResourceProps"
       ],
       "kind": "interface",
       "locationInModule": {
@@ -3568,7 +3359,7 @@
           },
           "name": "groupOwnerSetting",
           "type": {
-            "fqn": "cdk-greengrass.GroupOwnerSetting"
+            "fqn": "greengrass-cdk.GroupOwnerSetting"
           }
         },
         {
@@ -3585,10 +3376,10 @@
         }
       ]
     },
-    "cdk-greengrass.LocalGreengrassLogger": {
-      "assembly": "cdk-greengrass",
-      "base": "cdk-greengrass.LoggerBase",
-      "fqn": "cdk-greengrass.LocalGreengrassLogger",
+    "greengrass-cdk.LocalGreengrassLogger": {
+      "assembly": "greengrass-cdk",
+      "base": "greengrass-cdk.LoggerBase",
+      "fqn": "greengrass-cdk.LocalGreengrassLogger",
       "initializer": {
         "locationInModule": {
           "filename": "lib/logger.ts",
@@ -3610,7 +3401,7 @@
           {
             "name": "props",
             "type": {
-              "fqn": "cdk-greengrass.LocalLoggerProps"
+              "fqn": "greengrass-cdk.LocalLoggerProps"
             }
           }
         ]
@@ -3627,7 +3418,7 @@
             "line": 72
           },
           "name": "resolve",
-          "overrides": "cdk-greengrass.LoggerBase",
+          "overrides": "greengrass-cdk.LoggerBase",
           "returns": {
             "type": {
               "fqn": "@aws-cdk/aws-greengrass.CfnLoggerDefinition.LoggerProperty"
@@ -3650,12 +3441,12 @@
         }
       ]
     },
-    "cdk-greengrass.LocalLoggerProps": {
-      "assembly": "cdk-greengrass",
+    "greengrass-cdk.LocalLoggerProps": {
+      "assembly": "greengrass-cdk",
       "datatype": true,
-      "fqn": "cdk-greengrass.LocalLoggerProps",
+      "fqn": "greengrass-cdk.LocalLoggerProps",
       "interfaces": [
-        "cdk-greengrass.LoggerProps"
+        "greengrass-cdk.LoggerProps"
       ],
       "kind": "interface",
       "locationInModule": {
@@ -3678,10 +3469,10 @@
         }
       ]
     },
-    "cdk-greengrass.LocalShadowDestination": {
-      "assembly": "cdk-greengrass",
-      "base": "cdk-greengrass.DestinationInternal",
-      "fqn": "cdk-greengrass.LocalShadowDestination",
+    "greengrass-cdk.LocalShadowDestination": {
+      "assembly": "greengrass-cdk",
+      "base": "greengrass-cdk.DestinationInternal",
+      "fqn": "greengrass-cdk.LocalShadowDestination",
       "initializer": {},
       "kind": "class",
       "locationInModule": {
@@ -3697,17 +3488,17 @@
             "line": 33
           },
           "name": "arn",
-          "overrides": "cdk-greengrass.DestinationInternal",
+          "overrides": "greengrass-cdk.DestinationInternal",
           "type": {
             "primitive": "string"
           }
         }
       ]
     },
-    "cdk-greengrass.LocalUserLambdaLogger": {
-      "assembly": "cdk-greengrass",
-      "base": "cdk-greengrass.LoggerBase",
-      "fqn": "cdk-greengrass.LocalUserLambdaLogger",
+    "greengrass-cdk.LocalUserLambdaLogger": {
+      "assembly": "greengrass-cdk",
+      "base": "greengrass-cdk.LoggerBase",
+      "fqn": "greengrass-cdk.LocalUserLambdaLogger",
       "initializer": {
         "locationInModule": {
           "filename": "lib/logger.ts",
@@ -3729,7 +3520,7 @@
           {
             "name": "props",
             "type": {
-              "fqn": "cdk-greengrass.LocalLoggerProps"
+              "fqn": "greengrass-cdk.LocalLoggerProps"
             }
           }
         ]
@@ -3746,7 +3537,7 @@
             "line": 84
           },
           "name": "resolve",
-          "overrides": "cdk-greengrass.LoggerBase",
+          "overrides": "greengrass-cdk.LoggerBase",
           "returns": {
             "type": {
               "fqn": "@aws-cdk/aws-greengrass.CfnLoggerDefinition.LoggerProperty"
@@ -3769,10 +3560,10 @@
         }
       ]
     },
-    "cdk-greengrass.LocalVolumeResource": {
-      "assembly": "cdk-greengrass",
-      "base": "cdk-greengrass.Resource",
-      "fqn": "cdk-greengrass.LocalVolumeResource",
+    "greengrass-cdk.LocalVolumeResource": {
+      "assembly": "greengrass-cdk",
+      "base": "greengrass-cdk.Resource",
+      "fqn": "greengrass-cdk.LocalVolumeResource",
       "initializer": {
         "locationInModule": {
           "filename": "lib/resource.ts",
@@ -3794,7 +3585,7 @@
           {
             "name": "props",
             "type": {
-              "fqn": "cdk-greengrass.LocalVolumeResourceProps"
+              "fqn": "greengrass-cdk.LocalVolumeResourceProps"
             }
           }
         ]
@@ -3811,7 +3602,7 @@
             "line": 112
           },
           "name": "resolve",
-          "overrides": "cdk-greengrass.Resource",
+          "overrides": "greengrass-cdk.Resource",
           "returns": {
             "type": {
               "fqn": "@aws-cdk/aws-greengrass.CfnResourceDefinition.ResourceInstanceProperty"
@@ -3840,7 +3631,7 @@
           },
           "name": "groupOwnerSetting",
           "type": {
-            "fqn": "cdk-greengrass.GroupOwnerSetting"
+            "fqn": "greengrass-cdk.GroupOwnerSetting"
           }
         },
         {
@@ -3856,12 +3647,12 @@
         }
       ]
     },
-    "cdk-greengrass.LocalVolumeResourceProps": {
-      "assembly": "cdk-greengrass",
+    "greengrass-cdk.LocalVolumeResourceProps": {
+      "assembly": "greengrass-cdk",
       "datatype": true,
-      "fqn": "cdk-greengrass.LocalVolumeResourceProps",
+      "fqn": "greengrass-cdk.LocalVolumeResourceProps",
       "interfaces": [
-        "cdk-greengrass.ResourceProps"
+        "greengrass-cdk.ResourceProps"
       ],
       "kind": "interface",
       "locationInModule": {
@@ -3891,7 +3682,7 @@
           },
           "name": "groupOwnerSetting",
           "type": {
-            "fqn": "cdk-greengrass.GroupOwnerSetting"
+            "fqn": "greengrass-cdk.GroupOwnerSetting"
           }
         },
         {
@@ -3908,9 +3699,9 @@
         }
       ]
     },
-    "cdk-greengrass.Logger.Component": {
-      "assembly": "cdk-greengrass",
-      "fqn": "cdk-greengrass.Logger.Component",
+    "greengrass-cdk.Logger.Component": {
+      "assembly": "greengrass-cdk",
+      "fqn": "greengrass-cdk.Logger.Component",
       "kind": "enum",
       "locationInModule": {
         "filename": "lib/logger.ts",
@@ -3927,9 +3718,9 @@
       "name": "Component",
       "namespace": "Logger"
     },
-    "cdk-greengrass.Logger.LogLevel": {
-      "assembly": "cdk-greengrass",
-      "fqn": "cdk-greengrass.Logger.LogLevel",
+    "greengrass-cdk.Logger.LogLevel": {
+      "assembly": "greengrass-cdk",
+      "fqn": "greengrass-cdk.Logger.LogLevel",
       "kind": "enum",
       "locationInModule": {
         "filename": "lib/logger.ts",
@@ -3955,11 +3746,11 @@
       "name": "LogLevel",
       "namespace": "Logger"
     },
-    "cdk-greengrass.LoggerBase": {
+    "greengrass-cdk.LoggerBase": {
       "abstract": true,
-      "assembly": "cdk-greengrass",
+      "assembly": "greengrass-cdk",
       "base": "@aws-cdk/core.Resource",
-      "fqn": "cdk-greengrass.LoggerBase",
+      "fqn": "greengrass-cdk.LoggerBase",
       "initializer": {
         "locationInModule": {
           "filename": "lib/logger.ts",
@@ -3981,7 +3772,7 @@
           {
             "name": "props",
             "type": {
-              "fqn": "cdk-greengrass.LoggerProps"
+              "fqn": "greengrass-cdk.LoggerProps"
             }
           }
         ]
@@ -4016,7 +3807,7 @@
           },
           "name": "level",
           "type": {
-            "fqn": "cdk-greengrass.Logger.LogLevel"
+            "fqn": "greengrass-cdk.Logger.LogLevel"
           }
         },
         {
@@ -4032,10 +3823,10 @@
         }
       ]
     },
-    "cdk-greengrass.LoggerProps": {
-      "assembly": "cdk-greengrass",
+    "greengrass-cdk.LoggerProps": {
+      "assembly": "greengrass-cdk",
       "datatype": true,
-      "fqn": "cdk-greengrass.LoggerProps",
+      "fqn": "greengrass-cdk.LoggerProps",
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/logger.ts",
@@ -4052,15 +3843,15 @@
           },
           "name": "level",
           "type": {
-            "fqn": "cdk-greengrass.Logger.LogLevel"
+            "fqn": "greengrass-cdk.Logger.LogLevel"
           }
         }
       ]
     },
-    "cdk-greengrass.MLFeedback": {
-      "assembly": "cdk-greengrass",
-      "base": "cdk-greengrass.Connector",
-      "fqn": "cdk-greengrass.MLFeedback",
+    "greengrass-cdk.MLFeedback": {
+      "assembly": "greengrass-cdk",
+      "base": "greengrass-cdk.Connector",
+      "fqn": "greengrass-cdk.MLFeedback",
       "initializer": {
         "locationInModule": {
           "filename": "lib/connectors/mlfeedback.ts",
@@ -4082,7 +3873,7 @@
           {
             "name": "props",
             "type": {
-              "fqn": "cdk-greengrass.MLFeedbackConnectorProps"
+              "fqn": "greengrass-cdk.MLFeedbackConnectorProps"
             }
           }
         ]
@@ -4101,7 +3892,7 @@
             "line": 54
           },
           "name": "connectorArn",
-          "overrides": "cdk-greengrass.Connector",
+          "overrides": "greengrass-cdk.Connector",
           "type": {
             "primitive": "string"
           }
@@ -4113,19 +3904,19 @@
             "line": 50
           },
           "name": "parameters",
-          "overrides": "cdk-greengrass.Connector",
+          "overrides": "greengrass-cdk.Connector",
           "type": {
             "primitive": "any"
           }
         }
       ]
     },
-    "cdk-greengrass.MLFeedbackConnectorProps": {
-      "assembly": "cdk-greengrass",
+    "greengrass-cdk.MLFeedbackConnectorProps": {
+      "assembly": "greengrass-cdk",
       "datatype": true,
-      "fqn": "cdk-greengrass.MLFeedbackConnectorProps",
+      "fqn": "greengrass-cdk.MLFeedbackConnectorProps",
       "interfaces": [
-        "cdk-greengrass.ConnectorProps"
+        "greengrass-cdk.ConnectorProps"
       ],
       "kind": "interface",
       "locationInModule": {
@@ -4165,10 +3956,10 @@
         }
       ]
     },
-    "cdk-greengrass.OwnerSetting": {
-      "assembly": "cdk-greengrass",
+    "greengrass-cdk.OwnerSetting": {
+      "assembly": "greengrass-cdk",
       "datatype": true,
-      "fqn": "cdk-greengrass.OwnerSetting",
+      "fqn": "greengrass-cdk.OwnerSetting",
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/resource.ts",
@@ -4197,14 +3988,14 @@
           },
           "name": "groupPermission",
           "type": {
-            "fqn": "cdk-greengrass.Permission"
+            "fqn": "greengrass-cdk.Permission"
           }
         }
       ]
     },
-    "cdk-greengrass.Permission": {
-      "assembly": "cdk-greengrass",
-      "fqn": "cdk-greengrass.Permission",
+    "greengrass-cdk.Permission": {
+      "assembly": "greengrass-cdk",
+      "fqn": "greengrass-cdk.Permission",
       "kind": "enum",
       "locationInModule": {
         "filename": "lib/resource.ts",
@@ -4220,11 +4011,11 @@
       ],
       "name": "Permission"
     },
-    "cdk-greengrass.Resource": {
+    "greengrass-cdk.Resource": {
       "abstract": true,
-      "assembly": "cdk-greengrass",
+      "assembly": "greengrass-cdk",
       "base": "@aws-cdk/core.Resource",
-      "fqn": "cdk-greengrass.Resource",
+      "fqn": "greengrass-cdk.Resource",
       "initializer": {
         "locationInModule": {
           "filename": "lib/resource.ts",
@@ -4246,7 +4037,7 @@
           {
             "name": "props",
             "type": {
-              "fqn": "cdk-greengrass.ResourceProps"
+              "fqn": "greengrass-cdk.ResourceProps"
             }
           }
         ]
@@ -4297,10 +4088,10 @@
         }
       ]
     },
-    "cdk-greengrass.ResourceProps": {
-      "assembly": "cdk-greengrass",
+    "greengrass-cdk.ResourceProps": {
+      "assembly": "greengrass-cdk",
       "datatype": true,
-      "fqn": "cdk-greengrass.ResourceProps",
+      "fqn": "greengrass-cdk.ResourceProps",
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/resource.ts",
@@ -4322,10 +4113,10 @@
         }
       ]
     },
-    "cdk-greengrass.S3MachineLearningModelResource": {
-      "assembly": "cdk-greengrass",
-      "base": "cdk-greengrass.Resource",
-      "fqn": "cdk-greengrass.S3MachineLearningModelResource",
+    "greengrass-cdk.S3MachineLearningModelResource": {
+      "assembly": "greengrass-cdk",
+      "base": "greengrass-cdk.Resource",
+      "fqn": "greengrass-cdk.S3MachineLearningModelResource",
       "initializer": {
         "locationInModule": {
           "filename": "lib/resource.ts",
@@ -4347,7 +4138,7 @@
           {
             "name": "props",
             "type": {
-              "fqn": "cdk-greengrass.S3MachineLearningModelResourceProps"
+              "fqn": "greengrass-cdk.S3MachineLearningModelResourceProps"
             }
           }
         ]
@@ -4364,7 +4155,7 @@
             "line": 167
           },
           "name": "resolve",
-          "overrides": "cdk-greengrass.Resource",
+          "overrides": "greengrass-cdk.Resource",
           "returns": {
             "type": {
               "fqn": "@aws-cdk/aws-greengrass.CfnResourceDefinition.ResourceInstanceProperty"
@@ -4393,7 +4184,7 @@
           },
           "name": "ownerSetting",
           "type": {
-            "fqn": "cdk-greengrass.OwnerSetting"
+            "fqn": "greengrass-cdk.OwnerSetting"
           }
         },
         {
@@ -4409,12 +4200,12 @@
         }
       ]
     },
-    "cdk-greengrass.S3MachineLearningModelResourceProps": {
-      "assembly": "cdk-greengrass",
+    "greengrass-cdk.S3MachineLearningModelResourceProps": {
+      "assembly": "greengrass-cdk",
       "datatype": true,
-      "fqn": "cdk-greengrass.S3MachineLearningModelResourceProps",
+      "fqn": "greengrass-cdk.S3MachineLearningModelResourceProps",
       "interfaces": [
-        "cdk-greengrass.ResourceProps"
+        "greengrass-cdk.ResourceProps"
       ],
       "kind": "interface",
       "locationInModule": {
@@ -4444,7 +4235,7 @@
           },
           "name": "ownerSettings",
           "type": {
-            "fqn": "cdk-greengrass.OwnerSetting"
+            "fqn": "greengrass-cdk.OwnerSetting"
           }
         },
         {
@@ -4461,10 +4252,10 @@
         }
       ]
     },
-    "cdk-greengrass.SageMakerMachineLearningModelResource": {
-      "assembly": "cdk-greengrass",
-      "base": "cdk-greengrass.Resource",
-      "fqn": "cdk-greengrass.SageMakerMachineLearningModelResource",
+    "greengrass-cdk.SageMakerMachineLearningModelResource": {
+      "assembly": "greengrass-cdk",
+      "base": "greengrass-cdk.Resource",
+      "fqn": "greengrass-cdk.SageMakerMachineLearningModelResource",
       "initializer": {
         "locationInModule": {
           "filename": "lib/resource.ts",
@@ -4486,7 +4277,7 @@
           {
             "name": "props",
             "type": {
-              "fqn": "cdk-greengrass.SageMakerMachineLearningModelResourceProps"
+              "fqn": "greengrass-cdk.SageMakerMachineLearningModelResourceProps"
             }
           }
         ]
@@ -4503,7 +4294,7 @@
             "line": 139
           },
           "name": "resolve",
-          "overrides": "cdk-greengrass.Resource",
+          "overrides": "greengrass-cdk.Resource",
           "returns": {
             "type": {
               "fqn": "@aws-cdk/aws-greengrass.CfnResourceDefinition.ResourceInstanceProperty"
@@ -4532,7 +4323,7 @@
           },
           "name": "ownerSetting",
           "type": {
-            "fqn": "cdk-greengrass.OwnerSetting"
+            "fqn": "greengrass-cdk.OwnerSetting"
           }
         },
         {
@@ -4548,12 +4339,12 @@
         }
       ]
     },
-    "cdk-greengrass.SageMakerMachineLearningModelResourceProps": {
-      "assembly": "cdk-greengrass",
+    "greengrass-cdk.SageMakerMachineLearningModelResourceProps": {
+      "assembly": "greengrass-cdk",
       "datatype": true,
-      "fqn": "cdk-greengrass.SageMakerMachineLearningModelResourceProps",
+      "fqn": "greengrass-cdk.SageMakerMachineLearningModelResourceProps",
       "interfaces": [
-        "cdk-greengrass.ResourceProps"
+        "greengrass-cdk.ResourceProps"
       ],
       "kind": "interface",
       "locationInModule": {
@@ -4583,7 +4374,7 @@
           },
           "name": "ownerSettings",
           "type": {
-            "fqn": "cdk-greengrass.OwnerSetting"
+            "fqn": "greengrass-cdk.OwnerSetting"
           }
         },
         {
@@ -4600,10 +4391,10 @@
         }
       ]
     },
-    "cdk-greengrass.StreamManagerProps": {
-      "assembly": "cdk-greengrass",
+    "greengrass-cdk.StreamManagerProps": {
+      "assembly": "greengrass-cdk",
       "datatype": true,
-      "fqn": "cdk-greengrass.StreamManagerProps",
+      "fqn": "greengrass-cdk.StreamManagerProps",
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/group.ts",
@@ -4638,10 +4429,10 @@
         }
       ]
     },
-    "cdk-greengrass.SubscriptionProps": {
-      "assembly": "cdk-greengrass",
+    "greengrass-cdk.SubscriptionProps": {
+      "assembly": "greengrass-cdk",
       "datatype": true,
-      "fqn": "cdk-greengrass.SubscriptionProps",
+      "fqn": "greengrass-cdk.SubscriptionProps",
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/subscription.ts",
@@ -4661,16 +4452,16 @@
             "union": {
               "types": [
                 {
-                  "fqn": "cdk-greengrass.Function"
+                  "fqn": "greengrass-cdk.Function"
                 },
                 {
-                  "fqn": "cdk-greengrass.CloudDestination"
+                  "fqn": "greengrass-cdk.CloudDestination"
                 },
                 {
-                  "fqn": "cdk-greengrass.LocalShadowDestination"
+                  "fqn": "greengrass-cdk.LocalShadowDestination"
                 },
                 {
-                  "fqn": "cdk-greengrass.Device"
+                  "fqn": "greengrass-cdk.Device"
                 }
               ]
             }
@@ -4688,16 +4479,16 @@
             "union": {
               "types": [
                 {
-                  "fqn": "cdk-greengrass.Function"
+                  "fqn": "greengrass-cdk.Function"
                 },
                 {
-                  "fqn": "cdk-greengrass.CloudDestination"
+                  "fqn": "greengrass-cdk.CloudDestination"
                 },
                 {
-                  "fqn": "cdk-greengrass.LocalShadowDestination"
+                  "fqn": "greengrass-cdk.LocalShadowDestination"
                 },
                 {
-                  "fqn": "cdk-greengrass.Device"
+                  "fqn": "greengrass-cdk.Device"
                 }
               ]
             }
@@ -4717,10 +4508,10 @@
         }
       ]
     },
-    "cdk-greengrass.Subscriptions": {
-      "assembly": "cdk-greengrass",
+    "greengrass-cdk.Subscriptions": {
+      "assembly": "greengrass-cdk",
       "base": "@aws-cdk/core.Resource",
-      "fqn": "cdk-greengrass.Subscriptions",
+      "fqn": "greengrass-cdk.Subscriptions",
       "initializer": {
         "locationInModule": {
           "filename": "lib/subscription.ts",
@@ -4743,7 +4534,7 @@
             "name": "props",
             "optional": true,
             "type": {
-              "fqn": "cdk-greengrass.SubscriptionsProps"
+              "fqn": "greengrass-cdk.SubscriptionsProps"
             }
           }
         ]
@@ -4767,16 +4558,16 @@
                 "union": {
                   "types": [
                     {
-                      "fqn": "cdk-greengrass.Function"
+                      "fqn": "greengrass-cdk.Function"
                     },
                     {
-                      "fqn": "cdk-greengrass.CloudDestination"
+                      "fqn": "greengrass-cdk.CloudDestination"
                     },
                     {
-                      "fqn": "cdk-greengrass.LocalShadowDestination"
+                      "fqn": "greengrass-cdk.LocalShadowDestination"
                     },
                     {
-                      "fqn": "cdk-greengrass.Device"
+                      "fqn": "greengrass-cdk.Device"
                     }
                   ]
                 }
@@ -4794,16 +4585,16 @@
                 "union": {
                   "types": [
                     {
-                      "fqn": "cdk-greengrass.Function"
+                      "fqn": "greengrass-cdk.Function"
                     },
                     {
-                      "fqn": "cdk-greengrass.CloudDestination"
+                      "fqn": "greengrass-cdk.CloudDestination"
                     },
                     {
-                      "fqn": "cdk-greengrass.LocalShadowDestination"
+                      "fqn": "greengrass-cdk.LocalShadowDestination"
                     },
                     {
-                      "fqn": "cdk-greengrass.Device"
+                      "fqn": "greengrass-cdk.Device"
                     }
                   ]
                 }
@@ -4812,7 +4603,7 @@
           ],
           "returns": {
             "type": {
-              "fqn": "cdk-greengrass.Subscriptions"
+              "fqn": "greengrass-cdk.Subscriptions"
             }
           }
         },
@@ -4846,7 +4637,7 @@
           "type": {
             "collection": {
               "elementtype": {
-                "fqn": "cdk-greengrass.SubscriptionProps"
+                "fqn": "greengrass-cdk.SubscriptionProps"
               },
               "kind": "array"
             }
@@ -4854,10 +4645,10 @@
         }
       ]
     },
-    "cdk-greengrass.SubscriptionsProps": {
-      "assembly": "cdk-greengrass",
+    "greengrass-cdk.SubscriptionsProps": {
+      "assembly": "greengrass-cdk",
       "datatype": true,
-      "fqn": "cdk-greengrass.SubscriptionsProps",
+      "fqn": "greengrass-cdk.SubscriptionsProps",
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/subscription.ts",
@@ -4877,7 +4668,7 @@
           "type": {
             "collection": {
               "elementtype": {
-                "fqn": "cdk-greengrass.SubscriptionProps"
+                "fqn": "greengrass-cdk.SubscriptionProps"
               },
               "kind": "array"
             }
@@ -4886,6 +4677,6 @@
       ]
     }
   },
-  "version": "0.2.0",
-  "fingerprint": "bq/DkcJnWenCX2pOxqtCCM1x+lJ0HhJvuLiaZgnok7k="
+  "version": "0.3.1",
+  "fingerprint": "K2pnZ8q3wtiLIzrqx19UhCRiskNOQllq40CJWy0LfDA="
 }
