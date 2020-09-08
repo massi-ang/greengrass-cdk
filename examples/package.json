@@ -4,6 +4,14 @@
   "bin": {
     "sample": "bin/sample.js"
   },
+  "author": {
+    "name": "Massimiliano Angelino"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/massi-ang/greengrass-cdk"
+  },
+  "license": "Apache-2.0",
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
