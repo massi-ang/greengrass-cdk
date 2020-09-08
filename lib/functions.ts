@@ -34,7 +34,7 @@ export namespace Functions {
 
     export enum IsolationMode {
         /**
-         * Run lamnda function in isolated mode
+         * Run lambda function in isolated mode
          */
         CONTAINER_MODE = 'GreengrassContainer',
         /**
@@ -171,7 +171,7 @@ export class Function extends cdk.Resource {
                         isolationMode: this.isolationMode,
                         runAs: this.runAs
                     },
-                    resourceAccessPolicies: this.resourceAccessPolicies?.map(convertResouceAccessPolicies),
+                    resourceAccessPolicies: this.resourceAccessPolicies?.map(convertResourceAccessPolicies),
                     variables: this.variables
                 },
                 encodingType: this.encodingType,
@@ -203,7 +203,7 @@ export class Function extends cdk.Resource {
     readonly accessSysFs ?: boolean | IResolvable;
 }
 
-function convertResouceAccessPolicies(rap: Functions.ResourceAccessPolicy): gg.CfnFunctionDefinition.ResourceAccessPolicyProperty {
+function convertResourceAccessPolicies(rap: Functions.ResourceAccessPolicy): gg.CfnFunctionDefinition.ResourceAccessPolicyProperty {
     return {
         resourceId: rap.resource.id,
         permission: rap.permission

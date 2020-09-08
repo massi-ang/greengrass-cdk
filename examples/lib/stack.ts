@@ -19,7 +19,7 @@ import * as gg from '../../lib/index'
 import * as iot from '@aws-cdk/aws-iot';
 import * as lambda from '@aws-cdk/aws-lambda';
 import { RemovalPolicy, Size, Duration } from '@aws-cdk/core';
-import { CloudDestination } from '../../lib/index';
+import { AWSIoTCloud } from '../../lib/index';
 
 export interface MyStackProps extends cdk.StackProps {
     certificateArn: string;
@@ -89,7 +89,7 @@ export class MyStack extends cdk.Stack {
 
         gg_lambda.addResource(tmp_folder, gg.Functions.ResourceAccessPermission.READ_ONLY);
 
-        // setting up local logging for greenfrass components
+        // setting up local logging for Greengrass components
 
         let localLogger = new gg.LocalGreengrassLogger(this, 'local_logger', {
             level: gg.Logger.LogLevel.DEBUG,
@@ -99,8 +99,8 @@ export class MyStack extends cdk.Stack {
         // and some subscriptions
 
         let subscriptions = new gg.Subscriptions(this, 'subscriptions')
-            .add(gg_lambda, '#', new CloudDestination())
-            .add(new CloudDestination(), '#', gg_lambda)
+            .add(gg_lambda, '#', new AWSIoTCloud())
+            .add(new AWSIoTCloud(), '#', gg_lambda)
         
 
         // We create a first group

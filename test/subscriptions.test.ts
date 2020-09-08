@@ -16,7 +16,7 @@
 
 import '@aws-cdk/assert/jest';
 import * as cdk from '@aws-cdk/core';
-import { Core, Group, Subscriptions, CloudDestination, LocalShadowDestination, Function } from '../lib';
+import { Core, Group, Subscriptions, AWSIoTCloud, LocalShadow, Function } from '../lib';
 import * as iot from '@aws-cdk/aws-iot';
 import { Size, Duration } from '@aws-cdk/core';
 //import { SynthUtils } from '@aws-cdk/assert';
@@ -61,7 +61,7 @@ afterEach(() => {
 
 test('Subscriptions cloud and localshadow destinations', () => {
   let s = new Subscriptions(stack, 'subs');
-  s.add(new CloudDestination(), '#', new LocalShadowDestination())
+  s.add(new AWSIoTCloud(), '#', new LocalShadow())
   new Group(stack, 'group', {
     core: c,
     subscriptions: s
@@ -93,7 +93,7 @@ test('Subscriptions functions', () => {
     timeout: Duration.seconds(3),
   })
 
-  s.add(gf, 'iot/topic', new CloudDestination())
+  s.add(gf, 'iot/topic', new AWSIoTCloud())
 
   new Group(stack, 'group', {
     core: c,

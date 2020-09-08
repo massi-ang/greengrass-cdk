@@ -23,19 +23,19 @@ export abstract class DestinationInternal {
     abstract get arn(): string;
 }
 
-export class CloudDestination extends DestinationInternal {
+export class AWSIoTCloud extends DestinationInternal {
     get arn(): string {
         return "cloud"
     }
 }
 
-export class LocalShadowDestination extends DestinationInternal {
+export class LocalShadow extends DestinationInternal {
     get arn(): string {
         return "GGShadowService"
     }
 }
 
-type Destination = CloudDestination | LocalShadowDestination | Function | Device
+type Destination = AWSIoTCloud | LocalShadow | Function | Device
 
 
 export interface SubscriptionProps {

@@ -1,4 +1,4 @@
-# Welcome to your CDK Greengrass L2 Constructs
+# CDK Greengrass L2 Constructs
 
 This project implements a set of constructs wrapping the L1 constructs provided by `@aws-cdk/aws-greengrass` library.
 
@@ -14,7 +14,7 @@ new Group(this, id, {
                 certificateArn: props.certificateArn
             },
     functions: [],
-    subscriptions: [],
+    subscriptions: subs,
     loggers: [],
     resources: [],
     connectors: [],
@@ -65,6 +65,10 @@ let localLogger: gg.LocalLogger = {
     space: 32000
 }
 
+let subs = new Subscriptions(this, 'subscriptions')
+subs.add(gg_lambda. '#', new CloudDestination())
+subs.add(new CloudDestination(), '#', gg_lambda)
+
 new gg.Group(this, 'a_group', {
     core: {
         thing: t,
@@ -72,18 +76,7 @@ new gg.Group(this, 'a_group', {
         certificateArn: props.certificateArn
     },
     functions: [ gg_lambda ],
-    subscriptions: [
-        {
-            source: gg_lambda,
-            topic: '#',
-            target: new gg.CloudDestination()
-        },
-        {
-            source: new gg.CloudDestination(),
-            topic: '#',
-            target: gg_lambda
-        }
-    ],
+    subscriptions: subs,
     loggers: [ localLogger ],
     resources: [ tmp_folder ]
 })
