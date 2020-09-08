@@ -70,7 +70,7 @@ test('Subscriptions cloud and localshadow destinations', () => {
     InitialVersion: {
       Subscriptions: [
         {
-          "Id": "cloud.#.GGShadowService",
+          "Id": "0",
           "Source": "cloud",
           "Subject": "#",
           "Target": "GGShadowService"

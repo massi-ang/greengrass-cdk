@@ -74,7 +74,7 @@ export class Subscriptions extends cdk.Resource {
         let source: string;
         let target: string;
 
-        const res = this.subscriptionList.map(s => {
+        const res = this.subscriptionList.map((s, i) => {
             
             if ('lambdaFunction' in s.source) {
                 let f = (s.source as Function);
@@ -92,7 +92,7 @@ export class Subscriptions extends cdk.Resource {
                 target = d.arn
             }
             return {
-                id: `${source}.${s.topic}.${target}`,
+                id: `${i}`,
                 source: source,
                 target: target,
                 subject: s.topic
