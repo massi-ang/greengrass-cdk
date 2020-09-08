@@ -1,5 +1,16 @@
 # RELEASE NOTES
 
+## v0.3.4
+2020-09-08
+* bumped to CDK 1.62.0
+* support for `Connectors`
+* support for Spooler configuration
+* support for Stream manager configuration
+* support for automatic IP detection configuration
+* support for `Devices`
+* tests
+* implementation of `Subscirptions` class to manage subscriptions
+
 ## v0.2.0 
 2020-09-04
 
