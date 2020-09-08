@@ -1,6 +1,6 @@
 # RELEASE NOTES
 
-## v0.3.4
+## v0.3.5
 2020-09-08
 * bumped to CDK 1.62.0
 * support for `Connectors`
@@ -10,6 +10,7 @@
 * support for `Devices`
 * tests
 * implementation of `Subscriptions` class to manage subscriptions
+
 
 ## v0.2.0 
 2020-09-04
