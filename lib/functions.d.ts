@@ -16,7 +16,7 @@ export declare namespace Functions {
     }
     enum IsolationMode {
         /**
-         * Run lamnda function in isolated mode
+         * Run lambda function in isolated mode
          */
         CONTAINER_MODE = "GreengrassContainer",
         /**

@@ -5,13 +5,13 @@ import * as gg from '@aws-cdk/aws-greengrass';
 export declare abstract class DestinationInternal {
     abstract get arn(): string;
 }
-export declare class CloudDestination extends DestinationInternal {
+export declare class AWSIoTCloud extends DestinationInternal {
     get arn(): string;
 }
-export declare class LocalShadowDestination extends DestinationInternal {
+export declare class LocalShadow extends DestinationInternal {
     get arn(): string;
 }
-declare type Destination = CloudDestination | LocalShadowDestination | Function | Device;
+declare type Destination = AWSIoTCloud | LocalShadow | Function | Device;
 export interface SubscriptionProps {
     readonly topic: string;
     readonly source: Destination;

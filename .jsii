@@ -593,7 +593,7 @@
   "license": "Apache-2.0",
   "name": "greengrass-cdk",
   "readme": {
-    "markdown": "# Welcome to your CDK Greengrass L2 Constructs\n\nThis project implements a set of constructs wrapping the L1 constructs provided by `@aws-cdk/aws-greengrass` library.\n\n## Concepts\n\nTo create a new Greengrass group use the `Group` construct.\n\n```typescript\nnew Group(this, id, {\n    core: {\n                thing: t,\n                syncShadow: true,\n                certificateArn: props.certificateArn\n            },\n    functions: [],\n    subscriptions: [],\n    loggers: [],\n    resources: [],\n    connectors: [],\n    devices: []\n})\n```\n\nWhere t is a `CfnThing`. Functions, subscriptions, etc are exposed as L2 constructs by this library, and you do not need to work with xxxDefinition and xxxDefintionVersions. All that is managed for you.\n\nAn example stack to create a Greengrass Group would then be coded like:\n\n```typescript\nlet f = new lambda.Function(this, 'f1', {\n    ...\n})\nlet alias = f.currentVersion.addAlias('prod')\n\n\nlet t = new iot.CfnThing(this, 'a_thing', {\n    thingName: 'MyThing'\n})\n\n\nlet tmp_folder: gg.LocalVolumeResource = {\n    destinationPath: '/tmp',\n    sourcePath: '/home/ec2/tmp',\n    groupOwnerSetting: {\n        autoAddGroupOwner: true\n    },\n    name: 'temp'\n}\n\nlet gg_lambda:gg.Function = {\n    function: f,\n    alias: alias,\n    encodingType: gg.Functions.EncodingType.JSON,\n    memorySize: cdk.Size.mibibytes(16),\n    pinned: false,\n    timeout: cdk.Duration.seconds(3),\n    variables: new Map([\n        [\"name\": \"value\"]\n    ])\n}\n\nlet localLogger: gg.LocalLogger = {\n    component: gg.LoggerProps.Component.GREENGRASS,\n    level: gg.LoggerProps.LogLevel.DEBUG,\n    space: 32000\n}\n\nnew gg.Group(this, 'a_group', {\n    core: {\n        thing: t,\n        syncShadow: true,\n        certificateArn: props.certificateArn\n    },\n    functions: [ gg_lambda ],\n    subscriptions: [\n        {\n            source: gg_lambda,\n            topic: '#',\n            target: new gg.CloudDestination()\n        },\n        {\n            source: new gg.CloudDestination(),\n            topic: '#',\n            target: gg_lambda\n        }\n    ],\n    loggers: [ localLogger ],\n    resources: [ tmp_folder ]\n})\n```\n\n"
+    "markdown": "# CDK Greengrass L2 Constructs\n\nThis project implements a set of constructs wrapping the L1 constructs provided by `@aws-cdk/aws-greengrass` library.\n\n## Concepts\n\nTo create a new Greengrass group use the `Group` construct.\n\n```typescript\nnew Group(this, id, {\n    core: {\n                thing: t,\n                syncShadow: true,\n                certificateArn: props.certificateArn\n            },\n    functions: [],\n    subscriptions: subs,\n    loggers: [],\n    resources: [],\n    connectors: [],\n    devices: []\n})\n```\n\nWhere t is a `CfnThing`. Functions, subscriptions, etc are exposed as L2 constructs by this library, and you do not need to work with xxxDefinition and xxxDefintionVersions. All that is managed for you.\n\nAn example stack to create a Greengrass Group would then be coded like:\n\n```typescript\nlet f = new lambda.Function(this, 'f1', {\n    ...\n})\nlet alias = f.currentVersion.addAlias('prod')\n\n\nlet t = new iot.CfnThing(this, 'a_thing', {\n    thingName: 'MyThing'\n})\n\n\nlet tmp_folder: gg.LocalVolumeResource = {\n    destinationPath: '/tmp',\n    sourcePath: '/home/ec2/tmp',\n    groupOwnerSetting: {\n        autoAddGroupOwner: true\n    },\n    name: 'temp'\n}\n\nlet gg_lambda:gg.Function = {\n    function: f,\n    alias: alias,\n    encodingType: gg.Functions.EncodingType.JSON,\n    memorySize: cdk.Size.mibibytes(16),\n    pinned: false,\n    timeout: cdk.Duration.seconds(3),\n    variables: new Map([\n        [\"name\": \"value\"]\n    ])\n}\n\nlet localLogger: gg.LocalLogger = {\n    component: gg.LoggerProps.Component.GREENGRASS,\n    level: gg.LoggerProps.LogLevel.DEBUG,\n    space: 32000\n}\n\nlet subs = new Subscriptions(this, 'subscriptions')\nsubs.add(gg_lambda. '#', new CloudDestination())\nsubs.add(new CloudDestination(), '#', gg_lambda)\n\nnew gg.Group(this, 'a_group', {\n    core: {\n        thing: t,\n        syncShadow: true,\n        certificateArn: props.certificateArn\n    },\n    functions: [ gg_lambda ],\n    subscriptions: subs,\n    loggers: [ localLogger ],\n    resources: [ tmp_folder ]\n})\n```\n\n"
   },
   "repository": {
     "type": "git",
@@ -728,17 +728,17 @@
       ],
       "name": "AWSCloudWatchUserLambdaLogger"
     },
-    "greengrass-cdk.CloudDestination": {
+    "greengrass-cdk.AWSIoTCloud": {
       "assembly": "greengrass-cdk",
       "base": "greengrass-cdk.DestinationInternal",
-      "fqn": "greengrass-cdk.CloudDestination",
+      "fqn": "greengrass-cdk.AWSIoTCloud",
       "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/subscription.ts",
         "line": 26
       },
-      "name": "CloudDestination",
+      "name": "AWSIoTCloud",
       "properties": [
         {
           "immutable": true,
@@ -2161,7 +2161,7 @@
       "members": [
         {
           "docs": {
-            "summary": "Run lamnda function in isolated mode."
+            "summary": "Run lambda function in isolated mode."
           },
           "name": "CONTAINER_MODE"
         },
@@ -3820,17 +3820,17 @@
         }
       ]
     },
-    "greengrass-cdk.LocalShadowDestination": {
+    "greengrass-cdk.LocalShadow": {
       "assembly": "greengrass-cdk",
       "base": "greengrass-cdk.DestinationInternal",
-      "fqn": "greengrass-cdk.LocalShadowDestination",
+      "fqn": "greengrass-cdk.LocalShadow",
       "initializer": {},
       "kind": "class",
       "locationInModule": {
         "filename": "lib/subscription.ts",
         "line": 32
       },
-      "name": "LocalShadowDestination",
+      "name": "LocalShadow",
       "properties": [
         {
           "immutable": true,
@@ -4806,10 +4806,10 @@
                   "fqn": "greengrass-cdk.Function"
                 },
                 {
-                  "fqn": "greengrass-cdk.CloudDestination"
+                  "fqn": "greengrass-cdk.AWSIoTCloud"
                 },
                 {
-                  "fqn": "greengrass-cdk.LocalShadowDestination"
+                  "fqn": "greengrass-cdk.LocalShadow"
                 },
                 {
                   "fqn": "greengrass-cdk.Device"
@@ -4833,10 +4833,10 @@
                   "fqn": "greengrass-cdk.Function"
                 },
                 {
-                  "fqn": "greengrass-cdk.CloudDestination"
+                  "fqn": "greengrass-cdk.AWSIoTCloud"
                 },
                 {
-                  "fqn": "greengrass-cdk.LocalShadowDestination"
+                  "fqn": "greengrass-cdk.LocalShadow"
                 },
                 {
                   "fqn": "greengrass-cdk.Device"
@@ -4912,10 +4912,10 @@
                       "fqn": "greengrass-cdk.Function"
                     },
                     {
-                      "fqn": "greengrass-cdk.CloudDestination"
+                      "fqn": "greengrass-cdk.AWSIoTCloud"
                     },
                     {
-                      "fqn": "greengrass-cdk.LocalShadowDestination"
+                      "fqn": "greengrass-cdk.LocalShadow"
                     },
                     {
                       "fqn": "greengrass-cdk.Device"
@@ -4939,10 +4939,10 @@
                       "fqn": "greengrass-cdk.Function"
                     },
                     {
-                      "fqn": "greengrass-cdk.CloudDestination"
+                      "fqn": "greengrass-cdk.AWSIoTCloud"
                     },
                     {
-                      "fqn": "greengrass-cdk.LocalShadowDestination"
+                      "fqn": "greengrass-cdk.LocalShadow"
                     },
                     {
                       "fqn": "greengrass-cdk.Device"
@@ -5029,5 +5029,5 @@
     }
   },
   "version": "0.3.4",
-  "fingerprint": "Xkg5HJMdt+/K2plLSgP0dTwVp6pgKeHRC3Bq8mD6T00="
+  "fingerprint": "35SCAkhj/15k4iUFo5aEltuEk4CvVxRiq13otBR1NSg="
 }
