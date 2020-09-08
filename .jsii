@@ -588,7 +588,7 @@
     }
   },
   "description": "cdk-greengrass",
-  "homepage": "https://github.com/mirai/greengrass-l2",
+  "homepage": "https://github.com/massi-ang/greengrass-cdk",
   "jsiiVersion": "1.12.0 (build 5ddc9f2)",
   "license": "Apache-2.0",
   "name": "cdk-greengrass",
@@ -597,7 +597,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mirai/greengrass-l2"
+    "url": "https://github.com/massi-ang/greengrass-cdk"
   },
   "schema": "jsii/0.10.0",
   "submodules": {
@@ -753,6 +753,100 @@
           }
         }
       ]
+    },
+    "cdk-greengrass.CloudSpoolerProps": {
+      "assembly": "cdk-greengrass",
+      "datatype": true,
+      "fqn": "cdk-greengrass.CloudSpoolerProps",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/group.ts",
+        "line": 46
+      },
+      "name": "CloudSpoolerProps",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/group.ts",
+            "line": 48
+          },
+          "name": "enablePersistentSessions",
+          "optional": true,
+          "type": {
+            "primitive": "boolean"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/group.ts",
+            "line": 47
+          },
+          "name": "storage",
+          "optional": true,
+          "type": {
+            "fqn": "cdk-greengrass.CloudSpoolerStorageProps"
+          }
+        }
+      ]
+    },
+    "cdk-greengrass.CloudSpoolerStorageProps": {
+      "assembly": "cdk-greengrass",
+      "datatype": true,
+      "fqn": "cdk-greengrass.CloudSpoolerStorageProps",
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/group.ts",
+        "line": 41
+      },
+      "name": "CloudSpoolerStorageProps",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/group.ts",
+            "line": 43
+          },
+          "name": "maxSize",
+          "type": {
+            "fqn": "@aws-cdk/core.Size"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/group.ts",
+            "line": 42
+          },
+          "name": "type",
+          "type": {
+            "fqn": "cdk-greengrass.CloudSpoolerStorageType"
+          }
+        }
+      ]
+    },
+    "cdk-greengrass.CloudSpoolerStorageType": {
+      "assembly": "cdk-greengrass",
+      "fqn": "cdk-greengrass.CloudSpoolerStorageType",
+      "kind": "enum",
+      "locationInModule": {
+        "filename": "lib/group.ts",
+        "line": 36
+      },
+      "members": [
+        {
+          "name": "MEMORY"
+        },
+        {
+          "name": "FILE_SYSTEM"
+        }
+      ],
+      "name": "CloudSpoolerStorageType"
     },
     "cdk-greengrass.CloudWatchMetrics": {
       "assembly": "cdk-greengrass",
@@ -2060,6 +2154,121 @@
         }
       ]
     },
+    "cdk-greengrass.Generic": {
+      "assembly": "cdk-greengrass",
+      "base": "cdk-greengrass.Connector",
+      "fqn": "cdk-greengrass.Generic",
+      "initializer": {
+        "locationInModule": {
+          "filename": "lib/connectors/generic.ts",
+          "line": 30
+        },
+        "parameters": [
+          {
+            "name": "scope",
+            "type": {
+              "fqn": "@aws-cdk/core.Construct"
+            }
+          },
+          {
+            "name": "id",
+            "type": {
+              "primitive": "string"
+            }
+          },
+          {
+            "name": "props",
+            "type": {
+              "fqn": "cdk-greengrass.GenericConnectorProps"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/connectors/generic.ts",
+        "line": 25
+      },
+      "name": "Generic",
+      "properties": [
+        {
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/connectors/generic.ts",
+            "line": 41
+          },
+          "name": "connectorArn",
+          "overrides": "cdk-greengrass.Connector",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/connectors/generic.ts",
+            "line": 37
+          },
+          "name": "parameters",
+          "overrides": "cdk-greengrass.Connector",
+          "type": {
+            "primitive": "any"
+          }
+        }
+      ]
+    },
+    "cdk-greengrass.GenericConnectorProps": {
+      "assembly": "cdk-greengrass",
+      "datatype": true,
+      "fqn": "cdk-greengrass.GenericConnectorProps",
+      "interfaces": [
+        "cdk-greengrass.ConnectorProps"
+      ],
+      "kind": "interface",
+      "locationInModule": {
+        "filename": "lib/connectors/generic.ts",
+        "line": 19
+      },
+      "name": "GenericConnectorProps",
+      "properties": [
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/connectors/generic.ts",
+            "line": 21
+          },
+          "name": "name",
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/connectors/generic.ts",
+            "line": 20
+          },
+          "name": "parameters",
+          "type": {
+            "primitive": "any"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/connectors/generic.ts",
+            "line": 22
+          },
+          "name": "version",
+          "type": {
+            "primitive": "number"
+          }
+        }
+      ]
+    },
     "cdk-greengrass.Group": {
       "assembly": "cdk-greengrass",
       "base": "@aws-cdk/core.Construct",
@@ -2067,7 +2276,7 @@
       "initializer": {
         "locationInModule": {
           "filename": "lib/group.ts",
-          "line": 57
+          "line": 74
         },
         "parameters": [
           {
@@ -2093,13 +2302,13 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/group.ts",
-        "line": 51
+        "line": 68
       },
       "methods": [
         {
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 218
+            "line": 281
           },
           "name": "fromTemplate",
           "parameters": [
@@ -2138,7 +2347,7 @@
         {
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 206
+            "line": 269
           },
           "name": "cloneToNew",
           "parameters": [
@@ -2168,7 +2377,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 53
+            "line": 70
           },
           "name": "arn",
           "type": {
@@ -2179,7 +2388,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 52
+            "line": 69
           },
           "name": "id",
           "type": {
@@ -2190,7 +2399,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 54
+            "line": 71
           },
           "name": "latestVersionArn",
           "type": {
@@ -2201,7 +2410,31 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 233
+            "line": 301
+          },
+          "name": "connectorDefinitionVersionArn",
+          "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/group.ts",
+            "line": 300
+          },
+          "name": "deviceDefinitionVersionArn",
+          "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/group.ts",
+            "line": 296
           },
           "name": "functionDefinitionVersionArn",
           "optional": true,
@@ -2213,7 +2446,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 235
+            "line": 298
           },
           "name": "loggerDefinitionVersionArn",
           "optional": true,
@@ -2225,7 +2458,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 236
+            "line": 299
           },
           "name": "resourceDefinitionVersionArn",
           "optional": true,
@@ -2237,7 +2470,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 55
+            "line": 72
           },
           "name": "roleArn",
           "optional": true,
@@ -2249,7 +2482,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 234
+            "line": 297
           },
           "name": "subscriptionDefinitionVersionArn",
           "optional": true,
@@ -2304,7 +2537,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/group.ts",
-        "line": 36
+        "line": 51
       },
       "name": "GroupProps",
       "properties": [
@@ -2313,7 +2546,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 37
+            "line": 52
           },
           "name": "core",
           "type": {
@@ -2325,7 +2558,51 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 43
+            "line": 65
+          },
+          "name": "cloudSpooler",
+          "optional": true,
+          "type": {
+            "fqn": "cdk-greengrass.CloudSpoolerProps"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/group.ts",
+            "line": 59
+          },
+          "name": "connectors",
+          "optional": true,
+          "type": {
+            "collection": {
+              "elementtype": {
+                "fqn": "cdk-greengrass.Connector"
+              },
+              "kind": "array"
+            }
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/group.ts",
+            "line": 53
+          },
+          "name": "defaultFunctionExecution",
+          "optional": true,
+          "type": {
+            "fqn": "cdk-greengrass.Functions.Execution"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/group.ts",
+            "line": 58
           },
           "name": "devices",
           "optional": true,
@@ -2343,7 +2620,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 44
+            "line": 60
           },
           "name": "deviceSpecificSubscriptions",
           "optional": true,
@@ -2356,7 +2633,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 46
+            "line": 62
           },
           "name": "enableAutomaticIpDiscovery",
           "optional": true,
@@ -2369,20 +2646,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 38
-          },
-          "name": "functionExecution",
-          "optional": true,
-          "type": {
-            "fqn": "cdk-greengrass.Functions.Execution"
-          }
-        },
-        {
-          "abstract": true,
-          "immutable": true,
-          "locationInModule": {
-            "filename": "lib/group.ts",
-            "line": 39
+            "line": 54
           },
           "name": "functions",
           "optional": true,
@@ -2400,7 +2664,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 48
+            "line": 64
           },
           "name": "initialVersion",
           "optional": true,
@@ -2413,7 +2677,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 41
+            "line": 56
           },
           "name": "loggers",
           "optional": true,
@@ -2431,7 +2695,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 42
+            "line": 57
           },
           "name": "resources",
           "optional": true,
@@ -2449,7 +2713,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 47
+            "line": 63
           },
           "name": "role",
           "optional": true,
@@ -2462,7 +2726,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 45
+            "line": 61
           },
           "name": "streamManager",
           "optional": true,
@@ -2475,7 +2739,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 40
+            "line": 55
           },
           "name": "subscriptions",
           "optional": true,
@@ -4343,7 +4607,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/group.ts",
-        "line": 30
+        "line": 31
       },
       "name": "StreamManagerProps",
       "properties": [
@@ -4352,7 +4616,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 31
+            "line": 32
           },
           "name": "enableStreamManager",
           "type": {
@@ -4364,7 +4628,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 32
+            "line": 33
           },
           "name": "allowInsecureAccess",
           "optional": true,
@@ -4623,5 +4887,5 @@
     }
   },
   "version": "0.2.0",
-  "fingerprint": "OarV0w3OCJGGILEsR4I4fdBOkvocuSTul966st2AwJc="
+  "fingerprint": "bq/DkcJnWenCX2pOxqtCCM1x+lJ0HhJvuLiaZgnok7k="
 }

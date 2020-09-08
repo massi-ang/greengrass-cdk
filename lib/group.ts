@@ -25,6 +25,7 @@ import * as gg from '@aws-cdk/aws-greengrass'
 import { GroupTemplate } from './template';
 import { Role } from '@aws-cdk/aws-iam'
 import { CfnFunctionDefinition } from '@aws-cdk/aws-greengrass';
+import { Connector } from './connector';
 
 
 export interface StreamManagerProps {
@@ -32,20 +33,36 @@ export interface StreamManagerProps {
   readonly allowInsecureAccess?: boolean;
 }
 
+export enum CloudSpoolerStorageType {
+  MEMORY = 'Memory',
+  FILE_SYSTEM = 'FileSystem'
+}
+
+export interface CloudSpoolerStorageProps {
+  readonly type: CloudSpoolerStorageType;
+  readonly maxSize: cdk.Size;
+}
+
+export interface CloudSpoolerProps {
+  readonly storage?: CloudSpoolerStorageProps;
+  readonly enablePersistentSessions?: boolean;
+}
 
 export interface GroupProps {
   readonly core: Core;
-  readonly functionExecution?: Functions.Execution
+  readonly defaultFunctionExecution?: Functions.Execution
   readonly functions?: Function[];
   readonly subscriptions?: Subscriptions;
   readonly loggers?: LoggerBase[];
   readonly resources?: Resource[];
   readonly devices?: Device[];
+  readonly connectors?: Connector[];
   readonly deviceSpecificSubscriptions?: Subscriptions;
   readonly streamManager?: StreamManagerProps,
   readonly enableAutomaticIpDiscovery?: boolean;
-  readonly role?: Role
-  readonly initialVersion?: gg.CfnGroup.GroupVersionProperty
+  readonly role?: Role;
+  readonly initialVersion?: gg.CfnGroup.GroupVersionProperty;
+  readonly cloudSpooler?: CloudSpoolerProps;
 }
 
 export class Group extends cdk.Construct {
@@ -82,7 +99,7 @@ export class Group extends cdk.Construct {
     }
 
     let systemFunctions: gg.CfnFunctionDefinition.FunctionProperty[] = [];
-    if (props.streamManager?.enableStreamManager || props.enableAutomaticIpDiscovery) {
+    if (props.streamManager?.enableStreamManager || props.enableAutomaticIpDiscovery || props.cloudSpooler) {
       if (props.streamManager?.enableStreamManager) {
         if (props.streamManager!.allowInsecureAccess) {
           this.streamManagerEnvironment = {
@@ -113,6 +130,25 @@ export class Group extends cdk.Construct {
           }
         })
       }
+      if (props.cloudSpooler) {
+        systemFunctions.push({
+          id: 'spooler',
+          functionArn: "arn:aws:lambda:::function:GGCloudSpooler:1",
+          functionConfiguration: {
+            executable: "spooler",
+            pinned: true,
+            memorySize: 32768,
+            timeout: 3,
+            environment: {
+              variables: {
+                "GG_CONFIG_STORAGE_TYPE": props.cloudSpooler.storage?.type,
+                "GG_CONFIG_MAX_SIZE_BYTES": props.cloudSpooler.storage?.maxSize.toKibibytes(),
+                "GG_CONFIG_SUBSCRIPTION_QUALITY": props.cloudSpooler.enablePersistentSessions,
+              }
+            }
+          }
+        })
+      }
     }
 
     if (props.functions !== undefined || systemFunctions.length > 0) {
@@ -122,10 +158,10 @@ export class Group extends cdk.Construct {
       var functionDefinition: gg.CfnFunctionDefinition;
       if (props.functions !== undefined) {
         
-        if (props.functionExecution) {
+        if (props.defaultFunctionExecution) {
           this.defaultConfig = {
             execution: {
-              ...props.functionExecution
+              ...props.defaultFunctionExecution
             }
           }
         } 
@@ -173,6 +209,32 @@ export class Group extends cdk.Construct {
       this.resourceDefinitionVersionArn = resourceDefinition.attrLatestVersionArn;
     }
 
+    if (props.devices !== undefined) {
+      function convert(x: Device): gg.CfnDeviceDefinition.DeviceProperty {
+        return x.resolve();
+      }
+      let deviceDefinition = new gg.CfnDeviceDefinition(this, id + '_devices', {
+        name: id,
+        initialVersion: {
+          devices: props.devices!.map(convert)
+        }
+      })
+      this.deviceDefinitionVersionArn = deviceDefinition.attrLatestVersionArn;
+    }
+
+    if (props.connectors !== undefined) {
+      function convert(x: Connector): gg.CfnConnectorDefinition.ConnectorProperty {
+        return x.resolve();
+      }
+      let connectorDefinition = new gg.CfnConnectorDefinition(this, id + '_connectors', {
+        name: id,
+        initialVersion: {
+          connectors: props.connectors!.map(convert)
+        }
+      })
+      this.connectorDefinitionVersionArn = connectorDefinition.attrLatestVersionArn;
+    }
+
 
     if (props.loggers !== undefined) {
       function convert(x: LoggerBase): gg.CfnLoggerDefinition.LoggerProperty {
@@ -194,7 +256,8 @@ export class Group extends cdk.Construct {
         functionDefinitionVersionArn: this.functionDefinitionVersionArn,
         subscriptionDefinitionVersionArn: this.subscriptionDefinitionVersionArn,
         loggerDefinitionVersionArn: this.loggerDefinitionVersionArn,
-        resourceDefinitionVersionArn: this.resourceDefinitionVersionArn
+        resourceDefinitionVersionArn: this.resourceDefinitionVersionArn,
+        deviceDefinitionVersionArn: this.deviceDefinitionVersionArn
       } // TODO: Devices and Connectors
     })
     this.arn = group.attrArn;
@@ -234,5 +297,7 @@ export class Group extends cdk.Construct {
   readonly subscriptionDefinitionVersionArn?: string;
   readonly loggerDefinitionVersionArn?: string;
   readonly resourceDefinitionVersionArn?: string;
+  readonly deviceDefinitionVersionArn?: string;
+  readonly connectorDefinitionVersionArn?: string;
 }
 
