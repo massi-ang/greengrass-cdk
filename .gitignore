@@ -1,11 +1,11 @@
-*.js
+# *.js
 !jest.config.js
-*.d.ts
+# *.d.ts
 node_modules
-
+dist/
 # CDK asset staging directory
 .cdk.staging
 cdk.out
-
+.vscode
 # Parcel default cache directory
 .parcel-cache
