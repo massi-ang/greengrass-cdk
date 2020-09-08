@@ -126,11 +126,7 @@ export class Function extends cdk.Resource {
     constructor(scope: cdk.Construct, id: string, props: FunctionProps) {
         super(scope, id);
 
-        if (!(props.function.runtime === lambda.Runtime.PYTHON_3_7 ||
-            props.function.runtime === lambda.Runtime.JAVA_8 ||
-            props.function.runtime === lambda.Runtime.NODEJS_8_10)) {
-            throw new Error(`Invalid Lambda runtime: ${props.function.runtime}. Greengrass functions only support ${lambda.Runtime.PYTHON_3_7}, ${lambda.Runtime.JAVA_8}, and ${lambda.Runtime.NODEJS_8_10}`)
-        }
+        
         this.name = id;
         this.lambdaFunction = props.function;
         this.alias = props.alias;
@@ -161,7 +157,11 @@ export class Function extends cdk.Resource {
 
     resolve(): gg.CfnFunctionDefinition.FunctionProperty {
 
-        
+        if (!(this.lambdaFunction.runtime === lambda.Runtime.PYTHON_3_7 ||
+            this.lambdaFunction.runtime === lambda.Runtime.JAVA_8 ||
+            this.lambdaFunction.runtime === lambda.Runtime.NODEJS_8_10)) {
+            throw new Error(`Invalid Lambda runtime: ${this.lambdaFunction.runtime}. Greengrass functions only support ${lambda.Runtime.PYTHON_3_7}, ${lambda.Runtime.JAVA_8}, and ${lambda.Runtime.NODEJS_8_10}`)
+        }
         return {
             functionArn: this.lambdaFunction.functionArn + ':' + this.reference,
             functionConfiguration: {

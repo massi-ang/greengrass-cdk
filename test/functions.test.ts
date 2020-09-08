@@ -98,6 +98,84 @@ test('functions all compulsory', () => {
 })
 
 
+test('functions wrong runtime', () => {
+
+  let f1 = new lambda.Function(stack, 'a wrong function', {
+    code: lambda.Code.fromInline('print("Hello")'),
+    runtime: lambda.Runtime.PYTHON_2_7,
+    handler: 'handler'
+  })
+  let v = new lambda.Version(stack, 'v2', {
+    lambda: f1
+  })
+  let alias = new lambda.Alias(stack, 'prod1', {
+    version: v,
+    aliasName: 'prod'
+  })
+  let gf = new Function(stack, 'gg-function', {
+    alias: alias,
+    function: f1,
+    memorySize: Size.mebibytes(128),
+    pinned: false,
+    timeout: Duration.seconds(3),
+  })
+
+  expect(() => {
+    return new Group(stack, 'a group', {
+      core: c,
+      functions: [gf]
+    })
+  }).toThrow()
+})
+
+test('functions using versions', () => {
+
+  let f1 = new lambda.Function(stack, 'a wrong function', {
+    code: lambda.Code.fromInline('print("Hello")'),
+    runtime: lambda.Runtime.PYTHON_3_7,
+    handler: 'handler'
+  })
+  let v = new lambda.Version(stack, 'v2', {
+    lambda: f1
+  })
+  
+  let gf = new Function(stack, 'gg-function', {
+    version: v,
+    function: f1,
+    memorySize: Size.mebibytes(128),
+    pinned: false,
+    timeout: Duration.seconds(3),
+  })
+
+  new Group(stack, 'a group', {
+      core: c,
+      functions: [gf]
+    })
+  
+  expect(stack).toHaveResourceLike('AWS::Greengrass::FunctionDefinition', {
+    InitialVersion: {
+      Functions: [
+        {
+          "FunctionConfiguration": {
+
+            "Environment": {
+
+              "Execution": {
+
+              },
+
+            },
+
+            "MemorySize": 131072,
+            "Pinned": false,
+            "Timeout": 3
+          },
+          "Id": "gg-function"
+        }
+      ]
+    }
+  });
+})
 
 test('functions default env', () => {
 
