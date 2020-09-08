@@ -1577,7 +1577,7 @@
         {
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 151
+            "line": 147
           },
           "name": "addResource",
           "parameters": [
@@ -1603,7 +1603,7 @@
         {
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 162
+            "line": 158
           },
           "name": "resolve",
           "returns": {
@@ -5029,5 +5029,5 @@
     }
   },
   "version": "0.3.4",
-  "fingerprint": "dfvmKs+PWq59a3Eo/ENXrZcw5SBzS8L4G31DQ3AOJAU="
+  "fingerprint": "Xkg5HJMdt+/K2plLSgP0dTwVp6pgKeHRC3Bq8mD6T00="
 }
