@@ -16,7 +16,7 @@
 
 import '@aws-cdk/assert/jest';
 import * as cdk from '@aws-cdk/core';
-import { Core, Group, Subscriptions, AWSIoTCloud, LocalShadow, Function } from '../lib';
+import { Core, Group, Subscriptions, AWSIoTCloud, LocalShadow, Function, Device } from '../lib';
 import * as iot from '@aws-cdk/aws-iot';
 import { Size, Duration } from '@aws-cdk/core';
 //import { SynthUtils } from '@aws-cdk/assert';
@@ -62,6 +62,7 @@ afterEach(() => {
 test('Subscriptions cloud and localshadow destinations', () => {
   let s = new Subscriptions(stack, 'subs');
   s.add(new AWSIoTCloud(), '#', new LocalShadow())
+  s.add(new LocalShadow(), 'iot', new AWSIoTCloud())
   new Group(stack, 'group', {
     core: c,
     subscriptions: s
@@ -74,6 +75,12 @@ test('Subscriptions cloud and localshadow destinations', () => {
           "Source": "cloud",
           "Subject": "#",
           "Target": "GGShadowService"
+        },
+        {
+          "Id": "1",
+          "Target": "cloud",
+          "Subject": "iot",
+          "Source": "GGShadowService"
         }
       ]
     }
@@ -94,7 +101,7 @@ test('Subscriptions functions', () => {
   })
 
   s.add(gf, 'iot/topic', new AWSIoTCloud())
-
+  s.add(new AWSIoTCloud(), '#', gf)
   new Group(stack, 'group', {
     core: c,
     subscriptions: s
@@ -118,11 +125,71 @@ test('Subscriptions functions', () => {
           },
           "Subject": "iot/topic",
           "Target": "cloud"
+        },
+        {
+          "Target": {
+            "Fn::Join": [
+              "",
+              [
+                {
+                  "Fn::GetAtt": [
+
+                  ]
+                },
+                ":prod"
+              ]
+            ]
+          },
+          "Subject": "#",
+          "Source": "cloud"
         }
       ]
     }
   });
 })
 
+test('Subscriptions devices', () => {
+  let s = new Subscriptions(stack, 'subs');
 
+  let d = new Device(stack, 'a device', {
+    certificateArn: 'arn:xxx',
+    syncShadow: false,
+    thing: t
+  });
+
+  s.add(d, 'iot/topic', new AWSIoTCloud());
+  s.add(new AWSIoTCloud(), '#', d);
+    
+  new Group(stack, 'group', {
+    core: c,
+    subscriptions: s
+  })
+  expect(stack).toHaveResourceLike('AWS::Greengrass::SubscriptionDefinition', {
+    InitialVersion: {
+      Subscriptions: [
+        {
+          "Source": {
+            "Fn::GetAtt": [
+              "athing",
+              "arn"
+            ]
+          },
+          "Subject": "iot/topic",
+          "Target": "cloud"
+        },
+        {
+          "Target": {
+            "Fn::GetAtt": [
+              "athing",
+              "arn"
+            ]
+          },
+          "Subject": "#",
+          "Source": "cloud"
+        }
+      ]
+    }
+  });
+
+})
 

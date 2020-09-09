@@ -69,6 +69,17 @@ export class Subscriptions extends cdk.Resource {
         return this;
     }
 
+    merge(subscriptions?: Subscriptions): Subscriptions {
+        if (subscriptions) { 
+            this.subscriptionList.concat(subscriptions.subscriptionList);
+        }
+        return this
+    }
+
+    clear() {
+        this.subscriptionList.splice(0, this.subscriptionList.length);
+    }
+
     resolve(): gg.CfnSubscriptionDefinition.SubscriptionProperty[] {
 
         let source: string;
@@ -79,6 +90,9 @@ export class Subscriptions extends cdk.Resource {
             if ('lambdaFunction' in s.source) {
                 let f = (s.source as Function);
                 source = f.lambdaFunction.functionArn + ':' + f.reference;
+            } else if ('thing' in s.source) {
+                let d = (s.source as Device)
+                source = d.thing.getAtt('arn').toString()
             } else {
                 let d = (s.source as DestinationInternal);
                 source = d.arn
@@ -87,6 +101,9 @@ export class Subscriptions extends cdk.Resource {
             if ('lambdaFunction' in s.target) {
                 let f = (s.target as Function);
                 target = f.lambdaFunction.functionArn + ':' + f.reference;
+            } else if ('thing' in s.target) { 
+                let d = (s.target as Device) 
+                target = d.thing.getAtt('arn').toString()
             } else {
                 let d = (s.target as DestinationInternal);
                 target = d.arn

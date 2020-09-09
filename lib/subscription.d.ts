@@ -24,6 +24,8 @@ export declare class Subscriptions extends cdk.Resource {
     readonly subscriptionList: SubscriptionProps[];
     constructor(scope: cdk.Construct, id: string, props?: SubscriptionsProps);
     add(source: Destination, topic: string, target: Destination): Subscriptions;
+    merge(subscriptions?: Subscriptions): Subscriptions;
+    clear(): void;
     resolve(): gg.CfnSubscriptionDefinition.SubscriptionProperty[];
 }
 export {};

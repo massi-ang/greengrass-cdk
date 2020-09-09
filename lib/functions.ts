@@ -156,10 +156,10 @@ export class Function extends cdk.Resource {
     }
 
     resolve(): gg.CfnFunctionDefinition.FunctionProperty {
-
-        if (!(this.lambdaFunction.runtime === lambda.Runtime.PYTHON_3_7 ||
-            this.lambdaFunction.runtime === lambda.Runtime.JAVA_8 ||
-            this.lambdaFunction.runtime === lambda.Runtime.NODEJS_8_10)) {
+        
+        if (!(this.lambdaFunction.runtime.name === lambda.Runtime.PYTHON_3_7.name ||
+            this.lambdaFunction.runtime.name === lambda.Runtime.JAVA_8.name ||
+            this.lambdaFunction.runtime.name === lambda.Runtime.NODEJS_8_10.name)) {
             throw new Error(`Invalid Lambda runtime: ${this.lambdaFunction.runtime}. Greengrass functions only support ${lambda.Runtime.PYTHON_3_7}, ${lambda.Runtime.JAVA_8}, and ${lambda.Runtime.NODEJS_8_10}`)
         }
         return {

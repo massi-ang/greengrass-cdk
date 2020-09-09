@@ -152,7 +152,8 @@ export class MyStack extends cdk.Stack {
             certificateArn: props.certificateArn
         })
 
-        gg.Group.fromTemplate(this, 'c_group', core_c, template);
+        template.createGroup('c_core', { core: core_c });
+        
 
         // and here we create the group
         let core_d = new gg.Core(this, 'd_core', {
