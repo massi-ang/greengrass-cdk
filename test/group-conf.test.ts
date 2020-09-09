@@ -126,7 +126,44 @@ test('Cloud Spooler', () => {
               "Variables": {
                 "GG_CONFIG_STORAGE_TYPE": "FileSystem",
                 "GG_CONFIG_MAX_SIZE_BYTES": 3072,
-                "GG_CONFIG_SUBSCRIPTION_QUALITY": true
+                "GG_CONFIG_SUBSCRIPTION_QUALITY": "AtLeastOncePersistent"
+              }
+            },
+            "Executable": "spooler",
+            "MemorySize": 32768,
+            "Pinned": true,
+            "Timeout": 3
+          },
+          "Id": "spooler"
+        }
+      ]
+    }
+  });
+});
+
+test('Cloud Spooler - QoS0', () => {
+
+  new Group(stack, 'group', {
+    core: c,
+    cloudSpooler: {
+      storage: {
+        type: CloudSpoolerStorageType.FILE_SYSTEM,
+        maxSize: Size.mebibytes(3)
+      }
+    },
+  })
+
+  expect(stack).toHaveResourceLike('AWS::Greengrass::FunctionDefinition', {
+    InitialVersion: {
+      Functions: [
+        {
+          "FunctionArn": "arn:aws:lambda:::function:GGCloudSpooler:1",
+          "FunctionConfiguration": {
+            "Environment": {
+              "Variables": {
+                "GG_CONFIG_STORAGE_TYPE": "FileSystem",
+                "GG_CONFIG_MAX_SIZE_BYTES": 3072,
+                "GG_CONFIG_SUBSCRIPTION_QUALITY": "AtMostOnce"
               }
             },
             "Executable": "spooler",

@@ -143,7 +143,7 @@ export class Group extends cdk.Construct {
               variables: {
                 "GG_CONFIG_STORAGE_TYPE": props.cloudSpooler.storage?.type,
                 "GG_CONFIG_MAX_SIZE_BYTES": props.cloudSpooler.storage?.maxSize.toKibibytes(),
-                "GG_CONFIG_SUBSCRIPTION_QUALITY": props.cloudSpooler.enablePersistentSessions,
+                "GG_CONFIG_SUBSCRIPTION_QUALITY": props.cloudSpooler.enablePersistentSessions ? 'AtLeastOncePersistent': 'AtMostOnce',
               }
             }
           }
