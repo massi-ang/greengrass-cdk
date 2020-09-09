@@ -152,7 +152,7 @@ export class MyStack extends cdk.Stack {
             certificateArn: props.certificateArn
         })
 
-        template.createGroup('c_core', { core: core_c });
+        template.createGroup('c_group', { core: core_c });
         
 
         // and here we create the group
