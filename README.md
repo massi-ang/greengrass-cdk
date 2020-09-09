@@ -2,6 +2,14 @@
 
 This project implements a set of constructs wrapping the L1 constructs provided by `@aws-cdk/aws-greengrass` library.
 
+To use this construct run:
+
+```
+npm install git+https://github.com/massi-ang/greengrass-cdk.git
+```
+
+in your CDK project folder.
+
 ## Concepts
 
 To create a new Greengrass group use the `Group` construct.
