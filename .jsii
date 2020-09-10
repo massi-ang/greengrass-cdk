@@ -1881,6 +1881,21 @@
         {
           "abstract": true,
           "docs": {
+            "summary": "The memory allocated to the lambda."
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/functions.ts",
+            "line": 93
+          },
+          "name": "memorySize",
+          "type": {
+            "fqn": "@aws-cdk/core.Size"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
             "summary": "If set to true, the function is long running."
           },
           "immutable": true,
@@ -2021,22 +2036,6 @@
           "optional": true,
           "type": {
             "fqn": "greengrass-cdk.Functions.IsolationMode"
-          }
-        },
-        {
-          "abstract": true,
-          "docs": {
-            "summary": "The memory allocated to the lambda."
-          },
-          "immutable": true,
-          "locationInModule": {
-            "filename": "lib/functions.ts",
-            "line": 93
-          },
-          "name": "memorySize",
-          "optional": true,
-          "type": {
-            "fqn": "@aws-cdk/core.Size"
           }
         },
         {
@@ -5066,6 +5065,6 @@
       ]
     }
   },
-  "version": "0.3.8",
-  "fingerprint": "qoEzOq9mCYpNm/XjV2mOKzehWbI2t+gA3fG0QyEM6xg="
+  "version": "0.3.9",
+  "fingerprint": "szWc0rEqcUNCMVPXBE4erBDHTG2TE18nJ9IA+3tsV+4="
 }

@@ -90,7 +90,7 @@ export interface FunctionProps {
     /** If set to true, the function is long running */
     readonly pinned: boolean | IResolvable,
     /** The memory allocated to the lambda */
-    readonly memorySize?: Size,
+    readonly memorySize: Size,
     /** The timeout for the execution of the handler */
     readonly timeout: Duration,
     /** THe name of the executable when using compiled executables */
