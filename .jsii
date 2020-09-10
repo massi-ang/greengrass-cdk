@@ -1571,7 +1571,7 @@
       "initializer": {
         "locationInModule": {
           "filename": "lib/functions.ts",
-          "line": 126
+          "line": 128
         },
         "parameters": [
           {
@@ -1597,13 +1597,13 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/functions.ts",
-        "line": 114
+        "line": 116
       },
       "methods": [
         {
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 147
+            "line": 149
           },
           "name": "addResource",
           "parameters": [
@@ -1629,7 +1629,7 @@
         {
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 158
+            "line": 160
           },
           "name": "resolve",
           "returns": {
@@ -1645,7 +1645,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 190
+            "line": 192
           },
           "name": "lambdaFunction",
           "type": {
@@ -1656,7 +1656,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 189
+            "line": 191
           },
           "name": "name",
           "type": {
@@ -1667,7 +1667,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 193
+            "line": 195
           },
           "name": "pinned",
           "type": {
@@ -1687,7 +1687,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 116
+            "line": 118
           },
           "name": "reference",
           "type": {
@@ -1698,7 +1698,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 195
+            "line": 197
           },
           "name": "timeout",
           "type": {
@@ -1709,7 +1709,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 203
+            "line": 205
           },
           "name": "accessSysFs",
           "optional": true,
@@ -1730,7 +1730,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 191
+            "line": 193
           },
           "name": "alias",
           "optional": true,
@@ -1742,7 +1742,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 198
+            "line": 200
           },
           "name": "encodingType",
           "optional": true,
@@ -1754,7 +1754,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 197
+            "line": 199
           },
           "name": "execArgs",
           "optional": true,
@@ -1766,7 +1766,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 196
+            "line": 198
           },
           "name": "executable",
           "optional": true,
@@ -1778,7 +1778,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 199
+            "line": 201
           },
           "name": "isolationMode",
           "optional": true,
@@ -1790,7 +1790,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 194
+            "line": 196
           },
           "name": "memorySize",
           "optional": true,
@@ -1802,7 +1802,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 200
+            "line": 202
           },
           "name": "runAs",
           "optional": true,
@@ -1814,7 +1814,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 202
+            "line": 204
           },
           "name": "variables",
           "optional": true,
@@ -1826,7 +1826,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 192
+            "line": 194
           },
           "name": "version",
           "optional": true,
@@ -1837,7 +1837,7 @@
         {
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 201
+            "line": 203
           },
           "name": "resourceAccessPolicies",
           "optional": true,
@@ -1881,21 +1881,6 @@
         {
           "abstract": true,
           "docs": {
-            "summary": "The memory allocated to the lambda."
-          },
-          "immutable": true,
-          "locationInModule": {
-            "filename": "lib/functions.ts",
-            "line": 93
-          },
-          "name": "memorySize",
-          "type": {
-            "fqn": "@aws-cdk/core.Size"
-          }
-        },
-        {
-          "abstract": true,
-          "docs": {
             "summary": "If set to true, the function is long running."
           },
           "immutable": true,
@@ -1925,7 +1910,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 95
+            "line": 97
           },
           "name": "timeout",
           "type": {
@@ -1940,7 +1925,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 111
+            "line": 113
           },
           "name": "accessSysFs",
           "optional": true,
@@ -1982,7 +1967,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 101
+            "line": 103
           },
           "name": "encodingType",
           "optional": true,
@@ -1998,7 +1983,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 99
+            "line": 101
           },
           "name": "execArgs",
           "optional": true,
@@ -2014,7 +1999,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 97
+            "line": 99
           },
           "name": "executable",
           "optional": true,
@@ -2030,7 +2015,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 103
+            "line": 105
           },
           "name": "isolationMode",
           "optional": true,
@@ -2041,12 +2026,29 @@
         {
           "abstract": true,
           "docs": {
+            "remarks": "Must be specified for Container Mode,\nand omitted in no container mode",
+            "summary": "The memory allocated to the lambda."
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/functions.ts",
+            "line": 95
+          },
+          "name": "memorySize",
+          "optional": true,
+          "type": {
+            "fqn": "@aws-cdk/core.Size"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
             "summary": "The resource access policies for the function to associated resources."
           },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 107
+            "line": 109
           },
           "name": "resourceAccessPolicies",
           "optional": true,
@@ -2067,7 +2069,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 105
+            "line": 107
           },
           "name": "runAs",
           "optional": true,
@@ -2083,7 +2085,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 109
+            "line": 111
           },
           "name": "variables",
           "optional": true,
@@ -2169,6 +2171,7 @@
             "line": 56
           },
           "name": "runAs",
+          "optional": true,
           "type": {
             "fqn": "greengrass-cdk.Functions.RunAs"
           }
@@ -5065,6 +5068,6 @@
       ]
     }
   },
-  "version": "0.3.9",
-  "fingerprint": "szWc0rEqcUNCMVPXBE4erBDHTG2TE18nJ9IA+3tsV+4="
+  "version": "0.3.10",
+  "fingerprint": "h45gxK2L/ZetMQS6p3PZTeD8n4SulMKiBB3myPOdd7w="
 }
