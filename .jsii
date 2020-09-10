@@ -593,7 +593,7 @@
   "license": "Apache-2.0",
   "name": "greengrass-cdk",
   "readme": {
-    "markdown": "# CDK Greengrass L2 Constructs\n\nThis project implements a set of constructs wrapping the L1 constructs provided by `@aws-cdk/aws-greengrass` library.\n\n## Concepts\n\nTo create a new Greengrass group use the `Group` construct.\n\n```typescript\nnew Group(this, id, {\n    core: {\n                thing: t,\n                syncShadow: true,\n                certificateArn: props.certificateArn\n            },\n    functions: [],\n    subscriptions: subs,\n    loggers: [],\n    resources: [],\n    connectors: [],\n    devices: []\n})\n```\n\nWhere t is a `CfnThing`. Functions, subscriptions, etc are exposed as L2 constructs by this library, and you do not need to work with xxxDefinition and xxxDefintionVersions. All that is managed for you.\n\nAn example stack to create a Greengrass Group would then be coded like:\n\n```typescript\nlet f = new lambda.Function(this, 'f1', {\n    ...\n})\nlet alias = f.currentVersion.addAlias('prod')\n\n\nlet t = new iot.CfnThing(this, 'a_thing', {\n    thingName: 'MyThing'\n})\n\n\nlet tmp_folder: gg.LocalVolumeResource = {\n    destinationPath: '/tmp',\n    sourcePath: '/home/ec2/tmp',\n    groupOwnerSetting: {\n        autoAddGroupOwner: true\n    },\n    name: 'temp'\n}\n\nlet gg_lambda:gg.Function = {\n    function: f,\n    alias: alias,\n    encodingType: gg.Functions.EncodingType.JSON,\n    memorySize: cdk.Size.mibibytes(16),\n    pinned: false,\n    timeout: cdk.Duration.seconds(3),\n    variables: new Map([\n        [\"name\": \"value\"]\n    ])\n}\n\nlet localLogger: gg.LocalLogger = {\n    component: gg.LoggerProps.Component.GREENGRASS,\n    level: gg.LoggerProps.LogLevel.DEBUG,\n    space: 32000\n}\n\nlet subs = new Subscriptions(this, 'subscriptions')\nsubs.add(gg_lambda. '#', new CloudDestination())\nsubs.add(new CloudDestination(), '#', gg_lambda)\n\nnew gg.Group(this, 'a_group', {\n    core: {\n        thing: t,\n        syncShadow: true,\n        certificateArn: props.certificateArn\n    },\n    functions: [ gg_lambda ],\n    subscriptions: subs,\n    loggers: [ localLogger ],\n    resources: [ tmp_folder ]\n})\n```\n\n"
+    "markdown": "# CDK Greengrass L2 Constructs\n\nThis project implements a set of constructs wrapping the L1 constructs provided by `@aws-cdk/aws-greengrass` library.\n\nTo use this construct run:\n\n```\nnpm install git+https://github.com/massi-ang/greengrass-cdk.git\n```\n\nin your CDK project folder.\n\n## Concepts\n\nTo create a new Greengrass group use the `Group` construct.\n\n```typescript\nnew Group(this, id, {\n    core: {\n                thing: t,\n                syncShadow: true,\n                certificateArn: props.certificateArn\n            },\n    functions: [],\n    subscriptions: subs,\n    loggers: [],\n    resources: [],\n    connectors: [],\n    devices: []\n})\n```\n\nWhere t is a `CfnThing`. Functions, subscriptions, etc are exposed as L2 constructs by this library, and you do not need to work with xxxDefinition and xxxDefintionVersions. All that is managed for you.\n\nAn example stack to create a Greengrass Group would then be coded like:\n\n```typescript\nlet f = new lambda.Function(this, 'f1', {\n    ...\n})\nlet alias = f.currentVersion.addAlias('prod')\n\n\nlet t = new iot.CfnThing(this, 'a_thing', {\n    thingName: 'MyThing'\n})\n\n\nlet tmp_folder: gg.LocalVolumeResource = {\n    destinationPath: '/tmp',\n    sourcePath: '/home/ec2/tmp',\n    groupOwnerSetting: {\n        autoAddGroupOwner: true\n    },\n    name: 'temp'\n}\n\nlet gg_lambda:gg.Function = {\n    function: f,\n    alias: alias,\n    encodingType: gg.Functions.EncodingType.JSON,\n    memorySize: cdk.Size.mibibytes(16),\n    pinned: false,\n    timeout: cdk.Duration.seconds(3),\n    variables: new Map([\n        [\"name\": \"value\"]\n    ])\n}\n\nlet localLogger: gg.LocalLogger = {\n    component: gg.LoggerProps.Component.GREENGRASS,\n    level: gg.LoggerProps.LogLevel.DEBUG,\n    space: 32000\n}\n\nlet subs = new Subscriptions(this, 'subscriptions')\nsubs.add(gg_lambda. '#', new CloudDestination())\nsubs.add(new CloudDestination(), '#', gg_lambda)\n\nnew gg.Group(this, 'a_group', {\n    core: {\n        thing: t,\n        syncShadow: true,\n        certificateArn: props.certificateArn\n    },\n    functions: [ gg_lambda ],\n    subscriptions: subs,\n    loggers: [ localLogger ],\n    resources: [ tmp_folder ]\n})\n```\n\n"
   },
   "repository": {
     "type": "git",
@@ -886,6 +886,9 @@
       "name": "CloudWatchMetrics",
       "properties": [
         {
+          "docs": {
+            "summary": "Implemented by concrete classes to provide the ARN of the connector."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/cloudwatchmetrics.ts",
@@ -898,6 +901,9 @@
           }
         },
         {
+          "docs": {
+            "summary": "Implemented by concrete classes to provide the parameters for the connector."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/cloudwatchmetrics.ts",
@@ -1000,11 +1006,15 @@
       "abstract": true,
       "assembly": "greengrass-cdk",
       "base": "@aws-cdk/core.Construct",
+      "docs": {
+        "remarks": "Specific connectors extends this class",
+        "summary": "The abstract connector class."
+      },
       "fqn": "greengrass-cdk.Connector",
       "initializer": {
         "locationInModule": {
           "filename": "lib/connector.ts",
-          "line": 26
+          "line": 36
         },
         "parameters": [
           {
@@ -1031,13 +1041,13 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/connector.ts",
-        "line": 24
+        "line": 34
       },
       "methods": [
         {
           "locationInModule": {
             "filename": "lib/connector.ts",
-            "line": 35
+            "line": 53
           },
           "name": "resolve",
           "returns": {
@@ -1051,10 +1061,13 @@
       "properties": [
         {
           "abstract": true,
+          "docs": {
+            "summary": "Implemented by concrete classes to provide the ARN of the connector."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connector.ts",
-            "line": 32
+            "line": 45
           },
           "name": "connectorArn",
           "type": {
@@ -1063,10 +1076,13 @@
         },
         {
           "abstract": true,
+          "docs": {
+            "summary": "Implemented by concrete classes to provide the parameters for the connector."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connector.ts",
-            "line": 33
+            "line": 50
           },
           "name": "parameters",
           "type": {
@@ -1078,11 +1094,15 @@
     "greengrass-cdk.ConnectorProps": {
       "assembly": "greengrass-cdk",
       "datatype": true,
+      "docs": {
+        "remarks": "Each connector extends this interface.",
+        "summary": "Common Connector properties interface."
+      },
       "fqn": "greengrass-cdk.ConnectorProps",
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/connector.ts",
-        "line": 20
+        "line": 24
       },
       "name": "ConnectorProps"
     },
@@ -1403,6 +1423,9 @@
       "name": "DeviceDefender",
       "properties": [
         {
+          "docs": {
+            "summary": "Implemented by concrete classes to provide the ARN of the connector."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/devicedefender.ts",
@@ -1415,6 +1438,9 @@
           }
         },
         {
+          "docs": {
+            "summary": "Implemented by concrete classes to provide the parameters for the connector."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/devicedefender.ts",
@@ -1545,7 +1571,7 @@
       "initializer": {
         "locationInModule": {
           "filename": "lib/functions.ts",
-          "line": 126
+          "line": 128
         },
         "parameters": [
           {
@@ -1571,13 +1597,13 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/functions.ts",
-        "line": 114
+        "line": 116
       },
       "methods": [
         {
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 147
+            "line": 149
           },
           "name": "addResource",
           "parameters": [
@@ -1603,7 +1629,7 @@
         {
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 158
+            "line": 160
           },
           "name": "resolve",
           "returns": {
@@ -1619,7 +1645,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 190
+            "line": 192
           },
           "name": "lambdaFunction",
           "type": {
@@ -1630,7 +1656,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 189
+            "line": 191
           },
           "name": "name",
           "type": {
@@ -1641,7 +1667,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 193
+            "line": 195
           },
           "name": "pinned",
           "type": {
@@ -1661,7 +1687,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 116
+            "line": 118
           },
           "name": "reference",
           "type": {
@@ -1672,7 +1698,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 195
+            "line": 197
           },
           "name": "timeout",
           "type": {
@@ -1683,7 +1709,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 203
+            "line": 205
           },
           "name": "accessSysFs",
           "optional": true,
@@ -1704,7 +1730,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 191
+            "line": 193
           },
           "name": "alias",
           "optional": true,
@@ -1716,7 +1742,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 198
+            "line": 200
           },
           "name": "encodingType",
           "optional": true,
@@ -1728,7 +1754,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 197
+            "line": 199
           },
           "name": "execArgs",
           "optional": true,
@@ -1740,7 +1766,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 196
+            "line": 198
           },
           "name": "executable",
           "optional": true,
@@ -1752,7 +1778,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 199
+            "line": 201
           },
           "name": "isolationMode",
           "optional": true,
@@ -1764,7 +1790,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 194
+            "line": 196
           },
           "name": "memorySize",
           "optional": true,
@@ -1776,7 +1802,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 200
+            "line": 202
           },
           "name": "runAs",
           "optional": true,
@@ -1788,7 +1814,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 202
+            "line": 204
           },
           "name": "variables",
           "optional": true,
@@ -1800,7 +1826,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 192
+            "line": 194
           },
           "name": "version",
           "optional": true,
@@ -1811,7 +1837,7 @@
         {
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 201
+            "line": 203
           },
           "name": "resourceAccessPolicies",
           "optional": true,
@@ -1884,7 +1910,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 95
+            "line": 97
           },
           "name": "timeout",
           "type": {
@@ -1899,7 +1925,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 111
+            "line": 113
           },
           "name": "accessSysFs",
           "optional": true,
@@ -1941,7 +1967,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 101
+            "line": 103
           },
           "name": "encodingType",
           "optional": true,
@@ -1957,7 +1983,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 99
+            "line": 101
           },
           "name": "execArgs",
           "optional": true,
@@ -1973,7 +1999,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 97
+            "line": 99
           },
           "name": "executable",
           "optional": true,
@@ -1989,7 +2015,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 103
+            "line": 105
           },
           "name": "isolationMode",
           "optional": true,
@@ -2000,12 +2026,13 @@
         {
           "abstract": true,
           "docs": {
+            "remarks": "Must be specified for Container Mode,\nand omitted in no container mode",
             "summary": "The memory allocated to the lambda."
           },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 93
+            "line": 95
           },
           "name": "memorySize",
           "optional": true,
@@ -2021,7 +2048,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 107
+            "line": 109
           },
           "name": "resourceAccessPolicies",
           "optional": true,
@@ -2042,7 +2069,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 105
+            "line": 107
           },
           "name": "runAs",
           "optional": true,
@@ -2058,7 +2085,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/functions.ts",
-            "line": 109
+            "line": 111
           },
           "name": "variables",
           "optional": true,
@@ -2144,6 +2171,7 @@
             "line": 56
           },
           "name": "runAs",
+          "optional": true,
           "type": {
             "fqn": "greengrass-cdk.Functions.RunAs"
           }
@@ -2324,6 +2352,9 @@
       "name": "Generic",
       "properties": [
         {
+          "docs": {
+            "summary": "Implemented by concrete classes to provide the ARN of the connector."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/generic.ts",
@@ -2336,6 +2367,9 @@
           }
         },
         {
+          "docs": {
+            "summary": "Implemented by concrete classes to provide the parameters for the connector."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/generic.ts",
@@ -2418,7 +2452,7 @@
       "initializer": {
         "locationInModule": {
           "filename": "lib/group.ts",
-          "line": 37
+          "line": 38
         },
         "parameters": [
           {
@@ -2444,13 +2478,13 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/group.ts",
-        "line": 31
+        "line": 32
       },
       "methods": [
         {
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 100
+            "line": 105
           },
           "name": "cloneToNew",
           "parameters": [
@@ -2480,7 +2514,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 33
+            "line": 34
           },
           "name": "arn",
           "type": {
@@ -2491,7 +2525,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 32
+            "line": 33
           },
           "name": "id",
           "type": {
@@ -2502,7 +2536,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 34
+            "line": 35
           },
           "name": "latestVersionArn",
           "type": {
@@ -2513,7 +2547,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 133
+            "line": 138
           },
           "name": "connectorDefinitionVersionArn",
           "optional": true,
@@ -2525,7 +2559,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 132
+            "line": 137
           },
           "name": "deviceDefinitionVersionArn",
           "optional": true,
@@ -2537,7 +2571,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 128
+            "line": 133
           },
           "name": "functionDefinitionVersionArn",
           "optional": true,
@@ -2549,7 +2583,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 130
+            "line": 135
           },
           "name": "loggerDefinitionVersionArn",
           "optional": true,
@@ -2561,7 +2595,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 131
+            "line": 136
           },
           "name": "resourceDefinitionVersionArn",
           "optional": true,
@@ -2573,7 +2607,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 35
+            "line": 36
           },
           "name": "roleArn",
           "optional": true,
@@ -2585,7 +2619,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 129
+            "line": 134
           },
           "name": "subscriptionDefinitionVersionArn",
           "optional": true,
@@ -2712,7 +2746,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/group.ts",
-        "line": 25
+        "line": 26
       },
       "name": "GroupProps",
       "properties": [
@@ -2721,7 +2755,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 26
+            "line": 27
           },
           "name": "core",
           "type": {
@@ -2733,7 +2767,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 27
+            "line": 28
           },
           "name": "devices",
           "optional": true,
@@ -2751,7 +2785,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 28
+            "line": 29
           },
           "name": "initialVersion",
           "optional": true,
@@ -3157,6 +3191,9 @@
       "name": "IoTAnalytics",
       "properties": [
         {
+          "docs": {
+            "summary": "Implemented by concrete classes to provide the ARN of the connector."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/iotanalytics.ts",
@@ -3169,6 +3206,9 @@
           }
         },
         {
+          "docs": {
+            "summary": "Implemented by concrete classes to provide the parameters for the connector."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/iotanalytics.ts",
@@ -3355,6 +3395,9 @@
       "name": "IoTSitewise",
       "properties": [
         {
+          "docs": {
+            "summary": "Implemented by concrete classes to provide the ARN of the connector."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/iotsitewise.ts",
@@ -3367,6 +3410,9 @@
           }
         },
         {
+          "docs": {
+            "summary": "Implemented by concrete classes to provide the parameters for the connector."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/iotsitewise.ts",
@@ -3473,6 +3519,9 @@
       "name": "KinesisFirehose",
       "properties": [
         {
+          "docs": {
+            "summary": "Implemented by concrete classes to provide the ARN of the connector."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/kinesisfirehose.ts",
@@ -3485,6 +3534,9 @@
           }
         },
         {
+          "docs": {
+            "summary": "Implemented by concrete classes to provide the parameters for the connector."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/kinesisfirehose.ts",
@@ -4191,6 +4243,9 @@
       "name": "MLFeedback",
       "properties": [
         {
+          "docs": {
+            "summary": "Implemented by concrete classes to provide the ARN of the connector."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/mlfeedback.ts",
@@ -4203,6 +4258,9 @@
           }
         },
         {
+          "docs": {
+            "summary": "Implemented by concrete classes to provide the parameters for the connector."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/mlfeedback.ts",
@@ -5010,6 +5068,6 @@
       ]
     }
   },
-  "version": "0.3.7",
-  "fingerprint": "XgE2ObrdradxG4u6YAiTYw6iGbEFqyzGsQonaNv8u+s="
+  "version": "0.3.11",
+  "fingerprint": "pjuWGGsRxwkTEMRjrLeZcx5bUqy/lYkmxA/kU48VUnw="
 }

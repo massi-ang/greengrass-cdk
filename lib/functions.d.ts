@@ -33,7 +33,7 @@ export declare namespace Functions {
         /** The mode in which the process for the function is run */
         readonly isolationMode: IsolationMode;
         /** The user running the process */
-        readonly runAs: RunAs;
+        readonly runAs?: RunAs;
     }
     interface ResourceAccessPolicy {
         /**
@@ -66,7 +66,9 @@ export interface FunctionProps {
     readonly version?: lambda.Version;
     /** If set to true, the function is long running */
     readonly pinned: boolean | IResolvable;
-    /** The memory allocated to the lambda */
+    /** The memory allocated to the lambda. Must be specified for Container Mode,
+     * and omitted in no container mode
+     */
     readonly memorySize?: Size;
     /** The timeout for the execution of the handler */
     readonly timeout: Duration;

@@ -53,7 +53,7 @@ export namespace Functions {
         /** The mode in which the process for the function is run */
         readonly isolationMode: IsolationMode,
         /** The user running the process */
-        readonly runAs: RunAs
+        readonly runAs?: RunAs
     }
 
     export interface ResourceAccessPolicy {
@@ -89,7 +89,9 @@ export interface FunctionProps {
     readonly version?: lambda.Version,
     /** If set to true, the function is long running */
     readonly pinned: boolean | IResolvable,
-    /** The memory allocated to the lambda */
+    /** The memory allocated to the lambda. Must be specified for Container Mode,
+     * and omitted in no container mode
+     */
     readonly memorySize?: Size,
     /** The timeout for the execution of the handler */
     readonly timeout: Duration,
@@ -159,7 +161,7 @@ export class Function extends cdk.Resource {
         
         if (!(this.lambdaFunction.runtime.name === lambda.Runtime.PYTHON_3_7.name ||
             this.lambdaFunction.runtime.name === lambda.Runtime.JAVA_8.name ||
-            this.lambdaFunction.runtime.name === lambda.Runtime.NODEJS_8_10.name)) {
+            this.lambdaFunction.runtime.name === lambda.Runtime.NODEJS_12_X.name)) {
             throw new Error(`Invalid Lambda runtime: ${this.lambdaFunction.runtime}. Greengrass functions only support ${lambda.Runtime.PYTHON_3_7}, ${lambda.Runtime.JAVA_8}, and ${lambda.Runtime.NODEJS_8_10}`)
         }
         return {

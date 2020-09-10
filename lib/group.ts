@@ -20,6 +20,7 @@ import { Core } from './core';
 import { Device } from './device';
 import * as gg from '@aws-cdk/aws-greengrass'
 import { GroupTemplate, GroupTemplateProps } from './template';
+import { CfnGroupVersion } from '@aws-cdk/aws-greengrass';
 
 
 export interface GroupProps extends GroupTemplateProps{
@@ -79,20 +80,25 @@ export class Group extends cdk.Construct {
     let roleArn = template.role?.roleArn
     let group = new gg.CfnGroup(this, id, {
       name: id,
-      initialVersion: {
-        coreDefinitionVersionArn: coreDefinition.attrLatestVersionArn,
-        functionDefinitionVersionArn: this.functionDefinitionVersionArn,
-        subscriptionDefinitionVersionArn: this.subscriptionDefinitionVersionArn,
-        loggerDefinitionVersionArn: this.loggerDefinitionVersionArn,
-        connectorDefinitionVersionArn: this.connectorDefinitionVersionArn,
-        resourceDefinitionVersionArn: this.resourceDefinitionVersionArn,
-        deviceDefinitionVersionArn: this.deviceDefinitionVersionArn
-      },
-      roleArn: roleArn
+      roleArn: roleArn,
+
     })
+
+    let groupVersion = new CfnGroupVersion(this, id+'_group_version', {
+      groupId: group.ref,
+      coreDefinitionVersionArn: coreDefinition.attrLatestVersionArn,
+      functionDefinitionVersionArn: this.functionDefinitionVersionArn,
+      subscriptionDefinitionVersionArn: this.subscriptionDefinitionVersionArn,
+      loggerDefinitionVersionArn: this.loggerDefinitionVersionArn,
+      connectorDefinitionVersionArn: this.connectorDefinitionVersionArn,
+      resourceDefinitionVersionArn: this.resourceDefinitionVersionArn,
+      deviceDefinitionVersionArn: this.deviceDefinitionVersionArn
+  
+    })
+    groupVersion.addDependsOn(group);
     this.arn = group.attrArn;
     this.id = group.attrId;
-    this.latestVersionArn = group.attrLatestVersionArn
+    this.latestVersionArn = groupVersion.getAtt('arn').toString()
     this.roleArn = roleArn
     return
   }
