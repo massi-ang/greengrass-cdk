@@ -593,7 +593,7 @@
   "license": "Apache-2.0",
   "name": "greengrass-cdk",
   "readme": {
-    "markdown": "# CDK Greengrass L2 Constructs\n\nThis project implements a set of constructs wrapping the L1 constructs provided by `@aws-cdk/aws-greengrass` library.\n\n## Concepts\n\nTo create a new Greengrass group use the `Group` construct.\n\n```typescript\nnew Group(this, id, {\n    core: {\n                thing: t,\n                syncShadow: true,\n                certificateArn: props.certificateArn\n            },\n    functions: [],\n    subscriptions: subs,\n    loggers: [],\n    resources: [],\n    connectors: [],\n    devices: []\n})\n```\n\nWhere t is a `CfnThing`. Functions, subscriptions, etc are exposed as L2 constructs by this library, and you do not need to work with xxxDefinition and xxxDefintionVersions. All that is managed for you.\n\nAn example stack to create a Greengrass Group would then be coded like:\n\n```typescript\nlet f = new lambda.Function(this, 'f1', {\n    ...\n})\nlet alias = f.currentVersion.addAlias('prod')\n\n\nlet t = new iot.CfnThing(this, 'a_thing', {\n    thingName: 'MyThing'\n})\n\n\nlet tmp_folder: gg.LocalVolumeResource = {\n    destinationPath: '/tmp',\n    sourcePath: '/home/ec2/tmp',\n    groupOwnerSetting: {\n        autoAddGroupOwner: true\n    },\n    name: 'temp'\n}\n\nlet gg_lambda:gg.Function = {\n    function: f,\n    alias: alias,\n    encodingType: gg.Functions.EncodingType.JSON,\n    memorySize: cdk.Size.mibibytes(16),\n    pinned: false,\n    timeout: cdk.Duration.seconds(3),\n    variables: new Map([\n        [\"name\": \"value\"]\n    ])\n}\n\nlet localLogger: gg.LocalLogger = {\n    component: gg.LoggerProps.Component.GREENGRASS,\n    level: gg.LoggerProps.LogLevel.DEBUG,\n    space: 32000\n}\n\nlet subs = new Subscriptions(this, 'subscriptions')\nsubs.add(gg_lambda. '#', new CloudDestination())\nsubs.add(new CloudDestination(), '#', gg_lambda)\n\nnew gg.Group(this, 'a_group', {\n    core: {\n        thing: t,\n        syncShadow: true,\n        certificateArn: props.certificateArn\n    },\n    functions: [ gg_lambda ],\n    subscriptions: subs,\n    loggers: [ localLogger ],\n    resources: [ tmp_folder ]\n})\n```\n\n"
+    "markdown": "# CDK Greengrass L2 Constructs\n\nThis project implements a set of constructs wrapping the L1 constructs provided by `@aws-cdk/aws-greengrass` library.\n\nTo use this construct run:\n\n```\nnpm install git+https://github.com/massi-ang/greengrass-cdk.git\n```\n\nin your CDK project folder.\n\n## Concepts\n\nTo create a new Greengrass group use the `Group` construct.\n\n```typescript\nnew Group(this, id, {\n    core: {\n                thing: t,\n                syncShadow: true,\n                certificateArn: props.certificateArn\n            },\n    functions: [],\n    subscriptions: subs,\n    loggers: [],\n    resources: [],\n    connectors: [],\n    devices: []\n})\n```\n\nWhere t is a `CfnThing`. Functions, subscriptions, etc are exposed as L2 constructs by this library, and you do not need to work with xxxDefinition and xxxDefintionVersions. All that is managed for you.\n\nAn example stack to create a Greengrass Group would then be coded like:\n\n```typescript\nlet f = new lambda.Function(this, 'f1', {\n    ...\n})\nlet alias = f.currentVersion.addAlias('prod')\n\n\nlet t = new iot.CfnThing(this, 'a_thing', {\n    thingName: 'MyThing'\n})\n\n\nlet tmp_folder: gg.LocalVolumeResource = {\n    destinationPath: '/tmp',\n    sourcePath: '/home/ec2/tmp',\n    groupOwnerSetting: {\n        autoAddGroupOwner: true\n    },\n    name: 'temp'\n}\n\nlet gg_lambda:gg.Function = {\n    function: f,\n    alias: alias,\n    encodingType: gg.Functions.EncodingType.JSON,\n    memorySize: cdk.Size.mibibytes(16),\n    pinned: false,\n    timeout: cdk.Duration.seconds(3),\n    variables: new Map([\n        [\"name\": \"value\"]\n    ])\n}\n\nlet localLogger: gg.LocalLogger = {\n    component: gg.LoggerProps.Component.GREENGRASS,\n    level: gg.LoggerProps.LogLevel.DEBUG,\n    space: 32000\n}\n\nlet subs = new Subscriptions(this, 'subscriptions')\nsubs.add(gg_lambda. '#', new CloudDestination())\nsubs.add(new CloudDestination(), '#', gg_lambda)\n\nnew gg.Group(this, 'a_group', {\n    core: {\n        thing: t,\n        syncShadow: true,\n        certificateArn: props.certificateArn\n    },\n    functions: [ gg_lambda ],\n    subscriptions: subs,\n    loggers: [ localLogger ],\n    resources: [ tmp_folder ]\n})\n```\n\n"
   },
   "repository": {
     "type": "git",
@@ -886,6 +886,9 @@
       "name": "CloudWatchMetrics",
       "properties": [
         {
+          "docs": {
+            "summary": "Implemented by concrete classes to provide the ARN of the connector."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/cloudwatchmetrics.ts",
@@ -898,6 +901,9 @@
           }
         },
         {
+          "docs": {
+            "summary": "Implemented by concrete classes to provide the parameters for the connector."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/cloudwatchmetrics.ts",
@@ -1000,11 +1006,15 @@
       "abstract": true,
       "assembly": "greengrass-cdk",
       "base": "@aws-cdk/core.Construct",
+      "docs": {
+        "remarks": "Specific connectors extends this class",
+        "summary": "The abstract connector class."
+      },
       "fqn": "greengrass-cdk.Connector",
       "initializer": {
         "locationInModule": {
           "filename": "lib/connector.ts",
-          "line": 26
+          "line": 36
         },
         "parameters": [
           {
@@ -1031,13 +1041,13 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/connector.ts",
-        "line": 24
+        "line": 34
       },
       "methods": [
         {
           "locationInModule": {
             "filename": "lib/connector.ts",
-            "line": 35
+            "line": 53
           },
           "name": "resolve",
           "returns": {
@@ -1051,10 +1061,13 @@
       "properties": [
         {
           "abstract": true,
+          "docs": {
+            "summary": "Implemented by concrete classes to provide the ARN of the connector."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connector.ts",
-            "line": 32
+            "line": 45
           },
           "name": "connectorArn",
           "type": {
@@ -1063,10 +1076,13 @@
         },
         {
           "abstract": true,
+          "docs": {
+            "summary": "Implemented by concrete classes to provide the parameters for the connector."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connector.ts",
-            "line": 33
+            "line": 50
           },
           "name": "parameters",
           "type": {
@@ -1078,11 +1094,15 @@
     "greengrass-cdk.ConnectorProps": {
       "assembly": "greengrass-cdk",
       "datatype": true,
+      "docs": {
+        "remarks": "Each connector extends this interface.",
+        "summary": "Common Connector properties interface."
+      },
       "fqn": "greengrass-cdk.ConnectorProps",
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/connector.ts",
-        "line": 20
+        "line": 24
       },
       "name": "ConnectorProps"
     },
@@ -1403,6 +1423,9 @@
       "name": "DeviceDefender",
       "properties": [
         {
+          "docs": {
+            "summary": "Implemented by concrete classes to provide the ARN of the connector."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/devicedefender.ts",
@@ -1415,6 +1438,9 @@
           }
         },
         {
+          "docs": {
+            "summary": "Implemented by concrete classes to provide the parameters for the connector."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/devicedefender.ts",
@@ -2324,6 +2350,9 @@
       "name": "Generic",
       "properties": [
         {
+          "docs": {
+            "summary": "Implemented by concrete classes to provide the ARN of the connector."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/generic.ts",
@@ -2336,6 +2365,9 @@
           }
         },
         {
+          "docs": {
+            "summary": "Implemented by concrete classes to provide the parameters for the connector."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/generic.ts",
@@ -3157,6 +3189,9 @@
       "name": "IoTAnalytics",
       "properties": [
         {
+          "docs": {
+            "summary": "Implemented by concrete classes to provide the ARN of the connector."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/iotanalytics.ts",
@@ -3169,6 +3204,9 @@
           }
         },
         {
+          "docs": {
+            "summary": "Implemented by concrete classes to provide the parameters for the connector."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/iotanalytics.ts",
@@ -3355,6 +3393,9 @@
       "name": "IoTSitewise",
       "properties": [
         {
+          "docs": {
+            "summary": "Implemented by concrete classes to provide the ARN of the connector."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/iotsitewise.ts",
@@ -3367,6 +3408,9 @@
           }
         },
         {
+          "docs": {
+            "summary": "Implemented by concrete classes to provide the parameters for the connector."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/iotsitewise.ts",
@@ -3473,6 +3517,9 @@
       "name": "KinesisFirehose",
       "properties": [
         {
+          "docs": {
+            "summary": "Implemented by concrete classes to provide the ARN of the connector."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/kinesisfirehose.ts",
@@ -3485,6 +3532,9 @@
           }
         },
         {
+          "docs": {
+            "summary": "Implemented by concrete classes to provide the parameters for the connector."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/kinesisfirehose.ts",
@@ -4191,6 +4241,9 @@
       "name": "MLFeedback",
       "properties": [
         {
+          "docs": {
+            "summary": "Implemented by concrete classes to provide the ARN of the connector."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/mlfeedback.ts",
@@ -4203,6 +4256,9 @@
           }
         },
         {
+          "docs": {
+            "summary": "Implemented by concrete classes to provide the parameters for the connector."
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/connectors/mlfeedback.ts",
@@ -5010,6 +5066,6 @@
       ]
     }
   },
-  "version": "0.3.7",
-  "fingerprint": "XgE2ObrdradxG4u6YAiTYw6iGbEFqyzGsQonaNv8u+s="
+  "version": "0.3.8",
+  "fingerprint": "qoEzOq9mCYpNm/XjV2mOKzehWbI2t+gA3fG0QyEM6xg="
 }
