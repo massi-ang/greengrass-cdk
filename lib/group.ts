@@ -84,7 +84,7 @@ export class Group extends cdk.Construct {
       roleArn: roleArn
     })
 
-    let groupVersion = new CfnGroupVersion(this, id, {
+    let groupVersion = new CfnGroupVersion(this, id+'_group_version', {
       groupId: group.attrId,
       coreDefinitionVersionArn: coreDefinition.attrLatestVersionArn,
       functionDefinitionVersionArn: this.functionDefinitionVersionArn,
