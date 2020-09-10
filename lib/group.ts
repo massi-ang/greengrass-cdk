@@ -80,7 +80,6 @@ export class Group extends cdk.Construct {
     let roleArn = template.role?.roleArn
     let group = new gg.CfnGroup(this, id, {
       name: id,
-      
       roleArn: roleArn
     })
 
@@ -95,6 +94,7 @@ export class Group extends cdk.Construct {
       deviceDefinitionVersionArn: this.deviceDefinitionVersionArn
   
     })
+    groupVersion.addDependsOn(group);
     this.arn = group.attrArn;
     this.id = group.attrId;
     this.latestVersionArn = groupVersion.getAtt('arn').toString()
