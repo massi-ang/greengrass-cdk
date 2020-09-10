@@ -2452,7 +2452,7 @@
       "initializer": {
         "locationInModule": {
           "filename": "lib/group.ts",
-          "line": 37
+          "line": 38
         },
         "parameters": [
           {
@@ -2478,13 +2478,13 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/group.ts",
-        "line": 31
+        "line": 32
       },
       "methods": [
         {
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 100
+            "line": 105
           },
           "name": "cloneToNew",
           "parameters": [
@@ -2514,7 +2514,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 33
+            "line": 34
           },
           "name": "arn",
           "type": {
@@ -2525,7 +2525,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 32
+            "line": 33
           },
           "name": "id",
           "type": {
@@ -2536,7 +2536,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 34
+            "line": 35
           },
           "name": "latestVersionArn",
           "type": {
@@ -2547,7 +2547,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 133
+            "line": 138
           },
           "name": "connectorDefinitionVersionArn",
           "optional": true,
@@ -2559,7 +2559,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 132
+            "line": 137
           },
           "name": "deviceDefinitionVersionArn",
           "optional": true,
@@ -2571,7 +2571,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 128
+            "line": 133
           },
           "name": "functionDefinitionVersionArn",
           "optional": true,
@@ -2583,7 +2583,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 130
+            "line": 135
           },
           "name": "loggerDefinitionVersionArn",
           "optional": true,
@@ -2595,7 +2595,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 131
+            "line": 136
           },
           "name": "resourceDefinitionVersionArn",
           "optional": true,
@@ -2607,7 +2607,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 35
+            "line": 36
           },
           "name": "roleArn",
           "optional": true,
@@ -2619,7 +2619,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 129
+            "line": 134
           },
           "name": "subscriptionDefinitionVersionArn",
           "optional": true,
@@ -2746,7 +2746,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/group.ts",
-        "line": 25
+        "line": 26
       },
       "name": "GroupProps",
       "properties": [
@@ -2755,7 +2755,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 26
+            "line": 27
           },
           "name": "core",
           "type": {
@@ -2767,7 +2767,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 27
+            "line": 28
           },
           "name": "devices",
           "optional": true,
@@ -2785,7 +2785,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 28
+            "line": 29
           },
           "name": "initialVersion",
           "optional": true,
@@ -5068,6 +5068,6 @@
       ]
     }
   },
-  "version": "0.3.10",
-  "fingerprint": "h45gxK2L/ZetMQS6p3PZTeD8n4SulMKiBB3myPOdd7w="
+  "version": "0.3.11",
+  "fingerprint": "pjuWGGsRxwkTEMRjrLeZcx5bUqy/lYkmxA/kU48VUnw="
 }
