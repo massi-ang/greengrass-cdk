@@ -102,6 +102,52 @@ test('Stream Manager', () => {
   });
 });
 
+test('Stream Manager Props', () => {
+
+  new Group(stack, 'group', {
+    core: c,
+    streamManager: {
+      enableStreamManager: true,
+      exporterMaximumBandwidth: 2000,
+      jvmArgs: '-D100',
+      memorySize: Size.mebibytes(64),
+      minSizeMultipartUpload: Size.kibibytes(122),
+      readOnlyDirs: ["/tmp", "/opt"],
+      serverPort: 8082,
+      storeRootDir: "/data",
+      threadPoolSize: 10
+    }
+  })
+
+  expect(stack).toHaveResourceLike('AWS::Greengrass::FunctionDefinition', {
+    InitialVersion: {
+      Functions: [
+        {
+          "FunctionArn": "arn:aws:lambda:::function:GGStreamManager:1",
+          "FunctionConfiguration": {
+            "EncodingType": "binary",
+            "Environment": {
+              "Variables": {
+                        "STREAM_MANAGER_STORE_ROOT_DIR": "/data",
+              "STREAM_MANAGER_SERVER_PORT": 8082,
+              "STREAM_MANAGER_EXPORTER_MAX_BANDWIDTH": 2000,
+              "STREAM_MANAGER_EXPORTER_THREAD_POOL_SIZE": 10,
+              "JVM_ARGS": "-D100",
+              "STREAM_MANAGER_READ_ONLY_DIRS": "/tmp,/opt",
+              "STREAM_MANAGER_EXPORTER_S3_DESTINATION_MULTIPART_UPLOAD_MIN_PART_SIZE_BYTES": 122000
+            }
+          },
+          "MemorySize": 65536,
+            "Pinned": true,
+            "Timeout": 3
+          },
+          "Id": "stream_manager"
+        },
+      ]
+    }
+  });
+});
+
 
 
 test('Cloud Spooler', () => {
@@ -141,6 +187,9 @@ test('Cloud Spooler', () => {
     }
   });
 });
+
+
+
 
 test('Cloud Spooler - QoS0', () => {
 

@@ -31,7 +31,7 @@ import { Size } from '@aws-cdk/core';
 export interface StreamManagerProps {
     readonly enableStreamManager: boolean;
     readonly allowInsecureAccess?: boolean;
-    readonly storeRootDir?: boolean;
+    readonly storeRootDir?: string;
     readonly serverPort?: number;
     readonly exporterMaximumBandwidth?: number;
     readonly threadPoolSize?: number;
@@ -88,12 +88,18 @@ export class GroupTemplate extends cdk.Construct {
         let systemFunctions: gg.CfnFunctionDefinition.FunctionProperty[] = [];
         if (props.streamManager?.enableStreamManager || props.enableAutomaticIpDiscovery || props.cloudSpooler) {
             if (props.streamManager?.enableStreamManager) {
+                this.streamManagerEnvironment = { variables: {} }
                 if (props.streamManager!.allowInsecureAccess) {
-                    this.streamManagerEnvironment = {
-                        variables: {
-                            "STREAM_MANAGER_AUTHENTICATE_CLIENT": "false"
-                        }
-                    }
+                    this.streamManagerEnvironment.variables.STREAM_MANAGER_AUTHENTICATE_CLIENT = "false";
+                }
+                this.streamManagerEnvironment.variables["STREAM_MANAGER_STORE_ROOT_DIR"] = props.streamManager!.storeRootDir;
+                this.streamManagerEnvironment.variables["STREAM_MANAGER_SERVER_PORT"] = props.streamManager!.serverPort;
+                this.streamManagerEnvironment.variables["STREAM_MANAGER_EXPORTER_MAX_BANDWIDTH"] = props.streamManager!.exporterMaximumBandwidth;
+                this.streamManagerEnvironment.variables["STREAM_MANAGER_EXPORTER_THREAD_POOL_SIZE"] = props.streamManager!.threadPoolSize;
+                this.streamManagerEnvironment.variables["JVM_ARGS"] = props.streamManager!.jvmArgs;
+                this.streamManagerEnvironment.variables["STREAM_MANAGER_READ_ONLY_DIRS"] = props.streamManager!.readOnlyDirs?.join(",");
+                if (props.streamManager.minSizeMultipartUpload) {
+                    this.streamManagerEnvironment.variables["STREAM_MANAGER_EXPORTER_S3_DESTINATION_MULTIPART_UPLOAD_MIN_PART_SIZE_BYTES"] = props.streamManager.minSizeMultipartUpload!.toKibibytes() * 1000;
                 }
                 
                 systemFunctions.push({

@@ -12,7 +12,7 @@ import { Size } from '@aws-cdk/core';
 export interface StreamManagerProps {
     readonly enableStreamManager: boolean;
     readonly allowInsecureAccess?: boolean;
-    readonly storeRootDir?: boolean;
+    readonly storeRootDir?: string;
     readonly serverPort?: number;
     readonly exporterMaximumBandwidth?: number;
     readonly threadPoolSize?: number;

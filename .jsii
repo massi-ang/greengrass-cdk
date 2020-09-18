@@ -2834,7 +2834,7 @@
         {
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 218
+            "line": 224
           },
           "name": "createGroup",
           "parameters": [
@@ -2864,7 +2864,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 238
+            "line": 244
           },
           "name": "connectorDefinitionVersionArn",
           "optional": true,
@@ -2876,7 +2876,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 235
+            "line": 241
           },
           "name": "functionDefinitionVersionArn",
           "optional": true,
@@ -2888,7 +2888,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 236
+            "line": 242
           },
           "name": "loggerDefinitionVersionArn",
           "optional": true,
@@ -2900,7 +2900,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 237
+            "line": 243
           },
           "name": "resourceDefinitionVersionArn",
           "optional": true,
@@ -2912,7 +2912,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 239
+            "line": 245
           },
           "name": "role",
           "optional": true,
@@ -2924,7 +2924,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 234
+            "line": 240
           },
           "name": "subscriptionDefinitionVersionArn",
           "optional": true,
@@ -4883,7 +4883,7 @@
           "name": "storeRootDir",
           "optional": true,
           "type": {
-            "primitive": "boolean"
+            "primitive": "string"
           }
         },
         {
@@ -5178,5 +5178,5 @@
     }
   },
   "version": "0.63.0",
-  "fingerprint": "YTwAh3RnE3k7oDlcXKqLzG7ZfiMbftZDNDWBGn7ycPE="
+  "fingerprint": "CQ6cvNCH9+33+SCzRajTia6sCMuj1q0A4LBm6xuaF6Q="
 }
