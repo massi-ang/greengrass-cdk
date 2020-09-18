@@ -6,11 +6,11 @@
     ]
   },
   "dependencies": {
-    "@aws-cdk/aws-greengrass": "1.62.0",
-    "@aws-cdk/aws-iam": "1.62.0",
-    "@aws-cdk/aws-iot": "1.62.0",
-    "@aws-cdk/aws-lambda": "1.62.0",
-    "@aws-cdk/core": "1.62.0",
+    "@aws-cdk/aws-greengrass": "1.63.0",
+    "@aws-cdk/aws-iam": "1.63.0",
+    "@aws-cdk/aws-iot": "1.63.0",
+    "@aws-cdk/aws-lambda": "1.63.0",
+    "@aws-cdk/core": "1.63.0",
     "constructs": "^3.0.4"
   },
   "dependencyClosure": {
@@ -621,6 +621,12 @@
     "python": {
       "distName": "cdk-greengrass",
       "module": "cdk_greengrass"
+    },
+    "tsc": {
+      "exclude": [
+        "node_modules",
+        "examples"
+      ]
     }
   },
   "types": {
@@ -2484,7 +2490,7 @@
         {
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 105
+            "line": 106
           },
           "name": "cloneToNew",
           "parameters": [
@@ -2547,7 +2553,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 138
+            "line": 139
           },
           "name": "connectorDefinitionVersionArn",
           "optional": true,
@@ -2559,7 +2565,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 137
+            "line": 138
           },
           "name": "deviceDefinitionVersionArn",
           "optional": true,
@@ -2571,7 +2577,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 133
+            "line": 134
           },
           "name": "functionDefinitionVersionArn",
           "optional": true,
@@ -2583,7 +2589,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 135
+            "line": 136
           },
           "name": "loggerDefinitionVersionArn",
           "optional": true,
@@ -2595,7 +2601,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 136
+            "line": 137
           },
           "name": "resourceDefinitionVersionArn",
           "optional": true,
@@ -2619,7 +2625,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/group.ts",
-            "line": 134
+            "line": 135
           },
           "name": "subscriptionDefinitionVersionArn",
           "optional": true,
@@ -5068,6 +5074,6 @@
       ]
     }
   },
-  "version": "0.3.11",
-  "fingerprint": "pjuWGGsRxwkTEMRjrLeZcx5bUqy/lYkmxA/kU48VUnw="
+  "version": "0.63.0",
+  "fingerprint": "Eq4O0x4bHRXAfFLLtYeK7NCqd3z+54VvJasnG9D/fFg="
 }
