@@ -25,11 +25,21 @@ import { Device } from './device'
 import { Group } from './group'
 import * as gg from '@aws-cdk/aws-greengrass'
 import { Role } from '@aws-cdk/aws-iam';
+import { Size } from '@aws-cdk/core';
 
 
 export interface StreamManagerProps {
     readonly enableStreamManager: boolean;
     readonly allowInsecureAccess?: boolean;
+    readonly storeRootDir?: boolean;
+    readonly serverPort?: number;
+    readonly exporterMaximumBandwidth?: number;
+    readonly threadPoolSize?: number;
+    readonly jvmArgs?: string;
+    readonly readOnlyDirs?: string[];
+    readonly minSizeMultipartUpload?: Size;
+    readonly memorySize?: Size;
+
 }
 
 export enum CloudSpoolerStorageType {
@@ -85,6 +95,7 @@ export class GroupTemplate extends cdk.Construct {
                         }
                     }
                 }
+                
                 systemFunctions.push({
                     id: 'stream_manager',
                     functionArn: "arn:aws:lambda:::function:GGStreamManager:1",
@@ -92,7 +103,8 @@ export class GroupTemplate extends cdk.Construct {
                         encodingType: 'binary',
                         pinned: true,
                         timeout: 3,
-                        environment: this.streamManagerEnvironment
+                        environment: this.streamManagerEnvironment,
+                        memorySize: props.streamManager.memorySize?.toKibibytes() || Size.mebibytes(128).toKibibytes()
                     }
                 })
             }

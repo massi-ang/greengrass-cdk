@@ -92,7 +92,8 @@ test('Stream Manager', () => {
               }
             },
             "Pinned": true,
-            "Timeout": 3
+            "Timeout": 3,
+            "MemorySize": 131072
           },
           "Id": "stream_manager"
         },

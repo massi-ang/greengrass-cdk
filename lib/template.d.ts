@@ -8,9 +8,18 @@ import { Core } from './core';
 import { Device } from './device';
 import { Group } from './group';
 import { Role } from '@aws-cdk/aws-iam';
+import { Size } from '@aws-cdk/core';
 export interface StreamManagerProps {
     readonly enableStreamManager: boolean;
     readonly allowInsecureAccess?: boolean;
+    readonly storeRootDir?: boolean;
+    readonly serverPort?: number;
+    readonly exporterMaximumBandwidth?: number;
+    readonly threadPoolSize?: number;
+    readonly jvmArgs?: string;
+    readonly readOnlyDirs?: string[];
+    readonly minSizeMultipartUpload?: Size;
+    readonly memorySize?: Size;
 }
 export declare enum CloudSpoolerStorageType {
     MEMORY = "Memory",

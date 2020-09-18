@@ -621,12 +621,6 @@
     "python": {
       "distName": "cdk-greengrass",
       "module": "cdk_greengrass"
-    },
-    "tsc": {
-      "exclude": [
-        "node_modules",
-        "examples"
-      ]
     }
   },
   "types": {
@@ -767,7 +761,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/template.ts",
-        "line": 45
+        "line": 55
       },
       "name": "CloudSpoolerProps",
       "properties": [
@@ -776,7 +770,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 47
+            "line": 57
           },
           "name": "enablePersistentSessions",
           "optional": true,
@@ -789,7 +783,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 46
+            "line": 56
           },
           "name": "storage",
           "optional": true,
@@ -806,7 +800,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/template.ts",
-        "line": 40
+        "line": 50
       },
       "name": "CloudSpoolerStorageProps",
       "properties": [
@@ -815,7 +809,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 42
+            "line": 52
           },
           "name": "maxSize",
           "type": {
@@ -827,7 +821,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 41
+            "line": 51
           },
           "name": "type",
           "type": {
@@ -842,7 +836,7 @@
       "kind": "enum",
       "locationInModule": {
         "filename": "lib/template.ts",
-        "line": 35
+        "line": 45
       },
       "members": [
         {
@@ -2642,7 +2636,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/template.ts",
-        "line": 50
+        "line": 60
       },
       "name": "GroupOptionsProps",
       "properties": [
@@ -2651,7 +2645,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 51
+            "line": 61
           },
           "name": "core",
           "type": {
@@ -2663,7 +2657,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 52
+            "line": 62
           },
           "name": "devices",
           "optional": true,
@@ -2681,7 +2675,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 53
+            "line": 63
           },
           "name": "deviceSpecificSubscriptions",
           "optional": true,
@@ -2694,7 +2688,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 54
+            "line": 64
           },
           "name": "role",
           "optional": true,
@@ -2808,7 +2802,7 @@
       "initializer": {
         "locationInModule": {
           "filename": "lib/template.ts",
-          "line": 73
+          "line": 83
         },
         "parameters": [
           {
@@ -2834,13 +2828,13 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/template.ts",
-        "line": 70
+        "line": 80
       },
       "methods": [
         {
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 206
+            "line": 218
           },
           "name": "createGroup",
           "parameters": [
@@ -2870,7 +2864,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 226
+            "line": 238
           },
           "name": "connectorDefinitionVersionArn",
           "optional": true,
@@ -2882,7 +2876,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 223
+            "line": 235
           },
           "name": "functionDefinitionVersionArn",
           "optional": true,
@@ -2894,7 +2888,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 224
+            "line": 236
           },
           "name": "loggerDefinitionVersionArn",
           "optional": true,
@@ -2906,7 +2900,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 225
+            "line": 237
           },
           "name": "resourceDefinitionVersionArn",
           "optional": true,
@@ -2918,7 +2912,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 227
+            "line": 239
           },
           "name": "role",
           "optional": true,
@@ -2930,7 +2924,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 222
+            "line": 234
           },
           "name": "subscriptionDefinitionVersionArn",
           "optional": true,
@@ -2947,7 +2941,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/template.ts",
-        "line": 57
+        "line": 67
       },
       "name": "GroupTemplateProps",
       "properties": [
@@ -2956,7 +2950,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 67
+            "line": 77
           },
           "name": "cloudSpooler",
           "optional": true,
@@ -2969,7 +2963,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 63
+            "line": 73
           },
           "name": "connectors",
           "optional": true,
@@ -2987,7 +2981,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 58
+            "line": 68
           },
           "name": "defaultFunctionExecution",
           "optional": true,
@@ -3000,7 +2994,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 65
+            "line": 75
           },
           "name": "enableAutomaticIpDiscovery",
           "optional": true,
@@ -3013,7 +3007,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 59
+            "line": 69
           },
           "name": "functions",
           "optional": true,
@@ -3031,7 +3025,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 61
+            "line": 71
           },
           "name": "loggers",
           "optional": true,
@@ -3049,7 +3043,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 62
+            "line": 72
           },
           "name": "resources",
           "optional": true,
@@ -3067,7 +3061,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 66
+            "line": 76
           },
           "name": "role",
           "optional": true,
@@ -3080,7 +3074,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 64
+            "line": 74
           },
           "name": "streamManager",
           "optional": true,
@@ -3093,7 +3087,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 60
+            "line": 70
           },
           "name": "subscriptions",
           "optional": true,
@@ -4767,7 +4761,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/template.ts",
-        "line": 30
+        "line": 31
       },
       "name": "StreamManagerProps",
       "properties": [
@@ -4776,7 +4770,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 31
+            "line": 32
           },
           "name": "enableStreamManager",
           "type": {
@@ -4788,12 +4782,121 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/template.ts",
-            "line": 32
+            "line": 33
           },
           "name": "allowInsecureAccess",
           "optional": true,
           "type": {
             "primitive": "boolean"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/template.ts",
+            "line": 36
+          },
+          "name": "exporterMaximumBandwidth",
+          "optional": true,
+          "type": {
+            "primitive": "number"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/template.ts",
+            "line": 38
+          },
+          "name": "jvmArgs",
+          "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/template.ts",
+            "line": 41
+          },
+          "name": "memorySize",
+          "optional": true,
+          "type": {
+            "fqn": "@aws-cdk/core.Size"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/template.ts",
+            "line": 40
+          },
+          "name": "minSizeMultipartUpload",
+          "optional": true,
+          "type": {
+            "fqn": "@aws-cdk/core.Size"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/template.ts",
+            "line": 39
+          },
+          "name": "readOnlyDirs",
+          "optional": true,
+          "type": {
+            "collection": {
+              "elementtype": {
+                "primitive": "string"
+              },
+              "kind": "array"
+            }
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/template.ts",
+            "line": 35
+          },
+          "name": "serverPort",
+          "optional": true,
+          "type": {
+            "primitive": "number"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/template.ts",
+            "line": 34
+          },
+          "name": "storeRootDir",
+          "optional": true,
+          "type": {
+            "primitive": "boolean"
+          }
+        },
+        {
+          "abstract": true,
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/template.ts",
+            "line": 37
+          },
+          "name": "threadPoolSize",
+          "optional": true,
+          "type": {
+            "primitive": "number"
           }
         }
       ]
@@ -5075,5 +5178,5 @@
     }
   },
   "version": "0.63.0",
-  "fingerprint": "Eq4O0x4bHRXAfFLLtYeK7NCqd3z+54VvJasnG9D/fFg="
+  "fingerprint": "YTwAh3RnE3k7oDlcXKqLzG7ZfiMbftZDNDWBGn7ycPE="
 }
