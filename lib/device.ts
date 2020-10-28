@@ -15,7 +15,6 @@
  */
 
 import * as cdk from '@aws-cdk/core';
-import { Construct } from '@aws-cdk/core';
 import { CfnThing } from '@aws-cdk/aws-iot';
 import * as gg from '@aws-cdk/aws-greengrass';
 
@@ -34,7 +33,7 @@ export interface DeviceProps {
     readonly certificateArn: string
 }
 
-export class Device extends Construct {
+export class Device extends cdk.Resource {
     /**
      * THe thing associated to this device
      */
@@ -60,7 +59,11 @@ export class Device extends Construct {
     resolve(): gg.CfnDeviceDefinition.DeviceProperty {
         return {
             id: this.id,
-            thingArn: this.thing.getAtt('arn').toString(),
+            thingArn: this.stack.formatArn({
+                service: 'iot',
+                resource: 'thing',
+                resourceName: this.thing.thingName
+            }),
             certificateArn: this.certificateArn,
             syncShadow: this.syncShadow
         }

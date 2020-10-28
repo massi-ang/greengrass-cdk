@@ -1292,12 +1292,12 @@
     },
     "greengrass-cdk.Device": {
       "assembly": "greengrass-cdk",
-      "base": "@aws-cdk/core.Construct",
+      "base": "@aws-cdk/core.Resource",
       "fqn": "greengrass-cdk.Device",
       "initializer": {
         "locationInModule": {
           "filename": "lib/device.ts",
-          "line": 52
+          "line": 51
         },
         "parameters": [
           {
@@ -1323,13 +1323,13 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/device.ts",
-        "line": 37
+        "line": 36
       },
       "methods": [
         {
           "locationInModule": {
             "filename": "lib/device.ts",
-            "line": 60
+            "line": 59
           },
           "name": "resolve",
           "returns": {
@@ -1348,7 +1348,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/device.ts",
-            "line": 49
+            "line": 48
           },
           "name": "certificateArn",
           "type": {
@@ -1362,7 +1362,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/device.ts",
-            "line": 45
+            "line": 44
           },
           "name": "syncShadow",
           "type": {
@@ -1376,7 +1376,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/device.ts",
-            "line": 41
+            "line": 40
           },
           "name": "thing",
           "type": {
@@ -1513,7 +1513,7 @@
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/device.ts",
-        "line": 22
+        "line": 21
       },
       "name": "DeviceProps",
       "properties": [
@@ -1525,7 +1525,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/device.ts",
-            "line": 34
+            "line": 33
           },
           "name": "certificateArn",
           "type": {
@@ -1540,7 +1540,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/device.ts",
-            "line": 30
+            "line": 29
           },
           "name": "syncShadow",
           "type": {
@@ -1555,7 +1555,7 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/device.ts",
-            "line": 26
+            "line": 25
           },
           "name": "thing",
           "type": {
@@ -5177,6 +5177,6 @@
       ]
     }
   },
-  "version": "0.63.0",
-  "fingerprint": "CQ6cvNCH9+33+SCzRajTia6sCMuj1q0A4LBm6xuaF6Q="
+  "version": "0.63.1",
+  "fingerprint": "wPKzPh0ewPxaqHyxYnqtgor7ydzjZemSmMBDiBSBZ1k="
 }

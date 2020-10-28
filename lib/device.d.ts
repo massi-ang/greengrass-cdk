@@ -1,5 +1,4 @@
 import * as cdk from '@aws-cdk/core';
-import { Construct } from '@aws-cdk/core';
 import { CfnThing } from '@aws-cdk/aws-iot';
 import * as gg from '@aws-cdk/aws-greengrass';
 export interface DeviceProps {
@@ -16,7 +15,7 @@ export interface DeviceProps {
      */
     readonly certificateArn: string;
 }
-export declare class Device extends Construct {
+export declare class Device extends cdk.Resource {
     /**
      * THe thing associated to this device
      */

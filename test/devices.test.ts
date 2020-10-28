@@ -64,11 +64,25 @@ test('Devices', () => {
           "Id": "a device",
           "SyncShadow": true,
           "ThingArn": {
-            "Fn::GetAtt": [
-              "athing",
-              "arn"
+                    "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":iot:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":thing/testThing"
             ]
-          }
+          ]
+                  }
         }
       ]
     }
